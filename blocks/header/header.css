@@ -1,0 +1,27 @@
+
+
+.header {
+    display: block;
+    margin: 45px auto 40px;
+    padding: 0;
+
+    max-width: 880px;
+}
+
+@media (max-width: 1280px) {
+    .header {
+        margin-top: calc((100vw - 320px)/(1280 - 320)*(45 - 28) + 28px);
+        margin-bottom: calc((100vw - 320px)/(1280 - 320)*(40 - 42) + 42px);
+
+        width: calc((100vw - 320px)/(1280 - 320)*(880 - 320) + 320px);
+    }
+}
+
+@media (max-width: 320px) {
+    .header {
+        margin-top: 28px;
+        margin-bottom: 42px;
+
+        max-width: 320px;
+    }
+}

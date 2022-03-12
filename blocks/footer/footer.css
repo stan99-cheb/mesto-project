@@ -1,0 +1,25 @@
+
+
+.footer {
+    display: block;
+    margin: 0 auto 60px;
+    padding: 0;
+
+    max-width: 880px;
+}
+
+@media (max-width: 1280px) {
+    .footer {
+        margin-bottom: calc((100vw - 320px)/(1280 - 320)*(60 - 36) + 36px);
+
+        max-width: calc((100vw - 320px)/(1280 - 320)*(880 - 282) + 282px);
+    }
+}
+
+@media (max-width: 320px) {
+    .footer {
+        margin-bottom: 36px;
+
+        max-width: 282px;
+    }
+}
