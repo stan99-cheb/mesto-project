@@ -21,7 +21,6 @@
 @import url(./blocks/elements/elements.css);
 
 @import url(./blocks/element/element.css);
-    @import url(./blocks/element/__mask-group/element__mask-group.css);
     @import url(./blocks/element/__text/element__text.css);
     @import url(./blocks/element/__image/element__image.css);
     @import url(./blocks/element/__block/element__block.css);
@@ -29,3 +28,11 @@
 
 @import url(./blocks/footer/footer.css);
     @import url(./blocks/footer/__text/footer__text.css);
+
+@import url(./blocks/modal/modal.css);
+    @import url(./blocks/modal/__dialog/modal__dialog.css);
+    @import url(./blocks/modal/__header/modal__header.css);
+    @import url(./blocks/modal/__body/modal__body.css);
+    @import url(./blocks/modal/__submit-button/modal__submit-button.css);
+    @import url(./blocks/modal/__close-button/modal__close-button.css);
+    @import url(./blocks/modal/__close-button-image/modal__close-button-image.css);

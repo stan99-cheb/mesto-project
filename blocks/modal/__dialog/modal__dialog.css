@@ -1,0 +1,47 @@
+
+
+.modal__dialog {
+/*Рамеры модального окна*/
+    box-sizing: border-box;
+    width: 430px;
+    height: 330px;
+/*Позиционирование по центру экрана*/
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+/*Внутренние отступы*/
+    padding: 36px;
+/*Скругляем углы*/
+    border-radius: 10px;
+/*Цвет фона окна*/
+    background-color: #FFFFFF;
+/*Тень окна*/
+    box-shadow: 0 0 25px rgba(0, 0, 0, .15);
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+@media (max-width: 1280px) {
+    .modal__dialog {
+        width: calc((100vw - 320px)/(1280 - 320)*(430 - 282) + 282px);
+        height: calc((100vw - 320px)/(1280 - 320)*(330 - 290) + 290px);
+
+        padding: calc((100vw - 320px)/(1280 - 320)*(36 - 22) + 22px);
+    }
+}
+
+@media (max-width: 320px) {
+    .modal__dialog {
+        width: 282px;
+        height: 290px;
+
+        padding: 22px;
+    }
+}
+
+/*calc((100vw - 320px)/(1280 - 320)*(45 - 28) + 28px);*/

@@ -1,0 +1,25 @@
+
+
+.modal__close-button {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+
+    text-decoration: none;
+}
+    
+.modal__close-button:hover {
+    opacity: .6;
+}
+
+@media (max-width: 1280px) {
+    .modal__close-button {
+        right: calc((100vw - 320px)/(1280 - 320)*((-40) - 0) + 0px);
+    }
+}
+
+@media (max-width: 320px) {
+    .modal__close-button {
+        right: 0;
+    }
+}
