@@ -17,10 +17,3 @@
         line-height: calc((100vw - 320px)/(1280 - 320)*(22 - 18) + 18px);
     }
 }
-
-@media (max-width: 320px) {
-    .footer__text {
-        font-size: 14px;
-        line-height: 18px;
-    }
-}

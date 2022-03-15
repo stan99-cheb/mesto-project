@@ -15,11 +15,3 @@
         max-width: calc((100vw - 320px)/(1280 - 320)*(880 - 282) + 282px);
     }
 }
-
-@media (max-width: 320px) {
-    .footer {
-        margin-bottom: 36px;
-
-        max-width: 282px;
-    }
-}

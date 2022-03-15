@@ -1,7 +1,7 @@
 
 
 .profile__subtitle {
-    display: block;
+    display: inline;
     margin: 0;
     padding: 0;
 
@@ -13,20 +13,13 @@
 
 @media (max-width: 1280px) {
     .profile__subtitle {
-        font-size: calc((100vw - 320px)/(660 - 320)*(18 - 14) + 14px);
-        line-height: calc((100vw - 320px)/(660 - 320)*(22 - 18) + 18px);
+        font-size: calc((100vw - 320px)/(1280 - 320)*(18 - 14) + 14px);
+        line-height: calc((100vw - 320px)/(1280 - 320)*(22 - 18) + 18px);
     }
 }
 
 @media (max-width: 660px) {
     .profile__subtitle {
         text-align: center;
-    }
-}
-
-@media (max-width: 320px) {
-    .profile__subtitle {
-        font-size: 14px;
-        line-height: 18px;
     }
 }

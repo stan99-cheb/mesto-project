@@ -1,18 +1,17 @@
 
 
 .profile {
+    display: block;
+    box-sizing: border-box;
     margin: 0 auto 50px;
     padding: 0;
 
     max-width: 880px;
 
     display: flex;
+    flex-wrap: wrap;
     gap: 30px;
     align-items: center;
-}
-
-.baloon {
-    flex: 1 1 auto;
 }
 
 @media (max-width: 1280px) {
@@ -26,17 +25,5 @@
 @media (max-width: 660px) {
     .profile {
         flex-direction: column;
-    }
-
-    .baloon {
-        display: none;
-    }
-}
-
-@media (max-width: 320px) {
-    .profile {
-        margin-bottom: 36px;
-
-        max-width: 282px;
     }
 }

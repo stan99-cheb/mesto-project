@@ -1,14 +1,12 @@
 
 
 .element__block {
-    display: block;
     margin: 25px auto 31px;
-    padding: 0;
+    padding: 0 20px;
     background-color: #FFFFFF;
-
-    max-width: 90%;
 
     display: flex;
     flex-wrap: nowrap;
+    gap: 5px;
     justify-content: space-between;
 }

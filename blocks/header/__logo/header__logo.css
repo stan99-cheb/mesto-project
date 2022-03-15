@@ -1,6 +1,7 @@
 
 
 .header__logo {
+    display: block;
     margin-bottom: 41px;
 
     width: 142px;
@@ -14,15 +15,5 @@
 
         width: calc((100vw - 320px)/(1280 - 320)*(142 - 104) + 104px);
         height: calc((100vw - 320px)/(1280 - 320)*(33 - 24) + 24px);
-    }
-}
-
-@media (max-width: 320px) {
-    .header__logo {
-        margin-left: 19px;
-        margin-bottom: 32px;
-
-        width: 104px;
-        height: 24px;
     }
 }

@@ -1,6 +1,9 @@
 
 
-.modal__dialog {
+.popup__container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 /*Рамеры модального окна*/
     box-sizing: border-box;
     width: 430px;
@@ -20,28 +23,13 @@
     background-color: #FFFFFF;
 /*Тень окна*/
     box-shadow: 0 0 25px rgba(0, 0, 0, .15);
-
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
 }
 
 @media (max-width: 1280px) {
-    .modal__dialog {
+    .popup__container {
         width: calc((100vw - 320px)/(1280 - 320)*(430 - 282) + 282px);
         height: calc((100vw - 320px)/(1280 - 320)*(330 - 290) + 290px);
 
         padding: calc((100vw - 320px)/(1280 - 320)*(36 - 22) + 22px);
     }
 }
-
-@media (max-width: 320px) {
-    .modal__dialog {
-        width: 282px;
-        height: 290px;
-
-        padding: 22px;
-    }
-}
-
-/*calc((100vw - 320px)/(1280 - 320)*(45 - 28) + 28px);*/

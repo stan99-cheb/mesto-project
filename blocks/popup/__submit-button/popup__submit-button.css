@@ -1,6 +1,6 @@
 
 
-.modal__submit-button {
+.popup__submit-button {
     margin: 0;
     padding: 0;
 
@@ -13,23 +13,17 @@
     color: #FFFFFF;
 
     background-color: #000000;
-    border-radius: 2px;
+    
+    border: none;
 }
 
-.modal__submit-button:hover {
+.popup__submit-button:hover {
     opacity: .8;
 }
 
 @media (max-width: 1280px) {
-    .modal__submit-button {
+    .popup__submit-button {
         font-size: calc((100vw - 320px)/(1280 - 320)*(18 - 14) + 14px);
         line-height: calc((100vw - 320px)/(1280 - 320)*(50 - 46) + 46px);
-    }
-}
-
-@media (max-width: 320px) {
-    .modal__submit-button {
-        font-size: 14px;
-        line-height: 46px;
     }
 }
