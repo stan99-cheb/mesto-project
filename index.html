@@ -23,90 +23,78 @@
         </svg>            
     </header>
     <main class="content">
+<!--Подмешиваем модификатор "popup_active" для показа модального окна-->
+        <div class="popup">
+            <div class="popup__container">
+<!--В задании вроде не было, как реализовывается кнопка закрытия модального окна.
+    Ну, пока через ссылку-->
+                <a class="popup__close-button" href="#" title="Закрыть">
+                    <svg class="popup__close-button-image" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M32 28.8L19.2 16L32 3.2L28.8 0L16 12.8L3.2 0L0 3.2L12.8 16L0 28.8L3.2 32L16 19.2L28.8 32L32 28.8Z" fill="white"/>
+                    </svg>
+                </a>
+                <h2 class="popup__header">Редактировать профиль</h2>
+                <input class="popup__body" type="text" placeholder="Иван Иванов">
+                <input class="popup__body" type="text" placeholder="О себе">
+                <button class="popup__submit-button" type="submit">Сохранить</button>
+            </div>
+        </div>
         <section class="profile">
             <img class="profile__avatar profile__avatar_circle" src="./images/avatar.jpg" alt="">
             <div class="profile__profile-info">
                 <h1 class="profile__title">Жак-Ив Кусто
-                    <a href="#openModal">
-                        <svg class="profile__edit-button" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="profile__edit-button" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M10 1.32827L2.60377 8.7666L1.28302 7.41936L8.66038 0L10 1.32827ZM0 10L1.96226 9.41177L0.584906 8.08349L0 10Z" fill="white"/>
-                        </svg>
-                    </a>
+                    </svg>
                 </h1>
                 <p class="profile__subtitle">Исследователь океана</p>
             </div>
-            <a href="#openModal">
-                <svg class="profile__add-button" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class="profile__add-button" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M22 9.77778H12.2222V0H9.77778V9.77778H0V12.2222H9.77778V22H12.2222V12.2222H22V9.77778Z" fill="white"/>
-                </svg>
-            </a>
-            <div id="openModal" class="popup">
-                <div class="popup__container">
-                    <a class="popup__close-button" href="#" title="Закрыть">
-                        <svg class="popup__close-button-image" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M32 28.8L19.2 16L32 3.2L28.8 0L16 12.8L3.2 0L0 3.2L12.8 16L0 28.8L3.2 32L16 19.2L28.8 32L32 28.8Z" fill="white"/>
-                        </svg>
-                    </a>
-                    <h2 class="popup__header">Редактировать профиль</h2>
-                    <input class="popup__body" type="text" placeholder="Иван Иванов">
-                    <input class="popup__body" type="text" placeholder="О себе">
-                    <button class="popup__submit-button" type="submit">Сохранить</button>
-                </div>
-            </div>
+            </svg>
         </section>
-        <section class="elements">
+        <section class="elements" aria-label="Карточки мест">
             <div class="element">
-                <img class="element__image" src="./images/karachaevsk.jpg" alt="">
+                <img class="element__image" src="./images/1.png" alt="Karachaevsk">
                 <div class="element__block">
-                    <p class="element__text">Карачаево-Черкессия</p>
-                    <svg class="element__heart" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20.2991 9.78586C22.567 7.54338 22.567 3.90213 20.2991 1.68186C18.0311 -0.560619 14.3486 -0.560619 12.0806 1.68186L10.9804 2.792L9.88007 1.70406C7.61215 -0.560619 3.92957 -0.560619 1.6841 1.68186C0.583823 2.76979 0 4.21297 0 5.74496C0 7.27695 0.606277 8.72013 1.6841 9.80806L10.9804 19L20.2991 9.78586ZM1.4371 5.74496C1.4371 4.59042 1.8862 3.52469 2.71702 2.72539C3.5703 1.88168 4.67058 1.45983 5.77086 1.45983C6.87114 1.45983 7.97142 1.88168 8.8247 2.72539L10.9804 4.83465L13.136 2.70318C14.8201 1.03798 17.582 1.03798 19.2437 2.70318C20.0521 3.50248 20.5236 4.56822 20.5236 5.72276C20.5236 6.8773 20.0745 7.94303 19.2437 8.74233L10.9804 16.9351L2.71702 8.76453C1.90865 7.94303 1.4371 6.8773 1.4371 5.74496Z" fill="black"/>
-                    </svg>                        
+                    <p class="element__text">Карачаевск</p>
+<!--Подмешиваем модификатор "element__heart_active" для закрашенного сердечка-->
+                    <div class="element__heart"></div>
                 </div>
             </div>
             <div class="element">
-                <img class="element__image" src="./images/karachaevsk.jpg" alt="">
+                <img class="element__image" src="./images/2.png" alt="Gora Elbrus">
                 <div class="element__block">
-                    <p class="element__text">Карачаево-Черкессия</p>
-                    <svg class="element__heart" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20.2991 9.78586C22.567 7.54338 22.567 3.90213 20.2991 1.68186C18.0311 -0.560619 14.3486 -0.560619 12.0806 1.68186L10.9804 2.792L9.88007 1.70406C7.61215 -0.560619 3.92957 -0.560619 1.6841 1.68186C0.583823 2.76979 0 4.21297 0 5.74496C0 7.27695 0.606277 8.72013 1.6841 9.80806L10.9804 19L20.2991 9.78586ZM1.4371 5.74496C1.4371 4.59042 1.8862 3.52469 2.71702 2.72539C3.5703 1.88168 4.67058 1.45983 5.77086 1.45983C6.87114 1.45983 7.97142 1.88168 8.8247 2.72539L10.9804 4.83465L13.136 2.70318C14.8201 1.03798 17.582 1.03798 19.2437 2.70318C20.0521 3.50248 20.5236 4.56822 20.5236 5.72276C20.5236 6.8773 20.0745 7.94303 19.2437 8.74233L10.9804 16.9351L2.71702 8.76453C1.90865 7.94303 1.4371 6.8773 1.4371 5.74496Z" fill="black"/>
-                    </svg>                        
+                    <p class="element__text">Гора Эльбрус</p>
+                    <div class="element__heart"></div>
                 </div>
             </div>
             <div class="element">
-                <img class="element__image" src="./images/karachaevsk.jpg" alt="">
+                <img class="element__image" src="./images/3.png" alt="Dombai">
                 <div class="element__block">
-                    <p class="element__text">Карачаево-Черкессия</p>
-                    <svg class="element__heart" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20.2991 9.78586C22.567 7.54338 22.567 3.90213 20.2991 1.68186C18.0311 -0.560619 14.3486 -0.560619 12.0806 1.68186L10.9804 2.792L9.88007 1.70406C7.61215 -0.560619 3.92957 -0.560619 1.6841 1.68186C0.583823 2.76979 0 4.21297 0 5.74496C0 7.27695 0.606277 8.72013 1.6841 9.80806L10.9804 19L20.2991 9.78586ZM1.4371 5.74496C1.4371 4.59042 1.8862 3.52469 2.71702 2.72539C3.5703 1.88168 4.67058 1.45983 5.77086 1.45983C6.87114 1.45983 7.97142 1.88168 8.8247 2.72539L10.9804 4.83465L13.136 2.70318C14.8201 1.03798 17.582 1.03798 19.2437 2.70318C20.0521 3.50248 20.5236 4.56822 20.5236 5.72276C20.5236 6.8773 20.0745 7.94303 19.2437 8.74233L10.9804 16.9351L2.71702 8.76453C1.90865 7.94303 1.4371 6.8773 1.4371 5.74496Z" fill="black"/>
-                    </svg>                        
+                    <p class="element__text">Домбай</p>
+                    <div class="element__heart"></div>
                 </div>
             </div>
             <div class="element">
-                <img class="element__image" src="./images/karachaevsk.jpg" alt="">
+                <img class="element__image" src="./images/2.png" alt="Gora Elbrus">
                 <div class="element__block">
-                    <p class="element__text">Карачаево-Черкессия</p>
-                    <svg class="element__heart" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20.2991 9.78586C22.567 7.54338 22.567 3.90213 20.2991 1.68186C18.0311 -0.560619 14.3486 -0.560619 12.0806 1.68186L10.9804 2.792L9.88007 1.70406C7.61215 -0.560619 3.92957 -0.560619 1.6841 1.68186C0.583823 2.76979 0 4.21297 0 5.74496C0 7.27695 0.606277 8.72013 1.6841 9.80806L10.9804 19L20.2991 9.78586ZM1.4371 5.74496C1.4371 4.59042 1.8862 3.52469 2.71702 2.72539C3.5703 1.88168 4.67058 1.45983 5.77086 1.45983C6.87114 1.45983 7.97142 1.88168 8.8247 2.72539L10.9804 4.83465L13.136 2.70318C14.8201 1.03798 17.582 1.03798 19.2437 2.70318C20.0521 3.50248 20.5236 4.56822 20.5236 5.72276C20.5236 6.8773 20.0745 7.94303 19.2437 8.74233L10.9804 16.9351L2.71702 8.76453C1.90865 7.94303 1.4371 6.8773 1.4371 5.74496Z" fill="black"/>
-                    </svg>                        
+                    <p class="element__text">Гора Эльбрус</p>
+                    <div class="element__heart"></div>
                 </div>
             </div>
             <div class="element">
-                <img class="element__image" src="./images/karachaevsk.jpg" alt="">
+                <img class="element__image" src="./images/3.png" alt="Dombai">
                 <div class="element__block">
-                    <p class="element__text">Карачаево-Черкессия</p>
-                    <svg class="element__heart" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20.2991 9.78586C22.567 7.54338 22.567 3.90213 20.2991 1.68186C18.0311 -0.560619 14.3486 -0.560619 12.0806 1.68186L10.9804 2.792L9.88007 1.70406C7.61215 -0.560619 3.92957 -0.560619 1.6841 1.68186C0.583823 2.76979 0 4.21297 0 5.74496C0 7.27695 0.606277 8.72013 1.6841 9.80806L10.9804 19L20.2991 9.78586ZM1.4371 5.74496C1.4371 4.59042 1.8862 3.52469 2.71702 2.72539C3.5703 1.88168 4.67058 1.45983 5.77086 1.45983C6.87114 1.45983 7.97142 1.88168 8.8247 2.72539L10.9804 4.83465L13.136 2.70318C14.8201 1.03798 17.582 1.03798 19.2437 2.70318C20.0521 3.50248 20.5236 4.56822 20.5236 5.72276C20.5236 6.8773 20.0745 7.94303 19.2437 8.74233L10.9804 16.9351L2.71702 8.76453C1.90865 7.94303 1.4371 6.8773 1.4371 5.74496Z" fill="black"/>
-                    </svg>                        
+                    <p class="element__text">Домбай</p>
+                    <div class="element__heart"></div>
                 </div>
             </div>
             <div class="element">
-                <img class="element__image" src="./images/karachaevsk.jpg" alt="">
+                <img class="element__image" src="./images/1.png" alt="Karachaevo">
                 <div class="element__block">
                     <p class="element__text">Карачаево-Черкессия</p>
-                    <svg class="element__heart" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20.2991 9.78586C22.567 7.54338 22.567 3.90213 20.2991 1.68186C18.0311 -0.560619 14.3486 -0.560619 12.0806 1.68186L10.9804 2.792L9.88007 1.70406C7.61215 -0.560619 3.92957 -0.560619 1.6841 1.68186C0.583823 2.76979 0 4.21297 0 5.74496C0 7.27695 0.606277 8.72013 1.6841 9.80806L10.9804 19L20.2991 9.78586ZM1.4371 5.74496C1.4371 4.59042 1.8862 3.52469 2.71702 2.72539C3.5703 1.88168 4.67058 1.45983 5.77086 1.45983C6.87114 1.45983 7.97142 1.88168 8.8247 2.72539L10.9804 4.83465L13.136 2.70318C14.8201 1.03798 17.582 1.03798 19.2437 2.70318C20.0521 3.50248 20.5236 4.56822 20.5236 5.72276C20.5236 6.8773 20.0745 7.94303 19.2437 8.74233L10.9804 16.9351L2.71702 8.76453C1.90865 7.94303 1.4371 6.8773 1.4371 5.74496Z" fill="black"/>
-                    </svg>                        
+                    <div class="element__heart"></div>
                 </div>
             </div>
         </section>

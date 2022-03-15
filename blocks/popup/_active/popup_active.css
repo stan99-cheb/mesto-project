@@ -1,0 +1,9 @@
+
+
+.popup_active {
+    /*Позиционируем вложенный блок*/
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
