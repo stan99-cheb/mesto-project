@@ -6,6 +6,8 @@
 * html
 * css
 
+[Ссылка на проект](https://stan99-cheb.github.io/mesto-project/)
+
 ### Обзор
 
 * Figma
