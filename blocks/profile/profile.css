@@ -10,6 +10,7 @@
     display: flex;
     flex-wrap: wrap;
     column-gap: 30px;
+    row-gap: 26px;
     justify-content: center;
     align-items: center;
 }
