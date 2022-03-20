@@ -7,7 +7,7 @@
 
     align-self: center;
 
-    background-image: url("../../../images/heart-icon.svg");
+    background-image: url("./../../../images/heart-icon.svg");
     background-repeat: no-repeat;
 
     border: none;
