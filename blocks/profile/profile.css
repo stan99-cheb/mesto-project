@@ -9,8 +9,7 @@
 
     display: flex;
     flex-wrap: wrap;
-    column-gap: 30px;
-    row-gap: 26px;
+    gap: 26px 30px;
     justify-content: center;
     align-items: center;
 }
@@ -20,11 +19,5 @@
         margin-bottom: calc((100vw - 320px)/(1280 - 320)*(50 - 36) + 36px);
 
         max-width: calc((100vw - 320px)/(1280 - 320)*(880 - 282) + 282px);
-    }
-}
-
-@media (max-width: 560px) {
-    .profile {
-        row-gap: 26px;
     }
 }
