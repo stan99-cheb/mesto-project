@@ -1,5 +1,3 @@
-
-
 .footer__text {
     display: inline-block;
     margin: 0;
@@ -10,6 +8,7 @@
     line-height: 22px;
     color: #545454;
 }
+
 
 @media (max-width: 1280px) {
     .footer__text {

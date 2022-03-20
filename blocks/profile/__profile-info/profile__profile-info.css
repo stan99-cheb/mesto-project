@@ -1,13 +1,15 @@
-
-
 .profile__profile-info {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-
-    box-sizing: border-box;
+    display: block;
     margin: 0;
     padding: 0;
 
-    flex: 1 1 auto;
+    width: 282px;
+
+    flex: 200 1 auto;
+}
+
+@media (max-width: 560px) {
+    .profile__profile-info {
+        margin-bottom: 10px;
+    }
 }

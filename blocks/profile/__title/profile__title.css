@@ -1,29 +1,14 @@
-
-
 .profile__title {
-    display: inline;
+    display: block;
     margin: 0;
     padding: 0;
 
-    width: fit-content;
+    font-weight: 500px;
+    font-size: calc((100vw - 320px)/(1280 - 320)*(42 - 27) + 27px);
+    line-height: calc((100vw - 320px)/(1280 - 320)*(48 - 33) + 33px);
+    color: #FFF;
 
-    font-weight: 600;
-    font-size: 42px;
-    line-height: 48px;
-    color: #FFFFFF;
-
-    position: relative;
-}
-
-@media (max-width: 1280px) {
-    .profile__title {
-        font-size: calc((100vw - 320px)/(1280 - 320)*(42 - 26) + 26px);
-        line-height: calc((100vw - 320px)/(1280 - 320)*(48 - 32) + 32px);
-    }
-}
-
-@media (max-width: 660px) {
-    .profile__title {
-        text-align: center;
-    }
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }

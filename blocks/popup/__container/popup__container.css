@@ -1,30 +1,25 @@
-
-
 .popup__container {
-/*Флэксим внутренние блоки*/
+    /*Флэксим внутренние блоки*/
     display: flex;
     flex-direction: column;
-    gap: 40px;
-/*Рамеры модального окна*/
+    /*Рамеры модального окна*/
     box-sizing: border-box;
     width: 430px;
-    height: 330px;
-/*Внутренние отступы*/
+    /*Внутренние отступы*/
     padding: 36px;
-/*Скругляем углы*/
+    /*Скругляем углы*/
     border-radius: 10px;
-/*Цвет фона окна*/
+    /*Цвет фона окна*/
     background-color: #FFFFFF;
-/*Тень окна*/
+    /*Тень окна*/
     box-shadow: 0 0 25px rgba(0, 0, 0, .15);
-/*Для кнопки "закрыть" задаем позиционирование*/
+    /*Для кнопки "закрыть" задаем позиционирование*/
     position: relative;
 }
 
 @media (max-width: 1280px) {
     .popup__container {
         width: calc((100vw - 320px)/(1280 - 320)*(430 - 282) + 282px);
-        height: calc((100vw - 320px)/(1280 - 320)*(330 - 290) + 290px);
 
         padding: calc((100vw - 320px)/(1280 - 320)*(36 - 22) + 22px);
     }

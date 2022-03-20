@@ -1,33 +1,23 @@
-
-
 /*Подключаем шрифрт*/
 @font-face {
     font-family: 'Inter';
-    src:    url(./Inter/Inter-Regular.woff2) format("woff2"),
-            url(./Inter/Inter-Regular.woff) format("woff");
+    src: url(./Inter/Inter-Regular.woff2) format("woff2"),
+        url(./Inter/Inter-Regular.woff) format("woff");
     font-weight: 400;
 }
 
 /*Подключаем шрифрт*/
 @font-face {
     font-family: 'Inter';
-    src:    url(./Inter/Inter-SemiBold.woff2) format("woff2"),
-            url(./Inter/Inter-SemiBold.woff) format("woff");
-    font-weight: 600;
+    src: url(./Inter/Inter-SemiBold.woff2) format("woff2"),
+        url(./Inter/Inter-SemiBold.woff) format("woff");
+    font-weight: 500;
 }
 
 /*Подключаем шрифрт*/
 @font-face {
     font-family: 'Inter';
-    src:    url(./Inter/Inter-Bold.woff2) format("woff2"),
-            url(./Inter/Inter-Bold.woff) format("woff");
+    src: url(./Inter/Inter-Bold.woff2) format("woff2"),
+        url(./Inter/Inter-Bold.woff) format("woff");
     font-weight: 900;
-}
-
-/*Подключаем шрифрт*/
-@font-face {
-    font-family: 'Inter';
-    src:    url(./Inter/Inter-Bold.woff2) format("woff2"),
-            url(./Inter/Inter-Bold.woff) format("woff");
-    font-weight: bold;
 }
