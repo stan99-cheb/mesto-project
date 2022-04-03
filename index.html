@@ -13,20 +13,6 @@
         <img class="header__logo" src="./images/logo.svg" alt="Лого Место">
     </header>
     <main class="content">
-        <!--Подмешиваем модификатор "popup_active" для показа модального окна-->
-        <div class="popup">
-            <div class="popup__container">
-                <button class="popup__close-button" type="button" aria-label="Close" title="Закрыть">
-                    <img class="popup__close-button-image" src="./images/close-icon.svg" alt="Кнопка закрыть">
-                </button>
-                <form class="popup__form">
-                    <h2 class="popup__header">Редактировать профиль</h2>
-                    <input class="popup__input" type="text" placeholder="Иван Иванов">
-                    <input class="popup__input" type="text" placeholder="О себе">
-                    <button class="popup__submit-button" type="submit" aria-label="submit">Сохранить</button>
-                </form>
-            </div>
-        </div>
         <section class="profile">
             <img class="profile__avatar" src="./images/avatar.jpg" alt="Аваар пользователя">
             <div class="profile__profile-info">
@@ -36,61 +22,75 @@
                         <img src="./images/edit-icon.svg" alt="Кнопка редактировать">
                     </button>
                 </div>
-                <p class="profile__subtitle">Исследователь океана</p>
+                <p class="profile__subtitle">Исследователь океанов</p>
             </div>
             <button class="profile__add-button" aria-label="Add" title="Добавить">
                 <img src="./images/add-icon.svg" alt="Кнопка добавить">
             </button>
         </section>
-        <section class="elements" aria-label="Карточки мест">
-            <div class="element">
-                <img class="element__image" src="./images/1.jpg" alt="Фото Карачаевск">
-                <div class="element__block">
-                    <h2 class="element__title">Карачаевск</h2>
-                    <!--Подмешиваем модификатор "element__heart_active" для закрашенного сердечка-->
-                    <button class="element__heart" type="button" aria-label="heart button"></button>
-                </div>
+        <section class="cards" aria-label="Карточки мест">
+            <div class="card">
+                <img class="card__link" src="./images/1.jpg" alt="Фото Карачаевск">
+                <h2 class="card__name">Карачаевск</h2>
+                <button class="card__heart" type="button" aria-label="heart button"></button>
+                <img class="card__trash" src="./images/trash.svg" alt="Изображение мусорной корзины">
             </div>
-            <div class="element">
-                <img class="element__image" src="./images/2.jpg" alt="Фото гора Эльбрус">
-                <div class="element__block">
-                    <h2 class="element__title">Гора Эльбрус</h2>
-                    <button class="element__heart" type="button" aria-label="heart button"></button>
-                </div>
+            <div class="card">
+                <img class="card__link" src="./images/2.jpg" alt="Фото гора Эльбрус">
+                <h2 class="card__name">Гора Эльбрус</h2>
+                <button class="card__heart" type="button" aria-label="heart button"></button>
+                <img class="card__trash" src="./images/trash.svg" alt="Изображение мусорной корзины">
             </div>
-            <div class="element">
-                <img class="element__image" src="./images/3.jpg" alt="Фото Домбай">
-                <div class="element__block">
-                    <h2 class="element__title">Домбай</h2>
-                    <button class="element__heart" type="button" aria-label="heart button"></button>
-                </div>
+            <div class="card">
+                <img class="card__link" src="./images/3.jpg" alt="Фото Домбай">
+                <h2 class="card__name">Домбай</h2>
+                <button class="card__heart" type="button" aria-label="heart button"></button>
+                <img class="card__trash" src="./images/trash.svg" alt="Изображение мусорной корзины">
             </div>
-            <div class="element">
-                <img class="element__image" src="./images/2.jpg" alt="Фото гора Эльбрус">
-                <div class="element__block">
-                    <h2 class="element__title">Гора Эльбрус</h2>
-                    <button class="element__heart" type="button" aria-label="heart button"></button>
-                </div>
+            <div class="card">
+                <img class="card__link" src="./images/2.jpg" alt="Фото гора Эльбрус">
+                <h2 class="card__name">Гора Эльбрус</h2>
+                <button class="card__heart" type="button" aria-label="heart button"></button>
+                <img class="card__trash" src="./images/trash.svg" alt="Изображение мусорной корзины">
             </div>
-            <div class="element">
-                <img class="element__image" src="./images/3.jpg" alt="Фото Домбай">
-                <div class="element__block">
-                    <h2 class="element__title">Домбай</h2>
-                    <button class="element__heart" type="button" aria-label="heart button"></button>
-                </div>
+            <div class="card">
+                <img class="card__link" src="./images/3.jpg" alt="Фото Домбай">
+                <h2 class="card__name">Домбай</h2>
+                <button class="card__heart" type="button" aria-label="heart button"></button>
+                <img class="card__trash" src="./images/trash.svg" alt="Изображение мусорной корзины">
             </div>
-            <div class="element">
-                <img class="element__image" src="./images/1.jpg" alt="Фото Карачаево-Черкессия">
-                <div class="element__block">
-                    <h2 class="element__title">Карачаево-Черкессия</h2>
-                    <button class="element__heart" type="button" aria-label="heart button"></button>
-                </div>
+            <div class="card">
+                <img class="card__link" src="./images/1.jpg" alt="Фото Карачаево-Черкессия">
+                <h2 class="card__name">Карачаево-Черкессия</h2>
+                <button class="card__heart" type="button" aria-label="heart button"></button>
+                <img class="card__trash" src="./images/trash.svg" alt="Изображение мусорной корзины">
             </div>
         </section>
     </main>
     <footer class="footer">
         <p class="footer__text">&copy; 2020 Mesto Russia</p>
     </footer>
+    <!--Подмешиваем модификатор "popup_active" для показа модального окна-->
+    <div class="popup">
+        <div class="popup__container">
+            <button class="popup__close-button" type="button" aria-label="Close" title="Закрыть">
+                <img class="popup__close-button-image" src="./images/close-icon.svg" alt="Кнопка закрыть">
+            </button>
+            <form class="popup__form">
+                <h2 class="popup__header"></h2>
+                <input class="popup__name-input" type="text" placeholder="">
+                <input class="popup__job-input" type="text" placeholder="">
+                <button class="popup__submit-button" type="submit" aria-label="submit"></button>
+            </form>
+        </div>
+    </div>
+    <div class="popup-img">
+        <div class="popup-img__container">
+            <button class="popup-img__close-button" type="button" aria-label="Close" title="Закрыть">
+                <img class="popup-img__close-button-image" src="./images/close-icon.svg" alt="Кнопка закрыть">
+            </button>
+        </div>
+    </div>
     <script src="./scripts/script.js"></script>
 </body>
 

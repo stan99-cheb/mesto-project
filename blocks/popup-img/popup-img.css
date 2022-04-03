@@ -1,0 +1,23 @@
+
+
+.popup-img {
+    /*Фиксируем позизию окна и задаем размер на весь видимый экран*/
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /*Затемнение фона*/
+    background: rgba(0, 0, 0, .5);
+    /*Поверх всех окон*/
+    z-index: 999;
+
+    display: flex;
+    /*Позиционируем вложенный блок*/
+    justify-content: center;
+    align-items: center;
+
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 1s, opacity 1s linear;
+}

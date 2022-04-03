@@ -1,0 +1,26 @@
+
+
+.popup-img__close-button {
+    margin: 0;
+    padding: 0;
+
+    position: absolute;
+    top: -40px;
+    right: -40px;
+
+    background-color: transparent;
+
+    border: none;
+}
+
+.popup-img__close-button:hover {
+    opacity: .6;
+
+    cursor: pointer;
+}
+
+@media (max-width: 1280px) {
+    .popup-img__close-button {
+        right: calc((100vw - 320px)/(1280 - 320)*((-40) - 0) + 0px);
+    }
+}

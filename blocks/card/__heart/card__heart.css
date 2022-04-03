@@ -1,11 +1,9 @@
-.element__heart {
+.card__heart {
     margin: 0;
     padding: 0;
 
     width: 22px;
     height: 19px;
-
-    align-self: center;
 
     background-image: url("./../../../images/heart-icon.svg");
     background-repeat: no-repeat;
@@ -15,9 +13,14 @@
     background-color: #FFF;
 
     flex-shrink: 0;
+
+    
+    margin-right: 18px;
+    justify-self: end;
+    align-self: center;
 }
 
-.element__heart:hover {
+.card__heart:hover {
     opacity: .5;
 
     cursor: pointer;

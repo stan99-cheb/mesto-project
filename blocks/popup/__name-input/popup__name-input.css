@@ -1,0 +1,19 @@
+.popup__name-input {
+    margin: 0 0 30px 0;
+    padding: 0;
+
+    width: 100%;
+
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 27px;
+
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+    color: #000;
+}
+
+.popup__name-input:focus {
+    outline: none;
+}

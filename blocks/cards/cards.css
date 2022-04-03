@@ -1,4 +1,4 @@
-.elements {
+.cards {
     display: block;
     box-sizing: border-box;
     margin: 0 auto 66px;
@@ -13,7 +13,7 @@
 }
 
 @media (max-width: 1280px) {
-    .elements {
+    .cards {
         margin-bottom: calc((100vw - 320px)/(1280 - 320)*(66 - 48) + 48px);
 
         max-width: calc((100vw - 320px)/(1280 - 320)*(880 - 282) + 282px);

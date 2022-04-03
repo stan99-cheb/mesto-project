@@ -17,14 +17,14 @@
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
 
-@import url(../blocks/elements/elements.css);
+@import url(../blocks/cards/cards.css);
 
-@import url(../blocks/element/element.css);
-@import url(../blocks/element/__title/element__title.css);
-@import url(../blocks/element/__image/element__image.css);
-@import url(../blocks/element/__block/element__block.css);
-@import url(../blocks/element/__heart/element__heart.css);
-@import url(../blocks/element/__heart/_active/element__heart_active.css);
+@import url(../blocks/card/card.css);
+@import url(../blocks/card/__link/card__link.css);
+@import url(../blocks/card/__name/card__name.css);
+@import url(../blocks/card/__heart/card__heart.css);
+@import url(../blocks/card/__heart/_active/card__heart_active.css);
+@import url(../blocks/card/__trash/card__trash.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__text/footer__text.css);
@@ -33,8 +33,16 @@
 @import url(../blocks/popup/_active/popup_active.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__header/popup__header.css);
-@import url(../blocks/popup/__input/popup__input.css);
+@import url(../blocks/popup/__name-input/popup__name-input.css);
+@import url(../blocks/popup/__job-input/popup__job-input.css);
 @import url(../blocks/popup/__form/popup_form.css);
 @import url(../blocks/popup/__submit-button/popup__submit-button.css);
 @import url(../blocks/popup/__close-button/popup__close-button.css);
 @import url(../blocks/popup/__close-button-image/popup__close-button-image.css);
+
+@import url(../blocks/popup-img/popup-img.css);
+@import url(../blocks/popup-img/__container/popup-img__container.css);
+@import url(../blocks/popup-img/__link/popup-img__link.css);
+@import url(../blocks/popup-img/_active/popup-img_active.css);
+@import url(../blocks/popup-img/__close-button/popup-img__close-button.css);
+@import url(../blocks/popup-img/__close-button-image/popup-img__close-button-image.css);
