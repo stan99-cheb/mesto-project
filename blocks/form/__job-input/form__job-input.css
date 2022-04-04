@@ -1,5 +1,5 @@
-.popup__name-input {
-    margin: 0 0 30px 0;
+.form__job-input {
+    margin: 0 0 48px 0;
     padding: 0;
 
     width: 100%;
@@ -14,6 +14,6 @@
     color: #000;
 }
 
-.popup__name-input:focus {
+.form__job-input:focus {
     outline: none;
 }

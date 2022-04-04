@@ -1,48 +1,64 @@
-const formElement = document.querySelector('.popup__form');
-
+//Кнопка редактирования профиля пользователя
 const editButton = document.querySelector('.profile__edit-button');
 
-const profileTitle = document.querySelector('.profile__title');
-const profileSubtitle = document.querySelector('.profile__subtitle');
-const nameInput = document.querySelector('.popup__name-input');
-const jobInput = document.querySelector('.popup__job-input');
+function showClick_closeButton(e) {
+  const closeButton = document.querySelector('.popup__close-button');
+  closeButton.removeEventListener('click', showClick_closeButton);
 
-const popup = document.querySelector('.popup');
-const popupForm = popup.querySelector('.popup__form');
+  e.target.closest('.popup').remove();
+}
 
 function showClick_editButton() {
-    
-  popup.classList.add('popup_active');
+  const popupTemplate = document.querySelector('#popup-template');
+  const formTemplate = document.querySelector('#form-template');
 
-  popupForm.children[0].textContent = 'Редактировать профиль';
+  popupCopy = popupTemplate.content.cloneNode(true);
+  formCopy = formTemplate.content.cloneNode(true);
 
-  popupForm.children[1].setAttribute('placeholder', 'Иван Иванов');
-  
-  popupForm.children[2].setAttribute('placeholder', 'О себе');
+  formCopy.querySelector('.form__header').textContent = 'Редактировать профиль';
+  formCopy.querySelector('.form__name-input').placeholder = 'Иван Иванов';
+  formCopy.querySelector('.form__job-input').placeholder = 'О себе';
+  formCopy.querySelector('.form__submit-button').textContent = 'Сохранить';
 
+  popupCopy.querySelector('.popup__container').append(formCopy);
+
+  document.body.append(popupCopy);
+
+  const closeButton = document.querySelector('.popup__close-button');
+  closeButton.addEventListener('click', showClick_closeButton);
   //nameInput.value = profileTitle.textContent;
   //jobInput.value = profileSubtitle.textContent;
-
-  popupForm.children[3].textContent = 'Сохранить';
 }
   
 editButton.addEventListener('click', showClick_editButton);
 
 
+//Кнопка добавления нового места
+const addButton = document.querySelector('.profile__add-button');
 
-const closeButton = document.querySelector('.popup__close-button');
+function showClick_addButton() {
+  const popupTemplate = document.querySelector('#popup-template');
+  const formTemplate = document.querySelector('#form-template');
 
-function showClick_closeButton() {
-  popup.classList.remove('popup_active');
+  popupCopy = popupTemplate.content.cloneNode(true);
+  formCopy = formTemplate.content.cloneNode(true);
 
-  popupForm.children[0].textContent = '';
-  popupForm.children[1].value = '';
-  popupForm.children[2].value = '';
+  formCopy.querySelector('.form__header').textContent = 'Новое место';
+  formCopy.querySelector('.form__name-input').placeholder = 'Название';
+  formCopy.querySelector('.form__job-input').placeholder = 'Ссылка на картинку';
+  formCopy.querySelector('.form__submit-button').textContent = 'Создать';
+
+  popupCopy.querySelector('.popup__container').append(formCopy);
+  
+  document.body.append(popupCopy);
+
+  const closeButton = document.querySelector('.popup__close-button');
+  closeButton.addEventListener('click', showClick_closeButton);
 }
 
-closeButton.addEventListener('click', showClick_closeButton);
+addButton.addEventListener('click', showClick_addButton);
 
-
+/*
 
 // Находим форму в DOM
 
@@ -76,8 +92,7 @@ function formSubmitHandler (evt) {
 // Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', formSubmitHandler);
 
-
-
+*/
 
 const initialCards = [
   {
@@ -113,26 +128,7 @@ for (let i = 0; i < card.length; i++) {
   card[i].children[1].textContent = initialCards[i].name;
 }
 
-
-
-const addButton = document.querySelector('.profile__add-button');
-
-function showClick_addButton() {
-
-  popup.classList.add('popup_active');
-
-  popupForm.children[0].textContent = 'Новое место';
-
-  popupForm.children[1].setAttribute('placeholder', 'Название');
-
-  popupForm.children[2].setAttribute('placeholder', 'Ссылка на картинку');
-
-  popupForm.children[3].textContent = 'Создать';
-}
-
-addButton.addEventListener('click', showClick_addButton);
-
-
+/*
 
 function addCard(namePlace, linkPlace) {
   const cards = document.querySelector('.cards');
@@ -150,8 +146,8 @@ function addCard(namePlace, linkPlace) {
 
 
 function popupImg(img) {
-  const popupImg = document.querySelector('.popup-img');
-  popupImg.classList.toggle('popup-img_active');
+  const popupImg = document.querySelector('.popup');
+  popupImg.classList.toggle('popup_active');
 
   popupImgLink = document.createElement('img');
   popupImgLink.classList = 'popup-img__link';
@@ -164,8 +160,8 @@ function popupImg(img) {
 }
 
 function showClick_popupImgCloseButton() {
-  const popupImg = document.querySelector('.popup-img');
-  popupImg.classList.toggle('popup-img_active');
+  const popupImg = document.querySelector('.popup');
+  popupImg.classList.toggle('popup_active');
 
   popupImgLink = document.querySelector('.popup-img__link');
   setTimeout("popupImgLink.remove()", 1000);
@@ -203,4 +199,4 @@ function showClick_card(e) {
 }
 //Подключаем прослушиватель событий через делегирование, на весь блок cards
 const cards = document.querySelector('.cards');
-cards.addEventListener('click', showClick_card);
+cards.addEventListener('click', showClick_card);*/

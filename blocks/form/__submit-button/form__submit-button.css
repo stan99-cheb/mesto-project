@@ -1,4 +1,4 @@
-.popup__submit-button {
+.form__submit-button {
     margin: 0;
     padding: 0;
 
@@ -19,14 +19,14 @@
     border-radius: 2px;
 }
 
-.popup__submit-button:hover {
+.form__submit-button:hover {
     opacity: .8;
 
     cursor: pointer;
 }
 
 @media (max-width: 1280px) {
-    .popup__submit-button {
+    .form__submit-button {
         font-size: calc((100vw - 320px)/(1280 - 320)*(18 - 14) + 14px);
         line-height: calc((100vw - 320px)/(1280 - 320)*(50 - 46) + 46px);
     }
