@@ -19,13 +19,13 @@
                 <div class="profile__profile-info-flex">
                     <h1 class="profile__title">Жак-Ив Кусто</h1>
                     <button class="profile__edit-button" type="button" aria-label="Edit" title="Редактировать">
-                        <img src="./images/edit-icon.svg" alt="Кнопка редактировать">
+                        <img id="profileEditButtonIcon" src="./images/edit-icon.svg" alt="Кнопка редактировать">
                     </button>
                 </div>
                 <p class="profile__subtitle">Исследователь океанов</p>
             </div>
-            <button class="profile__add-button" aria-label="Add" title="Добавить">
-                <img src="./images/add-icon.svg" alt="Кнопка добавить">
+            <button class="profile__add-button" type="button" aria-label="Add" title="Добавить">
+                <img id="profileAddButtonIcon" src="./images/add-icon.svg" alt="Кнопка добавить">
             </button>
         </section>
         <section class="cards" aria-label="Карточки мест">
@@ -86,6 +86,14 @@
             <input class="form__job-input" type="text" placeholder="">
             <button class="form__submit-button" type="submit" aria-label="submit"></button>
         </form>
+    </template>
+    <template id="new-place">
+        <div class="card">
+            <img class="card__link" src="" alt="">
+            <h2 class="card__name"></h2>
+            <button class="card__heart" type="button" aria-label="heart button"></button>
+            <img class="card__trash" src="./images/trash.svg" alt="Изображение кнопки удаления">
+          </div>
     </template>
     <script src="./scripts/script.js"></script>
 </body>

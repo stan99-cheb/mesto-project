@@ -1,10 +1,125 @@
+
+
+function popupHandler(e) {
+  //Перехватываем обработчик по умолчанию
+  e.preventDefault();
+  //Получаем селектор цели
+  let selectTarget = e.target.className;
+
+  switch (selectTarget) {
+    case 'popup__close-button-image':
+      popup_out(e.target);
+      break;
+    case 'form__submit-button':
+      //Пока нет обработчика этой кнопки
+      console.log('Сохранить');
+      break;
+  }
+}
+
+function popup_on(formCopy) {
+  //Здесь храним попап
+  const popupTemplate = document.querySelector('#popup-template');
+  //Клонируем попап из шаблона
+  let popupCopy = popupTemplate.content.cloneNode(true);
+  //добавляем в попап форму
+  popupCopy.querySelector('.popup__container').append(formCopy);
+  //показываем форму на экране
+  document.body.append(popupCopy);
+
+  popupCopy = document.querySelector('.popup');
+  popupCopy.addEventListener('click', popupHandler);
+}
+
+function popup_out(selectTarget) {
+  popupCopy = document.querySelector('.popup');
+  popupCopy.removeEventListener('click', popupHandler);
+  //Закрываем попап
+  selectTarget.closest('.popup').remove();
+}
+
+Section_profile: {
+  const profile = document.querySelector('.profile');
+  
+  function editButton_showClick() {
+    //Здесь будем хранить форму
+    const formTemplate = document.querySelector('#form-template');
+    //Клонируем форму из шаблона
+    formCopy = formTemplate.content.cloneNode(true);
+    //Заполняем форму
+    formCopy.querySelector('.form__header').textContent = 'Редактировать профиль';
+    formCopy.querySelector('.form__name-input').placeholder = 'Иван Иванов';
+    formCopy.querySelector('.form__job-input').placeholder = 'О себе';
+    formCopy.querySelector('.form__submit-button').textContent = 'Сохранить';
+    //Вызываем открытие попапа, передаем форму
+    popup_on(formCopy);
+  }
+
+  function addButton_showClick() {
+
+  }
+
+  function profileClickHandler(e) {
+    let selectTarget = e.target.className || e.target.id;
+    
+    switch (selectTarget) {
+      case 'profile__edit-button':
+      case 'profileEditButtonIcon':
+        editButton_showClick();
+        break;
+      case 'profile__add-button':
+      case 'profileAddButtonIcon':
+        addButton_showClick();
+        break;
+    }
+  }
+
+  profile.addEventListener('click', profileClickHandler);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 //Кнопка редактирования профиля пользователя
 const editButton = document.querySelector('.profile__edit-button');
 
 function showClick_closeButton(e) {
+  //Удаляем обработчик с кнопки закрытия попапа
   const closeButton = document.querySelector('.popup__close-button');
   closeButton.removeEventListener('click', showClick_closeButton);
+  //Закрываем попап
+  e.target.closest('.popup').remove();
+}
 
+function showClick_form(e) {
+  e.preventDefault();
+  const submitButton = e.target.querySelector('.form__submit-button');
+  console.log(submitButton);
+
+  //Удаляем обработчик с формы
+  const eventForm = document.querySelector('.form');
+  eventForm.removeEventListener('submit', showClick_form);
+  //Закрываем попап
   e.target.closest('.popup').remove();
 }
 
@@ -54,10 +169,13 @@ function showClick_addButton() {
 
   const closeButton = document.querySelector('.popup__close-button');
   closeButton.addEventListener('click', showClick_closeButton);
+
+  const eventForm = document.querySelector('.form');
+  eventForm.addEventListener('submit', showClick_form);
 }
 
 addButton.addEventListener('click', showClick_addButton);
-
+*/
 /*
 
 // Находим форму в DOM
