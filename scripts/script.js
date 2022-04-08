@@ -47,9 +47,9 @@ block_popup: {
 
 block_form: {
   function getForm() {
-    //Здесь будем хранить форму
+    //Получаем форму из шаблона
     const formTemplate = document.querySelector('#form-template');
-    //Клонируем форму из шаблона
+    //Клонируем
     const form = formTemplate.content.cloneNode(true);
     //Возвращаем форму
     return form;
@@ -77,6 +77,12 @@ block_form: {
 block_profile: {
   const profile = document.querySelector('.profile');
 
+  function fillDataProfile(item) {
+    item.querySelector('.form__name-input').value = document.querySelector('.profile__title').textContent;
+    item.querySelector('.form__job-input').value = document.querySelector('.profile__subtitle').textContent;
+    return item;
+  }
+
   function profileClickHandler(e) {
     //Выбираем клики на кнопки Edit и Add
     const selectButton = e.target.closest('.profile__edit-button') || e.target.closest('.profile__add-button');
@@ -88,6 +94,7 @@ block_profile: {
         case 'profile__edit-button':
           //Заполняем форму данными
           elementForm = fillForm(elementForm, 'edit');
+          elementForm = fillDataProfile(elementForm);
           //Открываем попап
           popup_on(elementForm);
           break;
@@ -158,7 +165,7 @@ block_cards: {
       switch (selectButton.classList[0]) {
         case 'card__link':
           //Получаем копию элемента
-          cloneSelectButton = selectButton.cloneNode(true);
+          const cloneSelectButton = selectButton.cloneNode(true);
           //Удаляем ненужный селектор
           cloneSelectButton.classList.remove('card__link');
           //Добавляем нужный
