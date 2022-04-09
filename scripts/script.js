@@ -58,15 +58,19 @@ block_popup: {
   }
 
   function popup_out() {
+    //const animation = document.querySelector('.popup_fade-out');
+
     popup.classList.remove('popup_fade-in');
     //Подмешиваем селектор плавного исчезновения окна
     popup.classList.add('popup_fade-out');
     //Убираем обработчик
     popup.removeEventListener('click', popupHandler);
-    //Закрываем попап
-    setTimeout(popup.remove(), 2000);
-  }
 
+    popup.addEventListener('animationend', () => {
+      //Закрываем попап
+      popup.remove();
+    }, {once: true});
+  }
 }
 
 block_form: {
