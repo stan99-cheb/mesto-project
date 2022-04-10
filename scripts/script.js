@@ -2,9 +2,31 @@
 
 block_popup: {
   let popup;
+  //Обработчик событий попапа
+  function submitButtonHandler() {
+    const header = document.querySelector('.form__header');
+    switch (header.textContent) {
+      case 'Редактировать профиль':
+        //Заполняем профиль новыми данными
+        document.querySelector('.profile__title').textContent = document.querySelector('.form__name-input').value;
+        document.querySelector('.profile__subtitle').textContent = document.querySelector('.form__job-input').value;
+        popup_out();
+        break;
+      case 'Новое место':
+        //Готовим объект
+        const newCard = {
+          name: document.querySelector('.form__name-input').value,
+          link: document.querySelector('.form__job-input').value
+        };
+        //Добавляем новую карту
+        addCard(newCard);
+        popup_out();
+        break;
+    }
+  }
 
   function popupHandler(e) {
-    //Перехватываем обработчик по умолчанию
+    //Запрещаем действия по умолчанию
     e.preventDefault();
     //Получаем селектор цели
     const selectButton = e.target.closest('.popup__close-button') || e.target.closest('.form__submit-button');
@@ -16,73 +38,44 @@ block_popup: {
           break;
         case 'form__submit-button':
           //Пока нет обработчика этой кнопки
-          submitButtonHandler()
+          submitButtonHandler();
           break;
       }
     }
   }
 
-  function submitButtonHandler() {
-    const header = document.querySelector('.form__header');
-    switch (header.textContent) {
-      case 'Редактировать профиль':
-        document.querySelector('.profile__title').textContent = document.querySelector('.form__name-input').value;
-        document.querySelector('.profile__subtitle').textContent = document.querySelector('.form__job-input').value;
-        popup_out();
-        break;
-      case 'Новое место':
-        const newCard = {
-          name: document.querySelector('.form__name-input').value,
-          link: document.querySelector('.form__job-input').value
-        };
-        addCard(newCard);
-        popup_out();
-        break;
-    }
-  }
-
-  function popup_on(formCopy) {
+  function popup_on(form) {
     //Получаем шаблон
     const popupTemplate = document.querySelector('#popup-template');
     //Клонируем попап из шаблона
     let popupCopy = popupTemplate.content.cloneNode(true);
     //добавляем в попап форму
-    popupCopy.querySelector('.popup__container').append(formCopy);
+    popupCopy.querySelector('.popup__container').append(form);
     //Подмешиваем селектор плавного появления окна
     popupCopy.querySelector('.popup').classList.add('popup_fade-in');
     //показываем форму на экране
     document.body.append(popupCopy);
-
+    //Добавляем слушатель событий
     popup = document.querySelector('.popup');
     popup.addEventListener('click', popupHandler);
   }
 
   function popup_out() {
-    //const animation = document.querySelector('.popup_fade-out');
-
+    //Удаляем селектор плавного открытия
     popup.classList.remove('popup_fade-in');
-    //Подмешиваем селектор плавного исчезновения окна
+    //Подмешиваем селектор плавного исчезновения
     popup.classList.add('popup_fade-out');
     //Убираем обработчик
     popup.removeEventListener('click', popupHandler);
-
+    //Ждем окончания анимации
     popup.addEventListener('animationend', () => {
-      //Закрываем попап
+      //Удаляем попап
       popup.remove();
-    }, {once: true});
+    }, {once: true});//Прослушиватель выполняется только один раз
   }
 }
 
 block_form: {
-  function getForm() {
-    //Получаем форму из шаблона
-    const formTemplate = document.querySelector('#form-template');
-    //Клонируем
-    const form = formTemplate.content.cloneNode(true);
-    //Возвращаем форму
-    return form;
-  }
-
   function fillForm(form, select) {
     switch (select) {
       case 'edit':
@@ -105,7 +98,7 @@ block_form: {
 block_profile: {
   const profile = document.querySelector('.profile');
 
-  function fillDataProfile(item) {
+  function getDataProfile(item) {
     item.querySelector('.form__name-input').value = document.querySelector('.profile__title').textContent;
     item.querySelector('.form__job-input').value = document.querySelector('.profile__subtitle').textContent;
     return item;
@@ -115,14 +108,17 @@ block_profile: {
     //Выбираем клики на кнопки Edit и Add
     const selectButton = e.target.closest('.profile__edit-button') || e.target.closest('.profile__add-button');
     //Получаем форму из шаблона
-    let elementForm = getForm();
+    const formTemplate = document.querySelector('#form-template');
+    //Получаем клон элемента
+    let elementForm = formTemplate.content.cloneNode(true);
 
     if (selectButton) {
-      switch (selectButton.className) {
+      switch (selectButton.classList[0]) {
         case 'profile__edit-button':
           //Заполняем форму данными
           elementForm = fillForm(elementForm, 'edit');
-          elementForm = fillDataProfile(elementForm);
+          //Берем текущие данные профиля
+          elementForm = getDataProfile(elementForm);
           //Открываем попап
           popup_on(elementForm);
           break;
@@ -135,60 +131,61 @@ block_profile: {
       }
     }
   }
-
+  //Вешаем обработчик на блок
   profile.addEventListener('click', profileClickHandler);
 }
 
 block_cards: {
-  const cards = document.querySelector('.cards');
-
-  const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-  ];
-  
+  const cards = document.querySelector('.cards'),
+        initialCards = [
+          {
+            name: 'Архыз',
+            link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+          },
+          {
+            name: 'Челябинская область',
+            link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+          },
+          {
+            name: 'Иваново',
+            link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+          },
+          {
+            name: 'Камчатка',
+            link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+          },
+          {
+            name: 'Холмогорский район',
+            link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+          },
+          {
+            name: 'Байкал',
+            link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+          }
+        ];
+  //Функция добавления карточки
   function addCard(item) {
-    //Получаем форму
+    //Получаем форму из шаблона
     const cardTemplate = document.querySelector('#new-place');
     //Клонируем карточку из шаблона
     const card = cardTemplate.content.cloneNode(true);
-
+    //Заполняем карточку
     card.querySelector('.card__name').textContent = item.name;
     card.querySelector('.card__link').src = item.link;
     card.querySelector('.card__link').alt = item.name;
-    //Рисуем карту на экране
+    //Добавляем элемент
     cards.prepend(card);
   }
 
   initialCards.forEach((item) => {
+    //Каждый элемента массива передаем в функцию
     addCard(item);
   });
 
   function cardsHundler(e) {
+    //Выбраем нужный элемент
     const selectButton = e.target.closest('.card__link') || e.target.closest('.card__heart') || e.target.closest('.card__trash');
-
+    //Если нажат нужный элемент
     if (selectButton) {
       switch (selectButton.classList[0]) {
         case 'card__link':
@@ -212,6 +209,6 @@ block_cards: {
       }
     }
   }
-
+  //Вешаем обработчик на блок
   cards.addEventListener('click', cardsHundler);
 }
