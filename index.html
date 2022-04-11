@@ -34,23 +34,40 @@
     <footer class="footer">
         <p class="footer__text">&copy; 2020 Mesto Russia</p>
     </footer>
-    <template id="popup-template">
-        <div class="popup">
-            <div class="popup__container">
-                <button class="popup__close-button" type="button" aria-label="Close" title="Закрыть">
-                    <img class="popup__close-button-image" src="./images/close-icon.svg" alt="Кнопка закрыть">
-                </button>
-            </div>
+    <div class="popup popup-profile">
+        <div class="popup__container">
+            <button class="popup__close-button" type="button" aria-label="Close" title="Закрыть">
+                <img class="popup__close-button-image" src="./images/close-icon.svg" alt="Кнопка закрыть">
+            </button>
+            <form class="form">
+                <h2 class="form__header">Редактировать профиль</h2>
+                <input class="form__name-input" type="text" placeholder="Иван Иванов">
+                <input class="form__job-input" type="text" placeholder="О себе">
+                <button class="form__submit-button" type="submit" aria-label="submit">Сохранить</button>
+            </form>
         </div>
-    </template>
-    <template id="form-template">
-        <form class="form">
-            <h2 class="form__header"></h2>
-            <input class="form__name-input" type="text" placeholder="">
-            <input class="form__job-input" type="text" placeholder="">
-            <button class="form__submit-button" type="submit" aria-label="submit"></button>
-        </form>
-    </template>
+    </div>
+    <div class="popup popup-card">
+        <div class="popup__container">
+            <button class="popup__close-button" type="button" aria-label="Close" title="Закрыть">
+                <img class="popup__close-button-image" src="./images/close-icon.svg" alt="Кнопка закрыть">
+            </button>
+            <form class="form">
+                <h2 class="form__header">Новое место</h2>
+                <input class="form__name-input" type="text" placeholder="Название">
+                <input class="form__job-input" type="text" placeholder="Ссылка на картинку">
+                <button class="form__submit-button" type="submit" aria-label="submit">Создать</button>
+            </form>
+        </div>
+    </div>
+    <div class="popup popup-image">
+        <div class="popup__container">
+            <button class="popup__close-button" type="button" aria-label="Close" title="Закрыть">
+                <img class="popup__close-button-image" src="./images/close-icon.svg" alt="Кнопка закрыть">
+            </button>
+            <img class="card__link" src="" alt="">
+        </div>
+    </div>
     <template id="new-place">
         <div class="card">
             <img class="card__link" src="" alt="">

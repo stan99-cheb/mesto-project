@@ -1,6 +1,30 @@
 
 
 block_popup: {
+  function popupCloseHandler(e) {
+    const closeButton = e.target.closest('.popup');
+
+    closeButton.removeEventListener('click', popupCloseHandler);
+
+    popupOff(closeButton);
+  }
+
+  function popupOn(item) {
+    const closeButton = item.querySelector('.popup__close-button');
+
+    item.classList.toggle('popup_active');
+
+    closeButton.addEventListener('click', popupCloseHandler);
+  }
+
+  function popupOff(item) {
+    
+    item.classList.toggle('popup_active');
+  }
+}
+
+/*
+block_popup: {
   let popup;
   //Обработчик событий попапа
   function submitButtonHandler() {
@@ -94,45 +118,24 @@ block_form: {
     return form;
   }
 }
+*/
+
 
 block_profile: {
-  const profile = document.querySelector('.profile');
+  const popupProfile = document.querySelector('.popup-profile');
+  const profile = document.querySelector('.profile__edit-button');
 
-  function getDataProfile(item) {
-    item.querySelector('.form__name-input').value = document.querySelector('.profile__title').textContent;
-    item.querySelector('.form__job-input').value = document.querySelector('.profile__subtitle').textContent;
-    return item;
-  }
-
-  function profileClickHandler(e) {
-    //Выбираем клики на кнопки Edit и Add
-    const selectButton = e.target.closest('.profile__edit-button') || e.target.closest('.profile__add-button');
-    //Получаем форму из шаблона
-    const formTemplate = document.querySelector('#form-template');
-    //Получаем клон элемента
-    let elementForm = formTemplate.content.cloneNode(true);
-
-    if (selectButton) {
-      switch (selectButton.classList[0]) {
-        case 'profile__edit-button':
-          //Заполняем форму данными
-          elementForm = fillForm(elementForm, 'edit');
-          //Берем текущие данные профиля
-          elementForm = getDataProfile(elementForm);
-          //Открываем попап
-          popup_on(elementForm);
-          break;
-        case 'profile__add-button':
-          //Заполняем форму данными
-          elementForm = fillForm(elementForm, 'add');
-          //Открываем попап
-          popup_on(elementForm);
-          break;
-      }
+  function clickEditProfileHandler(e) {
+    const editButton = e.target.closest('.profile__edit-button');
+    
+    if (editButton) {
+      popupProfile.querySelector('.form__name-input').value = document.querySelector('.profile__title').textContent;
+      popupProfile.querySelector('.form__job-input').value = document.querySelector('.profile__subtitle').textContent;
+      popupOn(popupProfile);
     }
   }
-  //Вешаем обработчик на блок
-  profile.addEventListener('click', profileClickHandler);
+  //Вешаем обработчик на кнопку редактирования профиля
+  profile.addEventListener('click', clickEditProfileHandler);
 }
 
 block_cards: {

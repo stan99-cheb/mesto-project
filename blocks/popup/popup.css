@@ -14,4 +14,8 @@
     /*Позиционируем вложенный блок*/
     justify-content: center;
     align-items: center;
+
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 500ms, opacity 500ms linear;
 }
