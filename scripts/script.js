@@ -1,73 +1,104 @@
 
 
-block_popup: {
-  let activePopup, newCard;
+block_popup_editProfile: {
+  //Находим попап в DOM
+  const popupElement = document.querySelector('.popup-profile');
+  // Находим форму в DOM
+  const formElement = popupElement.querySelector('.form');
+  // Находим поля формы в DOM
+  const nameInput = formElement.querySelector('.form__name-input');
+  const jobInput = formElement.querySelector('.form__job-input');
 
-  function activePopupHandler(e) {
-    const activePopup = e.target.closest('.popup');
-    const header = activePopup.querySelector('.form__header');
-    const selectButton = e.target.closest('.popup__close-button') || e.target.closest('.form__submit-button');
-    
-    e.preventDefault();
-    
-    if (selectButton) {
-      if (selectButton.classList.contains('form__submit-button')) {
-        switch (header.textContent) {
-          case 'Редактировать профиль':
-            document.querySelector('.profile__title').textContent = e.currentTarget.querySelector('.form__name-input').value;
-            document.querySelector('.profile__subtitle').textContent = e.currentTarget.querySelector('.form__job-input').value;
-            activePopup.removeEventListener('click', activePopupHandler);
-            popupOff(activePopup);
-            break;
-          case 'Новое место':
-            const newCard =
-              {
-                name: e.currentTarget.querySelector('.form__name-input').value,
-                link: e.currentTarget.querySelector('.form__job-input').value
-              };
-            addCard(newCard);
-            activePopup.removeEventListener('click', activePopupHandler);
-            popupOff(activePopup);
-            break;
-        }
-      }
-    }
+  nameInput.value = document.querySelector('.profile__title').textContent;
+  jobInput.value = document.querySelector('.profile__subtitle').textContent;
+  // Обработчик «отправки» формы, хотя пока она никуда отправляться не будет
+  function formSubmitHandler (evt) {
+    evt.preventDefault(); 
+    // Получите значение полей jobInput и nameInput из свойства value
+    // Выберите элементы, куда должны быть вставлены значения полей
+    // Вставьте новые значения с помощью textContent
+    document.querySelector('.profile__title').textContent = nameInput.value;
+    document.querySelector('.profile__subtitle').textContent = jobInput.value;
+    popupOff(popupElement);
   }
 
-  function popupOn(activePopup) {
-    activePopup.classList.toggle('popup_active');
+  // Прикрепляем обработчик к форме:
+  formElement.addEventListener('submit', formSubmitHandler);
 
-    activePopup.addEventListener('click', activePopupHandler);
+  //Находим кнопку в DOM
+  const editProfileButton = document.querySelector('.profile__edit-button')
+  //Обработчки кнопки редактирования профиля
+  function showClickEditProfileButton() {
+    popupOn(popupElement);
   }
+  // Прикрепляем обработчик к кнопке:
+  editProfileButton.addEventListener('click', showClickEditProfileButton);
 
-  function popupOff(activePopup) {
-    
-    activePopup.classList.toggle('popup_active');
-  }
+  //Находим кнопку в DOM
+  const closeAddButton = popupElement.querySelector('.popup__close-button');
+  // Прикрепляем обработчик к кнопке:
+  closeAddButton.addEventListener('click', function() {popupOff(popupElement)});
 }
 
-block_profile: {
-  const popupProfile = document.querySelector('.popup-profile');
-  const editButton = document.querySelector('.profile__edit-button');
+block_popup_addCard: {
+  //Находим попап в DOM
+  const popupElement = document.querySelector('.popup-card');
+  // Находим форму в DOM
+  const formElement = popupElement.querySelector('.form');
+  // Находим поля формы в DOM
+  const nameInput = formElement.querySelector('.form__name-input');
+  const jobInput = formElement.querySelector('.form__job-input');
 
-  const popupCard = document.querySelector('.popup-card');
-  const addButton = document.querySelector('.profile__add-button');
+  // Обработчик сохранения новой карточки
+  function formSaveHandler (evt) {
+    const newCard = {};
 
-  function clickEditProfileHandler(e) {
-    if (editButton) {
-      popupProfile.querySelector('.form__name-input').value = document.querySelector('.profile__title').textContent;
-      popupProfile.querySelector('.form__job-input').value = document.querySelector('.profile__subtitle').textContent;
-      popupOn(popupProfile);
-    }
+    evt.preventDefault(); 
+    // Получите значение полей jobInput и nameInput из свойства value
+    // Выберите элементы, куда должны быть вставлены значения полей
+    newCard.name = nameInput.value;
+    newCard.link = jobInput.value;
+    addCard(newCard);
+    popupOff(popupElement);
   }
-  //Вешаем обработчик на кнопку редактирования профиля
-  editButton.addEventListener('click', clickEditProfileHandler);
 
-  function clickAddCardHandler() {
-    popupOn(popupCard);
+  // Прикрепляем обработчик к форме:
+  formElement.addEventListener('submit', formSaveHandler);
+
+  //Находим кнопку в DOM
+  const addCardButton = document.querySelector('.profile__add-button')
+  //Обработчки кнопки редактирования профиля
+  function showClickAddCardButton() {
+    popupOn(popupElement);
   }
+  // Прикрепляем обработчик к кнопке:
+  addCardButton.addEventListener('click', showClickAddCardButton);
 
-  addButton.addEventListener('click', clickAddCardHandler);
+  //Находим кнопку в DOM
+  const closeProfileButton = popupElement.querySelector('.popup__close-button');
+  // Прикрепляем обработчик к кнопке:
+  closeProfileButton.addEventListener('click', function() {popupOff(popupElement)});
+}
+
+block_popup_card: {
+  //Находим попап в DOM
+  const popupElement = document.querySelector('.popup-image');
+
+  //Находим кнопку в DOM
+  const closeCardButton = popupElement.querySelector('.popup__close-button');
+  // Прикрепляем обработчик к кнопке:
+  closeCardButton.addEventListener('click', function() {
+    popupElement.querySelector('.popup__link').remove();
+    popupOff(popupElement)
+  });
+}
+
+function popupOn(activePopup) {
+  activePopup.classList.toggle('popup_active');
+}
+
+function popupOff(activePopup) {
+  activePopup.classList.toggle('popup_active');
 }
 
 block_cards: {
