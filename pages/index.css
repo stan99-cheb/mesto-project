@@ -35,6 +35,7 @@
 @import url(../blocks/popup/__close-button-image/popup__close-button-image.css);
 @import url(../blocks/popup/__link/popup__link.css);
 @import url(../blocks/popup/_active/popup_active.css);
+@import url(../blocks/popup/__name/popup__name.css);
 
 @import url(../blocks/form/form.css);
 @import url(../blocks/form/__header/form__header.css);
