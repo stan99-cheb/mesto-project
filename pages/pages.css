@@ -11,6 +11,15 @@
     --profile-avatar-width: 120px;
     --profile-avatar-heght: 120px;
     --profile-avatar-border-radius: 60px;
+    --profile-title-font-size: calc((100vw - 320px)/(1280 - 320)*(42 - 26) + 26px);
+    --profile-title-font-weight: 500;
+    --profile-title-font-color: #fff;
+    --profile-subtitle-font-size: calc((100vw - 320px)/(1280 - 320)*(18 - 14) + 14px);
+    --profile-subtitle-font-weight: 400;
+    --profile-subtitle-font-color: #fff;
+    --profile-edit-button-width: calc((100vw - 320px)/(1280 - 320)*(24 - 18) + 18px);;
+    --profile-edit-button-heght: calc((100vw - 320px)/(1280 - 320)*(24 - 18) + 18px);;
+    --profile-edit-button-border: 1px solid #FFFFFF;
     --profile-add-button-width: 150px;
     --profile-add-button-heght: 50px;
     --profile-add-button-border: 2px solid #FFFFFF;

@@ -1,4 +1,5 @@
 .profile__add-button {
+    padding: 0;
     border: var(--profile-add-button-border);
     
     width: var(--profile-add-button-width);
