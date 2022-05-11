@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./pages/index.css">
 </head>
 
-<body class="page">
+<body class="pages">
     <header class="header">
         <img class="header__logo" src="./images/logo.svg" alt="Лого Место">
     </header>
@@ -16,17 +16,13 @@
         <section class="profile">
             <img class="profile__avatar" src="./images/avatar.jpg" alt="Аваар пользователя">
             <div class="profile__profile-info">
-                <div class="profile__profile-info-flex">
+                <div class="profile__profile-info-wrapper">
                     <h1 class="profile__title">Жак-Ив Кусто</h1>
-                    <button class="profile__edit-button" type="button" aria-label="Edit" title="Редактировать">
-                        <img id="profileEditButtonIcon" src="./images/edit-icon.svg" alt="Кнопка редактировать">
-                    </button>
+                    <button class="profile__edit-button" type="button" aria-label="Edit" title="Редактировать"></button>
                 </div>
                 <p class="profile__subtitle">Исследователь океанов</p>
             </div>
-            <button class="profile__add-button" type="button" aria-label="Add" title="Добавить">
-                <img id="profileAddButtonIcon" src="./images/add-icon.svg" alt="Кнопка добавить">
-            </button>
+            <button class="profile__add-button" type="button" aria-label="Add" title="Добавить"></button>
         </section>
         <section class="cards" aria-label="Карточки мест">
         </section>
@@ -57,7 +53,7 @@
             <h2 class="card__name"></h2>
             <button class="card__heart" type="button" aria-label="heart button"></button>
             <img class="card__trash" src="./images/trash.svg" alt="Изображение кнопки удаления">
-          </div>
+        </div>
     </template>
     <script src="./scripts/script.js"></script>
 </body>

@@ -1,19 +1,17 @@
 .profile__subtitle {
-    display: block;
     margin: 0;
     padding: 0;
 
-    font-weight: 400;
-    font-size: calc((100vw - 320px)/(1280 - 320)*(18 - 14) + 14px);
-    line-height: calc((100vw - 320px)/(1280 - 320)*(22 - 17) + 17px);
-    color: #FFFFFF;
+    font-size: var(--profile-subtitle-font-size);
+    font-weight: var(--profile-subtitle-font-weight);
+    color: var(--profile-subtitle-font-color);
 
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
-@media (max-width: 560px) {
+@media (max-width: 464px) {
     .profile__subtitle {
         text-align: center;
     }
