@@ -1,13 +1,11 @@
-
-
 :root {
-/* Свойства для header logo */
+    /* Свойства для header logo */
     --header-logo-width: calc((100vw - 320px)/(1280 - 320)*(142 - 104) + 104px);
     --header-logo-height: calc((100vw - 320px)/(1280 - 320)*(34 - 24) + 24px);
     --header-logo-margin-bottom: calc((100vw - 320px)/(1280 - 320)*(40 - 30) + 30px);
     --header-logo-padding-top: calc((100vw - 320px)/(1280 - 320)*(45 - 28) + 28px);
     --header-logo-padding-left: calc((100vw - 320px)/(1280 - 320)*(0 - 28) + 28px);
-/* Свойства для profile */
+    /* Свойства для profile */
     --profile-margin-bottom: calc((100vw - 320px)/(1280 - 320)*(50 - 36) + 36px);
     --profile-padding-left-right: calc((100vw - 320px)/(1280 - 320)*(0 - 19) + 19px);
     --profile-avatar-width: 120px;
@@ -16,10 +14,10 @@
     --profile-add-button-width: 150px;
     --profile-add-button-heght: 50px;
     --profile-add-button-border: 2px solid #FFFFFF;
-/* Свойства для cards */
+    /* Свойства для cards */
     --cards-margin-bottom: calc((100vw - 320px)/(1280 - 320)*(66 - 48) + 48px);
     --cards-padding-left-right: calc((100vw - 320px)/(1280 - 320)*(0 - 19) + 19px);
-/* Свойства для footer */
+    /* Свойства для footer */
     --footer-margin-bottom: calc((100vw - 320px)/(1280 - 320)*(60 - 36) + 36px);
     --footer-font-size: calc((100vw - 320px)/(1280 - 320)*(18 - 14) + 14px);
     --footer-padding-left-right: calc((100vw - 320px)/(1280 - 320)*(0 - 19) + 19px);
