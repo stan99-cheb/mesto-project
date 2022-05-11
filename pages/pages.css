@@ -7,6 +7,10 @@
     --header-logo-margin-bottom: calc((100vw - 320px)/(1280 - 320)*(40 - 30) + 30px);
     --header-logo-padding-top: calc((100vw - 320px)/(1280 - 320)*(45 - 28) + 28px);
     --header-logo-padding-left: calc((100vw - 320px)/(1280 - 320)*(0 - 28) + 28px);
+/* Свойства для footer */
+    --footer-margin-bottom: calc((100vw - 320px)/(1280 - 320)*(60 - 36) + 36px);
+    --footer-font-size: calc((100vw - 320px)/(1280 - 320)*(18 - 14) + 14px);
+    --footer-font-color: #545454;
 }
 
 .pages {
