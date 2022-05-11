@@ -1,0 +1,24 @@
+
+
+:root {
+/* Свойства для header logo */
+    --header-logo-width: calc((100vw - 320px)/(1280 - 320)*(142 - 104) + 104px);
+    --header-logo-height: calc((100vw - 320px)/(1280 - 320)*(34 - 24) + 24px);
+    --header-logo-margin-bottom: calc((100vw - 320px)/(1280 - 320)*(40 - 30) + 30px);
+    --header-logo-padding-top: calc((100vw - 320px)/(1280 - 320)*(45 - 28) + 28px);
+    --header-logo-padding-left: calc((100vw - 320px)/(1280 - 320)*(0 - 28) + 28px);
+}
+
+.pages {
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+
+    max-width: 880px;
+    min-width: 320px;
+
+    background-color: #000;
+
+    font-family: Inter, sans-serif;
+    font-style: normal;
+}
