@@ -7,6 +7,15 @@
     --header-logo-margin-bottom: calc((100vw - 320px)/(1280 - 320)*(40 - 30) + 30px);
     --header-logo-padding-top: calc((100vw - 320px)/(1280 - 320)*(45 - 28) + 28px);
     --header-logo-padding-left: calc((100vw - 320px)/(1280 - 320)*(0 - 28) + 28px);
+/* Свойства для profile */
+    --profile-margin-bottom: calc((100vw - 320px)/(1280 - 320)*(50 - 36) + 36px);
+    --profile-padding-left-right: calc((100vw - 320px)/(1280 - 320)*(0 - 19) + 19px);
+    --profile-avatar-width: 120px;
+    --profile-avatar-heght: 120px;
+    --profile-avatar-border-radius: 60px;
+    --profile-add-button-width: 150px;
+    --profile-add-button-heght: 50px;
+    --profile-add-button-border: 2px solid #FFFFFF;
 /* Свойства для cards */
     --cards-margin-bottom: calc((100vw - 320px)/(1280 - 320)*(66 - 48) + 48px);
     --cards-padding-left-right: calc((100vw - 320px)/(1280 - 320)*(0 - 19) + 19px);
