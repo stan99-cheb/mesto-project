@@ -7,9 +7,13 @@
     --header-logo-margin-bottom: calc((100vw - 320px)/(1280 - 320)*(40 - 30) + 30px);
     --header-logo-padding-top: calc((100vw - 320px)/(1280 - 320)*(45 - 28) + 28px);
     --header-logo-padding-left: calc((100vw - 320px)/(1280 - 320)*(0 - 28) + 28px);
+/* Свойства для cards */
+    --cards-margin-bottom: calc((100vw - 320px)/(1280 - 320)*(66 - 48) + 48px);
+    --cards-padding-left-right: calc((100vw - 320px)/(1280 - 320)*(0 - 19) + 19px);
 /* Свойства для footer */
     --footer-margin-bottom: calc((100vw - 320px)/(1280 - 320)*(60 - 36) + 36px);
     --footer-font-size: calc((100vw - 320px)/(1280 - 320)*(18 - 14) + 14px);
+    --footer-padding-left-right: calc((100vw - 320px)/(1280 - 320)*(0 - 19) + 19px);
     --footer-font-color: #545454;
 }
 
