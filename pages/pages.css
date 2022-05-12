@@ -26,11 +26,40 @@
     /* Свойства для cards */
     --cards-margin-bottom: calc((100vw - 320px)/(1280 - 320)*(66 - 48) + 48px);
     --cards-padding-left-right: calc((100vw - 320px)/(1280 - 320)*(0 - 19) + 19px);
+    /* Свойства для card */
+    --card-padding: 20px;
+    --card-background-color: #FFFFFF;
+    --card-border-radius: 10px;
+    --card-name-font-size: 24px;
+    --card-name-font-weight: 900;
+    --card-heart-width: 22px;
+    --card-heart-height: 19px;
+    --card-trash-width: 18px;
+    --card-trash-height: 19px;
+    --card-trash-position-top: 20px;
+    --card-trash-position-right: 20px;
     /* Свойства для footer */
     --footer-margin-bottom: calc((100vw - 320px)/(1280 - 320)*(60 - 36) + 36px);
     --footer-font-size: calc((100vw - 320px)/(1280 - 320)*(18 - 14) + 14px);
     --footer-padding-left-right: calc((100vw - 320px)/(1280 - 320)*(0 - 19) + 19px);
     --footer-font-color: #545454;
+    /* Свойства для popup */
+    --popup-close-button-width: calc((100vw - 320px)/(1280 - 320)*(32 - 20) + 20px);
+    --popup-close-button-height: calc((100vw - 320px)/(1280 - 320)*(32 - 20) + 20px);
+    --popup-close-button-position-right: calc((100vw - 320px)/(1280 - 320)*((-40) - 0) + 0px);
+    /* Свойства для form */
+    --form-padding: calc((100vw - 320px)/(1280 - 320)*(36 - 22) + 22px);
+    --form-width: calc((100vw - 320px)/(1280 - 320)*(430 - 282) + 282px);
+    --form-border-radius: 10px;
+    --form-background-color: #fff;
+    --form-header-margin-bottom: calc((100vw - 320px)/(1280 - 320)*(54 - 75) + 75px);
+    --form-header-font-size: calc((100vw - 320px)/(1280 - 320)*(24 - 18) + 18px);
+    --form-header-font-weight: 900;
+    --form-input-font-size: 14px;
+    --form-submit-font-size: calc((100vw - 320px)/(1280 - 320)*(18 - 14) + 14px);
+    --form-submit-font-color: #fff;
+    --form-submit-background-color: #000;
+    --form-submit-border-radius: 2px;
 }
 
 .pages {

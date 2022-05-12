@@ -1,15 +1,13 @@
 .card__name {
-    display: block;
-    margin: 25px 0 31px 18px;
-    padding: 0;
+    margin: 0;
+    padding: var(--card-padding);
 
-    font-weight: 900;
-    font-size: 24px;
-    line-height: 29px;
+    font-size: var(--card-name-font-size);
+    font-weight: var(--card-name-font-weight);
 
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 
-    grid-area: B;
+    grid-row: 2 / 3;
 }

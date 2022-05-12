@@ -1,28 +1,11 @@
 .form {
-    margin: 0;
-    padding: 0;
-
-    /*Флэксим внутренние блоки*/
-    display: flex;
-    flex-direction: column;
-
-    /*Рамеры модального окна*/
     box-sizing: border-box;
-    width: 430px;
-    /*Внутренние отступы*/
-    padding: 36px;
+    margin: 0;
+    padding: var(--form-padding);
+    /*Рамеры модального окна*/
+    width: var(--form-width);
     /*Скругляем углы*/
-    border-radius: 10px;
+    border-radius: var(--form-border-radius);
     /*Цвет фона окна*/
-    background-color: #FFFFFF;
-    /*Тень окна*/
-    box-shadow: 0 0 25px rgba(0, 0, 0, .15);
-}
-
-@media (max-width: 1280px) {
-    .form {
-        width: calc((100vw - 320px)/(1280 - 320)*(430 - 282) + 282px);
-
-        padding: calc((100vw - 320px)/(1280 - 320)*(36 - 22) + 22px);
-    }
+    background-color: var(--form-background-color);
 }

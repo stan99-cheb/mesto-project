@@ -3,16 +3,15 @@
     margin: 0;
     padding: 0;
 
-    background-color: #FFFFFF;
+    background-color: var(--card-background-color);
 
-    border-radius: 10px;
+    border-radius: var(--card-border-radius);
 
     overflow: hidden;
 
     display: grid;
-    grid-template-areas:
-        "A A A A A A A A"
-        "B B B B B B B C";
+    grid-template-columns: 80% 20%;
+    grid-template-rows: 282px auto;
 
     position: relative;
 }

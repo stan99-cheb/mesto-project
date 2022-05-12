@@ -2,21 +2,16 @@
     margin: 0;
     padding: 0;
 
-    width: 22px;
-    height: 19px;
+    width: var(--card-heart-width);
+    height: var(--card-heart-height);
 
     background-image: url("./../../../images/heart-icon.svg");
     background-repeat: no-repeat;
+    background-color: #FFF;
 
     border: none;
 
-    background-color: #FFF;
-
-    flex-shrink: 0;
-
-    
-    margin-right: 18px;
-    justify-self: end;
+    justify-self: center;
     align-self: center;
 }
 
