@@ -11,6 +11,8 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-color: transparent;
+
+    flex: 0 0 auto;
 }
 
 .profile__edit-button:hover {
