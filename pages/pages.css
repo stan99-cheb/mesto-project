@@ -31,6 +31,10 @@
     --footer-font-size: calc((100vw - 320px)/(1280 - 320)*(18 - 14) + 14px);
     --footer-padding-left-right: calc((100vw - 320px)/(1280 - 320)*(0 - 19) + 19px);
     --footer-font-color: #545454;
+    /* Свойства для popup */
+    --popup-close-button-width: calc((100vw - 320px)/(1280 - 320)*(32 - 20) + 20px);
+    --popup-close-button-height: calc((100vw - 320px)/(1280 - 320)*(32 - 20) + 20px);
+    --popup-close-button-position-right: calc((100vw - 320px)/(1280 - 320)*((-40) - 0) + 0px);
 }
 
 .pages {
