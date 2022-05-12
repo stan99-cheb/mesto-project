@@ -35,6 +35,19 @@
     --popup-close-button-width: calc((100vw - 320px)/(1280 - 320)*(32 - 20) + 20px);
     --popup-close-button-height: calc((100vw - 320px)/(1280 - 320)*(32 - 20) + 20px);
     --popup-close-button-position-right: calc((100vw - 320px)/(1280 - 320)*((-40) - 0) + 0px);
+    /* Свойства для form */
+    --form-padding: calc((100vw - 320px)/(1280 - 320)*(36 - 22) + 22px);
+    --form-width: calc((100vw - 320px)/(1280 - 320)*(430 - 282) + 282px);
+    --form-border-radius: 10px;
+    --form-background-color: #fff;
+    --form-header-margin-bottom: calc((100vw - 320px)/(1280 - 320)*(54 - 75) + 75px);
+    --form-header-font-size: calc((100vw - 320px)/(1280 - 320)*(24 - 18) + 18px);
+    --form-header-font-weight: 900;
+    --form-input-font-size: 14px;
+    --form-submit-font-size: calc((100vw - 320px)/(1280 - 320)*(18 - 14) + 14px);
+    --form-submit-font-color: #fff;
+    --form-submit-background-color: #000;
+    --form-submit-border-radius: 2px;
 }
 
 .pages {
