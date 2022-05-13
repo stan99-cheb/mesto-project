@@ -62,6 +62,15 @@
     --form-submit-border-radius: 2px;
 }
 
+html::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+html::-webkit-scrollbar-thumb {
+    background: rgba(84, 84, 84, .7);
+}
+
 .pages {
     display: block;
     margin: 0 auto;
