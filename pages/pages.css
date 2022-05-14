@@ -1,7 +1,6 @@
 :root {
     /* Свойства для header logo */
     --header-logo-width: calc((100vw - 320px)/(1280 - 320)*(142 - 104) + 104px);
-    --header-logo-height: calc((100vw - 320px)/(1280 - 320)*(34 - 24) + 24px);
     --header-logo-margin-bottom: calc((100vw - 320px)/(1280 - 320)*(40 - 30) + 30px);
     --header-logo-padding-top: calc((100vw - 320px)/(1280 - 320)*(45 - 28) + 28px);
     --header-logo-padding-left: calc((100vw - 320px)/(1280 - 320)*(0 - 28) + 28px);
@@ -60,6 +59,12 @@
     --form-submit-font-color: #fff;
     --form-submit-background-color: #000;
     --form-submit-border-radius: 2px;
+
+    box-sizing: border-box;
+}
+
+*, ::before, ::after {
+    box-sizing: inherit;
 }
 
 html::-webkit-scrollbar {
