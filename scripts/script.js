@@ -1,5 +1,7 @@
 'use strict'
 
+const timeAnimation = parseInt((getComputedStyle(document.querySelector(':root')).getPropertyValue('--time-animation')), 10);
+
 let popup;
 //Обработчик событий попапа
 function submitButtonHandler() {
@@ -64,10 +66,7 @@ function popup_out() {
     //Убираем обработчик
     popup.removeEventListener('click', popupHandler);
     //Ждем окончания анимации
-    popup.addEventListener('animationend', () => {
-        //Удаляем попап
-        popup.remove();
-    }, { once: true });//Прослушиватель выполняется только один раз
+    setTimeout(() => { popup.remove() }, timeAnimation);
 }
 
 function fillForm(form, select) {
