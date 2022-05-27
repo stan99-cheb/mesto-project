@@ -30,18 +30,27 @@ function popupHandler(e) {
     //Запрещаем действия по умолчанию
     e.preventDefault();
     //Получаем селектор цели
-    const selectButton = e.target.closest('.popup__close-button') || e.target.closest('.form__submit-button');
+    const selectButton = e.target.closest('.popup__close-button') || e.target.closest('.form__submit-button') || e.target.closest('.popup');
 
     if (selectButton) {
-        switch (selectButton.className) {
+        switch (selectButton.classList[0]) {
             case 'popup__close-button':
                 popup_out();
                 break;
             case 'form__submit-button':
                 submitButtonHandler();
                 break;
+            case 'popup':
+                popup_out();
+                break;
         }
     }
+}
+
+function popupHandlerKey(e) {
+    if (e.key === 'Escape') {
+        popup_out();
+    };
 }
 
 function popup_on(form) {
@@ -56,6 +65,8 @@ function popup_on(form) {
     //Добавляем слушатель событий
     popup = document.querySelector('.popup');
     popup.addEventListener('click', popupHandler);
+    //Добавляем слушатель событий клавиатуры
+    document.addEventListener('keydown', popupHandlerKey);
 }
 
 function popup_out() {
@@ -65,6 +76,8 @@ function popup_out() {
     popup.classList.add('popup_fade-out');
     //Убираем обработчик
     popup.removeEventListener('click', popupHandler);
+    //Убираем обработчик клавиатуры
+    document.removeEventListener('keydown', popupHandlerKey);
     //Ждем окончания анимации
     setTimeout(() => { popup.remove() }, timeAnimation);
 }
