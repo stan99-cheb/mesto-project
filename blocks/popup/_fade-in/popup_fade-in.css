@@ -1,5 +1,5 @@
 .popup_fade-in {
-    animation: fade-in .7s;
+    animation: fade-in var(--time-animation);
 }
 
 @keyframes fade-in {

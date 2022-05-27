@@ -46,6 +46,7 @@
     --popup-close-button-width: calc((100vw - 320px)/(1280 - 320)*(32 - 20) + 20px);
     --popup-close-button-height: calc((100vw - 320px)/(1280 - 320)*(32 - 20) + 20px);
     --popup-close-button-position-right: calc((100vw - 320px)/(1280 - 320)*((-40) - 0) + 0px);
+    --time-animation: 700ms;
     /* Свойства для form */
     --form-padding: calc((100vw - 320px)/(1280 - 320)*(36 - 22) + 22px);
     --form-width: calc((100vw - 320px)/(1280 - 320)*(430 - 282) + 282px);
