@@ -30,15 +30,18 @@ function popupHandler(e) {
     //Запрещаем действия по умолчанию
     e.preventDefault();
     //Получаем селектор цели
-    const selectButton = e.target.closest('.popup__close-button') || e.target.closest('.form__submit-button');
+    const selectButton = e.target.closest('.popup__close-button') || e.target.closest('.form__submit-button') || e.target.closest('.popup');
 
     if (selectButton) {
-        switch (selectButton.className) {
+        switch (selectButton.classList[0]) {
             case 'popup__close-button':
                 popup_out();
                 break;
             case 'form__submit-button':
                 submitButtonHandler();
+                break;
+            case 'popup':
+                popup_out();
                 break;
         }
     }
