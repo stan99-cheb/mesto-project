@@ -44,6 +44,12 @@ function popupHandler(e) {
     }
 }
 
+function popupHandlerKey(e) {
+    if (e.key === 'Escape') {
+        popup_out();
+    };
+}
+
 function popup_on(form) {
     //Клонируем попап из шаблона
     let popupCopy = document.querySelector('#popup-template').content.cloneNode(true);
@@ -56,6 +62,8 @@ function popup_on(form) {
     //Добавляем слушатель событий
     popup = document.querySelector('.popup');
     popup.addEventListener('click', popupHandler);
+    //Добавляем слушатель событий клавиатуры
+    document.addEventListener('keydown', popupHandlerKey);
 }
 
 function popup_out() {
@@ -65,6 +73,8 @@ function popup_out() {
     popup.classList.add('popup_fade-out');
     //Убираем обработчик
     popup.removeEventListener('click', popupHandler);
+    //Убираем обработчик клавиатуры
+    document.removeEventListener('keydown', popupHandlerKey);
     //Ждем окончания анимации
     setTimeout(() => { popup.remove() }, timeAnimation);
 }
