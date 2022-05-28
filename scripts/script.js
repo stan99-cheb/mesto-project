@@ -1,6 +1,6 @@
 'use strict'
 
-const timeAnimation = parseInt((getComputedStyle(document.querySelector(':root')).getPropertyValue('--time-animation')), 10);
+const timeAnimation = parseInt((getComputedStyle(document.querySelector(':root')).getPropertyValue('--time-animation')), 10) - 15;
 
 let popup;
 //Обработчик событий попапа

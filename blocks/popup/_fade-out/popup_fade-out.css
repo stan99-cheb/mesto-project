@@ -1,5 +1,5 @@
 .popup_fade-out {
-    animation: fade-out var(--time-animation);
+    animation: fade-out var(--time-animation) linear;
 }
 
 @keyframes fade-out {
