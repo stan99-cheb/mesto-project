@@ -1,142 +1,81 @@
 'use strict'
 
 const timeAnimation = parseInt((getComputedStyle(document.querySelector(':root')).getPropertyValue('--time-animation')), 10) - 15;
-
-let popup;
-//Обработчик событий попапа
-function submitButtonHandler() {
-    const header = document.querySelector('.form__header');
-    switch (header.textContent) {
-        case 'Редактировать профиль':
-            //Заполняем профиль новыми данными
-            document.querySelector('.profile__title').textContent = document.querySelector('.form__name-input').value;
-            document.querySelector('.profile__subtitle').textContent = document.querySelector('.form__job-input').value;
-            popup_out();
-            break;
-        case 'Новое место':
-            //Готовим объект
-            const newCard = {
-                name: document.querySelector('.form__name-input').value,
-                link: document.querySelector('.form__job-input').value
-            };
-            //Добавляем новую карту
-            addCard(newCard);
-            popup_out();
-            break;
-    }
-}
-
-function popupHandler(e) {
-    //Запрещаем действия по умолчанию
-    e.preventDefault();
-    //Получаем селектор цели
-    const selectButton = e.target.closest('.popup__close-button') || e.target.closest('.form__submit-button') || e.target.closest('.popup');
-
-    if (selectButton) {
-        switch (selectButton.classList[0]) {
-            case 'popup__close-button':
-                popup_out();
-                break;
-            case 'form__submit-button':
-                submitButtonHandler();
-                break;
-            case 'popup':
-                popup_out();
-                break;
-        }
-    }
-}
+const addButton = document.querySelector('.profile__add-button');
+const editButton = document.querySelector('.profile__edit-button');
+const cards = document.querySelector('.cards');
 
 function popupHandlerKey(e) {
     if (e.key === 'Escape') {
+        //Убираем обработчик клавиатуры
+        document.removeEventListener('keydown', popupHandlerKey);
         popup_out();
     };
 }
 
-function popup_on(form) {
+function popup_on(element) {
     //Клонируем попап из шаблона
-    let popupCopy = document.querySelector('#popup-template').content.cloneNode(true);
-    //добавляем в попап форму
-    popupCopy.querySelector('.popup__container').append(form);
+    const popupCopy = document.querySelector('#popup-template').content.cloneNode(true);
+
+    //добавляем в попап элемент
+    popupCopy.querySelector('.popup__container').append(element);
     //Подмешиваем селектор плавного появления окна
     popupCopy.querySelector('.popup').classList.add('popup_fade-in');
-    //показываем форму на экране
+    //показываем попап на экране
     document.body.append(popupCopy);
-    //Добавляем слушатель событий
-    popup = document.querySelector('.popup');
-    popup.addEventListener('click', popupHandler);
+
+    document.querySelector('.popup__close-button').addEventListener('click', popup_out, { once: true });
+
     //Добавляем слушатель событий клавиатуры
     document.addEventListener('keydown', popupHandlerKey);
 }
 
 function popup_out() {
+    const popup = document.querySelector('.popup');
     //Удаляем селектор плавного открытия
     popup.classList.remove('popup_fade-in');
-    //Подмешиваем селектор плавного исчезновения
+    //Подмешиваем селектор плавного закрытия
     popup.classList.add('popup_fade-out');
-    //Убираем обработчик
-    popup.removeEventListener('click', popupHandler);
-    //Убираем обработчик клавиатуры
-    document.removeEventListener('keydown', popupHandlerKey);
     //Ждем окончания анимации
     setTimeout(() => { popup.remove() }, timeAnimation);
 }
 
-function fillForm(form, select) {
-    switch (select) {
-        case 'edit':
-            form.querySelector('.form__header').textContent = 'Редактировать профиль';
-            form.querySelector('.form__name-input').placeholder = 'Иван Иванов';
-            form.querySelector('.form__job-input').placeholder = 'О себе';
-            form.querySelector('.form__submit-button').textContent = 'Сохранить';
-            break;
-        case 'add':
-            form.querySelector('.form__header').textContent = 'Новое место';
-            form.querySelector('.form__name-input').placeholder = 'Название';
-            form.querySelector('.form__job-input').placeholder = 'Ссылка на картинку';
-            form.querySelector('.form__submit-button').textContent = 'Создать';
-            break;
-    }
-    return form;
+function handleClickAddButton() {
+    const elementAddPlace = document.querySelector('#form-add-place-template').content.cloneNode(true);
+
+    popup_on(elementAddPlace);
+
+    document.querySelector('.form-add-place').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const newCard = {
+            name: document.querySelector('.form-add-place__name-place').value,
+            link: document.querySelector('.form-add-place__link-place').value
+        };
+        //Добавляем новую карту
+        addCard(newCard);
+        popup_out();
+    }, { once: true });
 }
 
-const profile = document.querySelector('.profile');
+function handleClickEditButton() {
+    const elementEditPlace = document.querySelector('#form-edit-profile-template').content.cloneNode(true);
 
-function getDataProfile(item) {
-    item.querySelector('.form__name-input').value = document.querySelector('.profile__title').textContent;
-    item.querySelector('.form__job-input').value = document.querySelector('.profile__subtitle').textContent;
-    return item;
+    elementEditPlace.querySelector('.form-edit-profile__name-input').value = document.querySelector('.profile__title').textContent;
+    elementEditPlace.querySelector('.form-edit-profile__job-input').value = document.querySelector('.profile__subtitle').textContent;
+
+    popup_on(elementEditPlace);
+
+    document.querySelector('.form-edit-profile').addEventListener('submit', (e) => {
+        e.preventDefault();
+        document.querySelector('.profile__title').textContent = document.querySelector('.form-edit-profile__name-input').value;
+        document.querySelector('.profile__subtitle').textContent = document.querySelector('.form-edit-profile__job-input').value;
+        popup_out();
+    }, { once: true });
 }
 
-function handleClickProfile(e) {
-    //Выбираем клики на кнопки Edit и Add
-    let selectButton = e.target.closest('.profile__edit-button') || e.target.closest('.profile__add-button');
-    //Получаем клон элемента
-    let elementForm = document.querySelector('#form-template').content.cloneNode(true);
+addButton.addEventListener('click', handleClickAddButton)
+editButton.addEventListener('click', handleClickEditButton);
 
-    if (selectButton) {
-        switch (selectButton.classList[0]) {
-            case 'profile__edit-button':
-                //Заполняем форму данными
-                elementForm = fillForm(elementForm, 'edit');
-                //Берем текущие данные профиля
-                elementForm = getDataProfile(elementForm);
-                //Открываем попап
-                popup_on(elementForm);
-                break;
-            case 'profile__add-button':
-                //Заполняем форму данными
-                elementForm = fillForm(elementForm, 'add');
-                //Открываем попап
-                popup_on(elementForm);
-                break;
-        }
-    }
-}
-//Вешаем обработчик на блок
-profile.addEventListener('click', handleClickProfile);
-
-const cards = document.querySelector('.cards');
 const initialCards = [
     {
         name: 'Владивосток',

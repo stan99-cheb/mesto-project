@@ -38,8 +38,14 @@
 @import url(../blocks/popup/_fade-in/popup_fade-in.css);
 @import url(../blocks/popup/_fade-out/popup_fade-out.css);
 
-@import url(../blocks/form/form.css);
-@import url(../blocks/form/__header/form__header.css);
-@import url(../blocks/form/__name-input/form__name-input.css);
-@import url(../blocks/form/__job-input/form__job-input.css);
-@import url(../blocks/form/__submit-button/form__submit-button.css);
+@import url(../blocks/form-edit-profile/form-edit-profile.css);
+@import url(../blocks/form-edit-profile/__header/form-edit-profile__header.css);
+@import url(../blocks/form-edit-profile/__job-input/form-edit-profile__job-input.css);
+@import url(../blocks/form-edit-profile/__name-input/form-edit-profile__name-input.css);
+@import url(../blocks/form-edit-profile/__submit-button/form-edit-profile__submit-button.css);
+
+@import url(../blocks/form-add-place/form-add-place.css);
+@import url(../blocks/form-add-place/__header/form-add-place__header.css);
+@import url(../blocks/form-add-place/__link-place/form-add-place__link-place.css);
+@import url(../blocks/form-add-place/__name-place/form-add-place__name-place.css);
+@import url(../blocks/form-add-place/__submit-button/form-add-place__submit-button.css);

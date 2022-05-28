@@ -1,5 +1,5 @@
-.form__name-input {
-    margin: 0 0 30px 0;
+.form-add-place__link-place {
+    margin: 0 0 48px 0;
     padding: 0;
 
     width: 100%;
@@ -10,6 +10,6 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.form__name-input:focus {
+.form-add-place__link-place:focus {
     outline: none;
 }

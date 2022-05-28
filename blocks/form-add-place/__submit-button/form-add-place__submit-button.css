@@ -1,0 +1,22 @@
+.form-add-place__submit-button {
+    margin: 0;
+    padding: 16px 0;
+
+    width: 100%;
+
+    font-size: var(--form-submit-font-size);
+
+    text-align: center;
+
+    color: var(--form-submit-font-color);
+    background-color: var(--form-submit-background-color);
+
+    border: none;
+    border-radius: var(--form-submit-border-radius);
+}
+
+.form-add-place__submit-button:hover {
+    opacity: .8;
+
+    cursor: pointer;
+}

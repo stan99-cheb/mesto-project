@@ -1,5 +1,4 @@
-.form {
-    box-sizing: border-box;
+.form-add-place {
     margin: 0;
     padding: var(--form-padding);
     /*Рамеры модального окна*/

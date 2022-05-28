@@ -37,12 +37,20 @@
             </div>
         </div>
     </template>
-    <template id="form-template">
-        <form class="form">
-            <h2 class="form__header"></h2>
-            <input class="form__name-input" type="text" placeholder="">
-            <input class="form__job-input" type="text" placeholder="">
-            <button class="form__submit-button" type="submit" name="submit"></button>
+    <template id="form-add-place-template">
+        <form class="form-add-place">
+            <h2 class="form-add-place__header">Новое место</h2>
+            <input class="form-add-place__name-place" type="text" placeholder="Название">
+            <input class="form-add-place__link-place" type="text" placeholder="Ссылка на картинку">
+            <button class="form-add-place__submit-button" type="submit">Создать</button>
+        </form>
+    </template>
+    <template id="form-edit-profile-template">
+        <form class="form-edit-profile">
+            <h2 class="form-edit-profile__header">Редактировать профиль</h2>
+            <input class="form-edit-profile__name-input" type="text" placeholder="Иван Иванов">
+            <input class="form-edit-profile__job-input" type="text" placeholder="О себе">
+            <button class="form-edit-profile__submit-button" type="submit">Сохранить</button>
         </form>
     </template>
     <template id="card-template">
