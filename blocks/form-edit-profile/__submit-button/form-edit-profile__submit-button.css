@@ -1,4 +1,4 @@
-.form__submit-button {
+.form-edit-profile__submit-button {
     margin: 0;
     padding: 16px 0;
 
@@ -15,7 +15,7 @@
     border-radius: var(--form-submit-border-radius);
 }
 
-.form__submit-button:hover {
+.form-edit-profile__submit-button:hover {
     opacity: .8;
 
     cursor: pointer;

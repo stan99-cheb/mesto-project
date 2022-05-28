@@ -1,0 +1,10 @@
+.form-edit-profile {
+    margin: 0;
+    padding: var(--form-padding);
+    /*Рамеры модального окна*/
+    width: var(--form-width);
+    /*Скругляем углы*/
+    border-radius: var(--form-border-radius);
+    /*Цвет фона окна*/
+    background-color: var(--form-background-color);
+}
