@@ -26,6 +26,17 @@ function popup_on(element) {
 
     document.querySelector('.popup__close-button').addEventListener('click', popup_out, { once: true });
 
+    const clickAnyPlace = document.querySelector('.popup');
+
+    function handleClickAnyPlace(e) {
+        if (e.target.classList.contains('popup')) {
+            clickAnyPlace.removeEventListener('click', handleClickAnyPlace);
+            popup_out();
+        }
+    };
+
+    clickAnyPlace.addEventListener('click', handleClickAnyPlace);
+
     //Добавляем слушатель событий клавиатуры
     document.addEventListener('keydown', popupHandlerKey);
 }
@@ -51,7 +62,6 @@ function handleClickAddButton() {
             name: document.querySelector('.form-add-place__name-place').value,
             link: document.querySelector('.form-add-place__link-place').value
         };
-        //Добавляем новую карту
         addCard(newCard);
         popup_out();
     }, { once: true });
