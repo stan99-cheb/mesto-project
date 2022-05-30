@@ -13,3 +13,7 @@
 .form-add-place__name-place:focus {
     outline: none;
 }
+
+.form-add-place__name-place_error {
+    border-bottom: 1px solid red;
+}

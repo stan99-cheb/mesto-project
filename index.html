@@ -38,15 +38,29 @@
         </div>
     </template>
     <template id="form-add-place-template">
-        <form class="form-add-place">
+        <form class="form-add-place" novalidate>
             <h2 class="form-add-place__header">Новое место</h2>
-            <input class="form-add-place__name-place" type="text" placeholder="Название" required>
-            <input class="form-add-place__link-place" type="url" placeholder="Ссылка на картинку" required>
+            <input
+                class="form-add-place__name-place"
+                type="text"
+                placeholder="Название"
+                minlength="2"
+                maxlength="30"
+                required
+            >
+            <span class="email-input-error form__input-error">Вы пропустили это поле</span>
+            <input
+                class="form-add-place__link-place"
+                type="url"
+                placeholder="Ссылка на картинку"
+                required
+            >
+            <span class="email-input-error form__input-error">Вы пропустили это поле</span>
             <button class="form-add-place__submit-button" type="submit">Создать</button>
         </form>
     </template>
     <template id="form-edit-profile-template">
-        <form class="form-edit-profile">
+        <form class="form-edit-profile" novalidate>
             <h2 class="form-edit-profile__header">Редактировать профиль</h2>
             <input class="form-edit-profile__name-input" type="text" placeholder="Иван Иванов" required>
             <input class="form-edit-profile__job-input" type="text" placeholder="О себе" required>

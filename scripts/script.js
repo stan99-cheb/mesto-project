@@ -51,12 +51,40 @@ function popup_out() {
     setTimeout(() => { popup.remove() }, timeAnimation);
 }
 
+
+
+
+//Валидация форм
+// Функция, которая добавляет класс с ошибкой
+const showInputError = (element) => {
+    element.classList.add('form-add-place__name-place_error');
+  };
+  
+  // Функция, которая удаляет класс с ошибкой
+  const hideInputError = (element) => {
+    element.classList.remove('form-add-place__name-place_error');
+  };
+  
+  // Функция, которая проверяет валидность поля
+  const isValid = () => {
+    if (!formInput.validity.valid) {
+      // Если поле не проходит валидацию, покажем ошибку
+      showInputError(formInput);
+    } else {
+      // Если проходит, скроем
+      hideInputError(formInput);
+    }
+  };
+
 function handleClickAddButton() {
     const elementAddPlace = document.querySelector('#form-add-place-template').content.cloneNode(true);
 
     popup_on(elementAddPlace);
 
-    document.querySelector('.form-add-place').addEventListener('submit', (e) => {
+    const formElement = document.querySelector('.form-add-place');
+    const formInput = formElement.querySelector('.form-add-place__name-place');
+
+    formElement.addEventListener('submit', (e) => {
         e.preventDefault();
         const newCard = {
             name: document.querySelector('.form-add-place__name-place').value,
@@ -65,6 +93,12 @@ function handleClickAddButton() {
         addCard(newCard);
         popup_out();
     }, { once: true });
+
+    formInput.addEventListener('input', function (e) {
+        // Выведем в консоль значение свойства validity.valid поля ввода, 
+        // на котором слушаем событие input
+        console.log(e.target.validity.valid);
+    }); 
 }
 
 function handleClickEditButton() {
@@ -75,12 +109,12 @@ function handleClickEditButton() {
 
     popup_on(elementEditPlace);
 
-    document.querySelector('.form-edit-profile').addEventListener('submit', (e) => {
-        e.preventDefault();
-        document.querySelector('.profile__title').textContent = document.querySelector('.form-edit-profile__name-input').value;
-        document.querySelector('.profile__subtitle').textContent = document.querySelector('.form-edit-profile__job-input').value;
-        popup_out();
-    }, { once: true });
+    // document.querySelector('.form-edit-profile').addEventListener('submit', (e) => {
+    //     e.preventDefault();
+    //     document.querySelector('.profile__title').textContent = document.querySelector('.form-edit-profile__name-input').value;
+    //     document.querySelector('.profile__subtitle').textContent = document.querySelector('.form-edit-profile__job-input').value;
+    //     popup_out();
+    // }, { once: true });
 }
 
 addButton.addEventListener('click', handleClickAddButton)
