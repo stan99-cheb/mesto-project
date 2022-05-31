@@ -1,4 +1,4 @@
-.form-add-place__link-place {
+.form-add-place__link-place-input {
     margin: 0 0 48px 0;
     padding: 0;
 
@@ -10,6 +10,6 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.form-add-place__link-place:focus {
+.form-add-place__link-place-input:focus {
     outline: none;
 }

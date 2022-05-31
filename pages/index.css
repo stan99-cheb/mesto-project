@@ -46,6 +46,6 @@
 
 @import url(../blocks/form-add-place/form-add-place.css);
 @import url(../blocks/form-add-place/__header/form-add-place__header.css);
-@import url(../blocks/form-add-place/__link-place/form-add-place__link-place.css);
-@import url(../blocks/form-add-place/__name-place/form-add-place__name-place.css);
+@import url(../blocks/form-add-place/__link-place-input/form-add-place__link-place-input.css);
+@import url(../blocks/form-add-place/__name-place-input/form-add-place__name-place-input.css);
 @import url(../blocks/form-add-place/__submit-button/form-add-place__submit-button.css);

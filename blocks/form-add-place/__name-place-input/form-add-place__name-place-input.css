@@ -1,4 +1,4 @@
-.form-add-place__name-place {
+.form-add-place__name-place-input {
     margin: 0 0 30px 0;
     padding: 0;
 
@@ -10,7 +10,7 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.form-add-place__name-place:focus {
+.form-add-place__name-place-input:focus {
     outline: none;
 }
 

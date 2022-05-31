@@ -58,15 +58,15 @@ function popup_out() {
 // Функция, которая добавляет класс с ошибкой
 const showInputError = (element) => {
     element.classList.add('form-add-place__name-place_error');
-  };
+};
   
-  // Функция, которая удаляет класс с ошибкой
-  const hideInputError = (element) => {
+// Функция, которая удаляет класс с ошибкой
+const hideInputError = (element) => {
     element.classList.remove('form-add-place__name-place_error');
-  };
+};
   
-  // Функция, которая проверяет валидность поля
-  const isValid = () => {
+// Функция, которая проверяет валидность поля
+const isValid = () => {
     if (!formInput.validity.valid) {
       // Если поле не проходит валидацию, покажем ошибку
       showInputError(formInput);
@@ -74,17 +74,26 @@ const showInputError = (element) => {
       // Если проходит, скроем
       hideInputError(formInput);
     }
-  };
+};
+
+const setEventListeners = (formElement) => {
+
+}
+
+const enableValidation = (form) => {
+    
+}
 
 function handleClickAddButton() {
     const elementAddPlace = document.querySelector('#form-add-place-template').content.cloneNode(true);
 
     popup_on(elementAddPlace);
 
-    const formElement = document.querySelector('.form-add-place');
-    const formInput = formElement.querySelector('.form-add-place__name-place');
+    const form = document.querySelector('.form-add-place');
 
-    formElement.addEventListener('submit', (e) => {
+    enableValidation(form);
+
+    form.addEventListener('submit', (e) => {
         e.preventDefault();
         const newCard = {
             name: document.querySelector('.form-add-place__name-place').value,
@@ -93,12 +102,6 @@ function handleClickAddButton() {
         addCard(newCard);
         popup_out();
     }, { once: true });
-
-    formInput.addEventListener('input', function (e) {
-        // Выведем в консоль значение свойства validity.valid поля ввода, 
-        // на котором слушаем событие input
-        console.log(e.target.validity.valid);
-    }); 
 }
 
 function handleClickEditButton() {
