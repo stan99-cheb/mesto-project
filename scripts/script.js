@@ -91,17 +91,17 @@ function handleClickAddButton() {
 
     const form = document.querySelector('.form-add-place');
 
-    enableValidation(form);
-
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const newCard = {
-            name: document.querySelector('.form-add-place__name-place').value,
-            link: document.querySelector('.form-add-place__link-place').value
+            name: form.querySelector('.form-add-place__name-place-input').value,
+            link: form.querySelector('.form-add-place__link-place-input').value
         };
         addCard(newCard);
         popup_out();
     }, { once: true });
+
+    enableValidation(form);
 }
 
 function handleClickEditButton() {
