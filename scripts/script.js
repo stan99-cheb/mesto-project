@@ -56,41 +56,41 @@ function popup_out() {
 
 //Валидация форм
 // Функция, которая добавляет класс с ошибкой
-const showInputError = (element) => {
-    element.classList.add('form-add-place__name-place_error');
+const showInputError = (form, inputElement) => {
+    const errorElement = form.querySelector(`.${inputElement.id}-error`);
+    console.log(errorElement);
+    //inputElement.classList.add('form-add-place__name-place_error');
 };
   
 // Функция, которая удаляет класс с ошибкой
-const hideInputError = (element) => {
-    element.classList.remove('form-add-place__name-place_error');
+const hideInputError = (inputElement) => {
+    //inputElement.classList.remove('form-add-place__name-place_error');
 };
   
 // Функция, которая проверяет валидность поля
-const isValid = () => {
-    if (!formInput.validity.valid) {
+const isValid = (form, inputElement) => {
+    console.log(inputElement);
+    if (!inputElement.validity.valid) {
       // Если поле не проходит валидацию, покажем ошибку
-      showInputError(formInput);
+      showInputError(form, inputElement);
     } else {
       // Если проходит, скроем
-      hideInputError(formInput);
+      hideInputError(form, inputElement);
     }
 };
 
-const setEventListeners = (formElement) => {
+const setEventListeners = (form) => {
+    const inputList = Array.from(form.querySelectorAll('input'));
 
-}
-
-const enableValidation = (form) => {
+    inputList.forEach(inputElement => {
+        inputElement.addEventListener('input', () => {
+            isValid(form, inputElement);
+        });
+    })
     
 }
 
-function handleClickAddButton() {
-    const elementAddPlace = document.querySelector('#form-add-place-template').content.cloneNode(true);
-
-    popup_on(elementAddPlace);
-
-    const form = document.querySelector('.form-add-place');
-
+const enableValidation = (form) => {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const newCard = {
@@ -100,6 +100,16 @@ function handleClickAddButton() {
         addCard(newCard);
         popup_out();
     }, { once: true });
+
+    setEventListeners(form);
+}
+
+function handleClickAddButton() {
+    const elementAddPlace = document.querySelector('#form-add-place-template').content.cloneNode(true);
+
+    popup_on(elementAddPlace);
+
+    const form = document.querySelector('.form-add-place');
 
     enableValidation(form);
 }
@@ -112,12 +122,16 @@ function handleClickEditButton() {
 
     popup_on(elementEditPlace);
 
+    const form = document.querySelector('.form-edit-profile');
+
     // document.querySelector('.form-edit-profile').addEventListener('submit', (e) => {
     //     e.preventDefault();
     //     document.querySelector('.profile__title').textContent = document.querySelector('.form-edit-profile__name-input').value;
     //     document.querySelector('.profile__subtitle').textContent = document.querySelector('.form-edit-profile__job-input').value;
     //     popup_out();
     // }, { once: true });
+
+    enableValidation(form);
 }
 
 addButton.addEventListener('click', handleClickAddButton)
