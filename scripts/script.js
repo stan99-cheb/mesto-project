@@ -58,18 +58,21 @@ function popup_out() {
 // Функция, которая добавляет класс с ошибкой
 const showInputError = (form, inputElement) => {
     const errorElement = form.querySelector(`.${inputElement.id}-error`);
-    console.log(errorElement);
+    
+    errorElement.textContent = inputElement.validationMessage
     //inputElement.classList.add('form-add-place__name-place_error');
 };
   
 // Функция, которая удаляет класс с ошибкой
-const hideInputError = (inputElement) => {
+const hideInputError = (form, inputElement) => {
+    const errorElement = form.querySelector(`.${inputElement.id}-error`);
+
+    errorElement.textContent = "";
     //inputElement.classList.remove('form-add-place__name-place_error');
 };
   
 // Функция, которая проверяет валидность поля
 const isValid = (form, inputElement) => {
-    console.log(inputElement);
     if (!inputElement.validity.valid) {
       // Если поле не проходит валидацию, покажем ошибку
       showInputError(form, inputElement);
@@ -79,16 +82,42 @@ const isValid = (form, inputElement) => {
     }
 };
 
+const hasInvalidInput = (inputList) => {
+    // проходим по этому массиву методом some
+    return inputList.some((inputElement) => {
+          // Если поле не валидно, колбэк вернёт true
+      // Обход массива прекратится и вся функция
+      // hasInvalidInput вернёт true
+  
+      return !inputElement.validity.valid;
+    })
+};
+
+const toggleButtonState = (inputList, buttonElement) => {
+    // Если есть хотя бы один невалидный инпут
+    if (hasInvalidInput(inputList)) {
+      // сделай кнопку неактивной
+      buttonElement.setAttribute('disabled', true);
+    } else {
+          // иначе сделай кнопку активной
+      buttonElement.removeAttribute('disabled');
+    }
+};
+
 const setEventListeners = (form) => {
     const inputList = Array.from(form.querySelectorAll('input'));
+    const buttonElement = form.querySelector('[type="submit"]');
+    
+    toggleButtonState(inputList, buttonElement);
 
     inputList.forEach(inputElement => {
         inputElement.addEventListener('input', () => {
             isValid(form, inputElement);
+
+            toggleButtonState(inputList, buttonElement);
         });
     })
-    
-}
+};
 
 const enableValidation = (form) => {
     form.addEventListener('submit', (e) => {
