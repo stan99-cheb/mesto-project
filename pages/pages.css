@@ -56,10 +56,14 @@
     --form-header-font-size: calc((100vw - 320px)/(1280 - 320)*(24 - 18) + 18px);
     --form-header-font-weight: 900;
     --form-input-font-size: 14px;
+    --form-input-border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    --form-input-border-bottom-error: 1px solid red;
     --form-submit-font-size: calc((100vw - 320px)/(1280 - 320)*(18 - 14) + 14px);
     --form-submit-font-color: #fff;
     --form-submit-background-color: #000;
     --form-submit-border-radius: 2px;
+    --form-error-position-top: 0;
+    --form-error-position-left: 0;
 
     box-sizing: border-box;
 }

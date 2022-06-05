@@ -51,20 +51,110 @@ function popup_out() {
     setTimeout(() => { popup.remove() }, timeAnimation);
 }
 
+
+
+
+//Валидация форм
+// Функция, которая добавляет класс с ошибкой
+const showInputError = (form, inputElement) => {
+    const errorElement = form.querySelector(`.${inputElement.id}-error`);
+    
+    errorElement.textContent = inputElement.validationMessage
+    //inputElement.classList.add('form-add-place__name-place_error');
+
+    const formBox = form.getBoundingClientRect();
+    const inputElementBox = inputElement.getBoundingClientRect();
+
+    const coordX = inputElementBox.x - formBox.x;
+    const coordY = inputElementBox.y - formBox.y + inputElementBox.height;
+
+    errorElement.style.setProperty('--form-error-position-left', coordX + 'px');
+    errorElement.style.setProperty('--form-error-position-top', coordY + 'px');
+
+    inputElement.style.borderBottom = 'var(--form-input-border-bottom-error)';
+};
+  
+// Функция, которая удаляет класс с ошибкой
+const hideInputError = (form, inputElement) => {
+    const errorElement = form.querySelector(`.${inputElement.id}-error`);
+
+    errorElement.textContent = "";
+    //inputElement.classList.remove('form-add-place__name-place_error');
+
+    inputElement.style.borderBottom = 'var(--form-input-border-bottom)';
+};
+  
+// Функция, которая проверяет валидность поля
+const isValid = (form, inputElement) => {
+    if (!inputElement.validity.valid) {
+      // Если поле не проходит валидацию, покажем ошибку
+      showInputError(form, inputElement);
+    } else {
+      // Если проходит, скроем
+      hideInputError(form, inputElement);
+    }
+};
+
+const hasInvalidInput = (inputList) => {
+    // проходим по этому массиву методом some
+    return inputList.some((inputElement) => {
+          // Если поле не валидно, колбэк вернёт true
+      // Обход массива прекратится и вся функция
+      // hasInvalidInput вернёт true
+  
+      return !inputElement.validity.valid;
+    })
+};
+
+const toggleButtonState = (inputList, buttonElement) => {
+    // Если есть хотя бы один невалидный инпут
+    if (hasInvalidInput(inputList)) {
+      // сделай кнопку неактивной
+      buttonElement.setAttribute('disabled', '');
+    } else {
+          // иначе сделай кнопку активной
+      buttonElement.removeAttribute('disabled');
+    }
+};
+
+const setEventListeners = (form) => {
+    const inputList = Array.from(form.querySelectorAll('input'));
+    const buttonElement = form.querySelector('[type="submit"]');
+    
+    toggleButtonState(inputList, buttonElement);
+
+    inputList.forEach(inputElement => {
+        inputElement.addEventListener('input', () => {
+            isValid(form, inputElement);
+
+            toggleButtonState(inputList, buttonElement);
+        });
+    })
+};
+
+const enableValidation = (form) => {
+
+    setEventListeners(form);
+}
+
 function handleClickAddButton() {
     const elementAddPlace = document.querySelector('#form-add-place-template').content.cloneNode(true);
 
     popup_on(elementAddPlace);
 
-    document.querySelector('.form-add-place').addEventListener('submit', (e) => {
+    const form = document.querySelector('.form-add-place');
+
+    form.addEventListener('submit', (e) => {
         e.preventDefault();
         const newCard = {
-            name: document.querySelector('.form-add-place__name-place').value,
-            link: document.querySelector('.form-add-place__link-place').value
+            name: form.querySelector('.form-add-place__name-place-input').value,
+            link: form.querySelector('.form-add-place__link-place-input').value
         };
         addCard(newCard);
         popup_out();
     }, { once: true });
+
+    enableValidation(form);
 }
 
 function handleClickEditButton() {
@@ -75,12 +165,16 @@ function handleClickEditButton() {
 
     popup_on(elementEditPlace);
 
-    document.querySelector('.form-edit-profile').addEventListener('submit', (e) => {
+    const form = document.querySelector('.form-edit-profile');
+
+    form.addEventListener('submit', (e) => {
         e.preventDefault();
         document.querySelector('.profile__title').textContent = document.querySelector('.form-edit-profile__name-input').value;
         document.querySelector('.profile__subtitle').textContent = document.querySelector('.form-edit-profile__job-input').value;
         popup_out();
     }, { once: true });
+
+    enableValidation(form);
 }
 
 addButton.addEventListener('click', handleClickAddButton)
