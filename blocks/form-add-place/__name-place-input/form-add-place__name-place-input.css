@@ -7,7 +7,7 @@
     font-size: var(--form-input-font-size);
 
     border: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: var(--form-input-border-bottom);
 }
 
 .form-add-place__name-place-input:focus {

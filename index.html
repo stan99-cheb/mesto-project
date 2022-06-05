@@ -49,7 +49,7 @@
                 maxlength="30"
                 required
             >
-            <span class="form-add-place__name-place-input-error"></span>
+            <span class="form-add-place__name-place-input-error form-input-error"></span>
             <input
                 id="form-add-place__link-place-input"
                 class="form-add-place__link-place-input"
@@ -57,15 +57,33 @@
                 placeholder="Ссылка на картинку"
                 required
             >
-            <span class="form-add-place__link-place-input-error"></span>
+            <span class="form-add-place__link-place-input-error form-input-error"></span>
             <button class="form-add-place__submit-button" type="submit">Создать</button>
         </form>
     </template>
     <template id="form-edit-profile-template">
         <form class="form-edit-profile" novalidate>
             <h2 class="form-edit-profile__header">Редактировать профиль</h2>
-            <input class="form-edit-profile__name-input" type="text" placeholder="Иван Иванов" required>
-            <input class="form-edit-profile__job-input" type="text" placeholder="О себе" required>
+            <input
+                id="form-edit-profile__name-input"
+                class="form-edit-profile__name-input"
+                type="text"
+                placeholder="Иван Иванов"
+                minlength="2"
+                maxlength="40"
+                required
+            >
+            <span class="form-edit-profile__name-input-error form-input-error"></span>
+            <input
+                id="form-edit-profile__job-input"
+                class="form-edit-profile__job-input"
+                type="text"
+                placeholder="О себе"
+                minlength="2"
+                maxlength="200"
+                required
+            >
+            <span class="form-edit-profile__job-input-error form-input-error"></span>
             <button class="form-edit-profile__submit-button" type="submit">Сохранить</button>
         </form>
     </template>

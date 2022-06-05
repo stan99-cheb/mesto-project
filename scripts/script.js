@@ -61,6 +61,17 @@ const showInputError = (form, inputElement) => {
     
     errorElement.textContent = inputElement.validationMessage
     //inputElement.classList.add('form-add-place__name-place_error');
+
+    const formBox = form.getBoundingClientRect();
+    const inputElementBox = inputElement.getBoundingClientRect();
+
+    const coordX = inputElementBox.x - formBox.x;
+    const coordY = inputElementBox.y - formBox.y + inputElementBox.height;
+
+    errorElement.style.setProperty('--form-error-position-left', coordX + 'px');
+    errorElement.style.setProperty('--form-error-position-top', coordY + 'px');
+
+    inputElement.style.borderBottom = 'var(--form-input-border-bottom-error)';
 };
   
 // Функция, которая удаляет класс с ошибкой
@@ -69,6 +80,8 @@ const hideInputError = (form, inputElement) => {
 
     errorElement.textContent = "";
     //inputElement.classList.remove('form-add-place__name-place_error');
+
+    inputElement.style.borderBottom = 'var(--form-input-border-bottom)';
 };
   
 // Функция, которая проверяет валидность поля
@@ -97,7 +110,7 @@ const toggleButtonState = (inputList, buttonElement) => {
     // Если есть хотя бы один невалидный инпут
     if (hasInvalidInput(inputList)) {
       // сделай кнопку неактивной
-      buttonElement.setAttribute('disabled', true);
+      buttonElement.setAttribute('disabled', '');
     } else {
           // иначе сделай кнопку активной
       buttonElement.removeAttribute('disabled');
@@ -120,15 +133,6 @@ const setEventListeners = (form) => {
 };
 
 const enableValidation = (form) => {
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const newCard = {
-            name: form.querySelector('.form-add-place__name-place-input').value,
-            link: form.querySelector('.form-add-place__link-place-input').value
-        };
-        addCard(newCard);
-        popup_out();
-    }, { once: true });
 
     setEventListeners(form);
 }
@@ -139,6 +143,16 @@ function handleClickAddButton() {
     popup_on(elementAddPlace);
 
     const form = document.querySelector('.form-add-place');
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const newCard = {
+            name: form.querySelector('.form-add-place__name-place-input').value,
+            link: form.querySelector('.form-add-place__link-place-input').value
+        };
+        addCard(newCard);
+        popup_out();
+    }, { once: true });
 
     enableValidation(form);
 }
@@ -153,12 +167,12 @@ function handleClickEditButton() {
 
     const form = document.querySelector('.form-edit-profile');
 
-    // document.querySelector('.form-edit-profile').addEventListener('submit', (e) => {
-    //     e.preventDefault();
-    //     document.querySelector('.profile__title').textContent = document.querySelector('.form-edit-profile__name-input').value;
-    //     document.querySelector('.profile__subtitle').textContent = document.querySelector('.form-edit-profile__job-input').value;
-    //     popup_out();
-    // }, { once: true });
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        document.querySelector('.profile__title').textContent = document.querySelector('.form-edit-profile__name-input').value;
+        document.querySelector('.profile__subtitle').textContent = document.querySelector('.form-edit-profile__job-input').value;
+        popup_out();
+    }, { once: true });
 
     enableValidation(form);
 }

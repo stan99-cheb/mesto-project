@@ -49,3 +49,5 @@
 @import url(../blocks/form-add-place/__link-place-input/form-add-place__link-place-input.css);
 @import url(../blocks/form-add-place/__name-place-input/form-add-place__name-place-input.css);
 @import url(../blocks/form-add-place/__submit-button/form-add-place__submit-button.css);
+
+@import url(../blocks/form-input-error/form-input-error.css);
