@@ -9,13 +9,8 @@
     background: rgba(0, 0, 0, .5);
     /*Поверх всех окон*/
     z-index: 999;
-    /*Скрываем модальное окно и запрещаем реагировать*/
+    
     display: flex;
-    /*Позиционируем вложенный блок*/
     justify-content: center;
     align-items: center;
-
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 500ms, opacity 500ms linear;
 }

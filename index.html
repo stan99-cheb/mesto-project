@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./pages/index.css">
 </head>
 
-<body class="page">
+<body class="pages">
     <header class="header">
         <img class="header__logo" src="./images/logo.svg" alt="Лого Место">
     </header>
@@ -16,66 +16,84 @@
         <section class="profile">
             <img class="profile__avatar" src="./images/avatar.jpg" alt="Аваар пользователя">
             <div class="profile__profile-info">
-                <div class="profile__profile-info-flex">
+                <div class="profile__profile-info-wrapper">
                     <h1 class="profile__title">Жак-Ив Кусто</h1>
-                    <button class="profile__edit-button" type="button" aria-label="Edit" title="Редактировать">
-                        <img id="profileEditButtonIcon" src="./images/edit-icon.svg" alt="Кнопка редактировать">
-                    </button>
+                    <button class="profile__edit-button" type="button" aria-label="Edit" title="Редактировать"></button>
                 </div>
                 <p class="profile__subtitle">Исследователь океанов</p>
             </div>
-            <button class="profile__add-button" type="button" aria-label="Add" title="Добавить">
-                <img id="profileAddButtonIcon" src="./images/add-icon.svg" alt="Кнопка добавить">
-            </button>
+            <button class="profile__add-button" type="button" aria-label="Add" title="Добавить"></button>
         </section>
         <section class="cards" aria-label="Карточки мест">
         </section>
     </main>
     <footer class="footer">
-        <p class="footer__text">&copy; 2020 Mesto Russia</p>
+        <p class="footer__text">&copy; 2022 Mesto Russia</p>
     </footer>
-    <div class="popup popup-profile">
-        <div class="popup__container">
-            <button class="popup__close-button" type="button" aria-label="Close" title="Закрыть">
-                <img class="popup__close-button-image" src="./images/close-icon.svg" alt="Кнопка закрыть">
-            </button>
-            <form class="form">
-                <h2 class="form__header">Редактировать профиль</h2>
-                <input class="form__name-input" type="text" placeholder="Иван Иванов">
-                <input class="form__job-input" type="text" placeholder="О себе">
-                <button class="form__submit-button" type="submit" aria-label="submit">Сохранить</button>
-            </form>
+    <template id="popup-template">
+        <div class="popup">
+            <div class="popup__container">
+                <button class="popup__close-button" type="button" name="Close" title="Закрыть"></button>
+            </div>
         </div>
-    </div>
-    <div class="popup popup-card">
-        <div class="popup__container">
-            <button class="popup__close-button" type="button" aria-label="Close" title="Закрыть">
-                <img class="popup__close-button-image" src="./images/close-icon.svg" alt="Кнопка закрыть">
-            </button>
-            <form class="form">
-                <h2 class="form__header">Новое место</h2>
-                <input class="form__name-input" type="text" placeholder="Название">
-                <input class="form__job-input" type="text" placeholder="Ссылка на картинку">
-                <button class="form__submit-button" type="submit" aria-label="submit">Создать</button>
-            </form>
-        </div>
-    </div>
-    <div class="popup popup-image">
-        <div class="popup__container">
-            <button class="popup__close-button" type="button" aria-label="Close" title="Закрыть">
-                <img class="popup__close-button-image" src="./images/close-icon.svg" alt="Кнопка закрыть">
-            </button>
-            <img class="popup__link" src="#" alt="Пусто">
-            <p class="popup__name"></p>
-        </div>
-    </div>
-    <template id="new-place">
+    </template>
+    <template id="form-add-place-template">
+        <form class="form-add-place" novalidate>
+            <h2 class="form-add-place__header">Новое место</h2>
+            <input
+                id="form-add-place__name-place-input"
+                class="form-add-place__name-place-input"
+                type="text"
+                placeholder="Название"
+                minlength="2"
+                maxlength="30"
+                required
+            >
+            <span class="form-add-place__name-place-input-error form-input-error"></span>
+            <input
+                id="form-add-place__link-place-input"
+                class="form-add-place__link-place-input"
+                type="url"
+                placeholder="Ссылка на картинку"
+                required
+            >
+            <span class="form-add-place__link-place-input-error form-input-error"></span>
+            <button class="form-add-place__submit-button" type="submit">Создать</button>
+        </form>
+    </template>
+    <template id="form-edit-profile-template">
+        <form class="form-edit-profile" novalidate>
+            <h2 class="form-edit-profile__header">Редактировать профиль</h2>
+            <input
+                id="form-edit-profile__name-input"
+                class="form-edit-profile__name-input"
+                type="text"
+                placeholder="Иван Иванов"
+                minlength="2"
+                maxlength="40"
+                required
+            >
+            <span class="form-edit-profile__name-input-error form-input-error"></span>
+            <input
+                id="form-edit-profile__job-input"
+                class="form-edit-profile__job-input"
+                type="text"
+                placeholder="О себе"
+                minlength="2"
+                maxlength="200"
+                required
+            >
+            <span class="form-edit-profile__job-input-error form-input-error"></span>
+            <button class="form-edit-profile__submit-button" type="submit">Сохранить</button>
+        </form>
+    </template>
+    <template id="card-template">
         <div class="card">
             <img class="card__link" src="" alt="">
             <h2 class="card__name"></h2>
-            <button class="card__heart" type="button" aria-label="heart button"></button>
-            <img class="card__trash" src="./images/trash.svg" alt="Изображение кнопки удаления">
-          </div>
+            <button class="card__heart" type="button" name="heart"></button>
+            <button class="card__trash" type="button" name="trash"></button>
+        </div>
     </template>
     <script src="./scripts/script.js"></script>
 </body>

@@ -2,16 +2,19 @@
     margin: 0;
     padding: 0;
 
-    width: 32px;
-    height: 32px;
+    width: var(--popup-close-button-width);
+    height: var(--popup-close-button-height);
 
     position: absolute;
     top: -40px;
-    right: -40px;
-
-    background-color: transparent;
+    right: var(--popup-close-button-position-right);
 
     border: none;
+
+    background-image: url(../../../images/close-icon.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: transparent;
 }
 
 .popup__close-button:hover {
@@ -19,13 +22,3 @@
 
     cursor: pointer;
 }
-
-@media (max-width: 1280px) {
-    .popup__close-button {
-        width: calc((100vw - 320px)/(1280 - 320)*(32 - 20) + 20px);
-        height: calc((100vw - 320px)/(1280 - 320)*(32 - 20) + 20px);
-
-        right: calc((100vw - 320px)/(1280 - 320)*((-40) - 0) + 0px);
-    }
-}
-

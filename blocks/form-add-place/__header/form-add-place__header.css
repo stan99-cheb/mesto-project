@@ -1,0 +1,7 @@
+.form-add-place__header {
+    margin: 0 0 var(--form-header-margin-bottom) 0;
+    padding: 0;
+
+    font-size: var(--form-header-font-size);
+    font-weight: var(--form-header-font-weight);
+}
