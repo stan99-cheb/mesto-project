@@ -5,5 +5,6 @@
 В верстке страницы используются следующие технологии:
 * html
 * css
+* js
 
 [Ссылка на мой проект](https://stan99-cheb.github.io/mesto-project/)
