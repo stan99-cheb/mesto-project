@@ -180,6 +180,10 @@ function handleClickEditButton() {
 addButton.addEventListener('click', handleClickAddButton)
 editButton.addEventListener('click', handleClickEditButton);
 
+
+
+import { enableCard } from '../module/cards.js';
+
 const initialCards = [
     {
         name: 'Владивосток',
@@ -206,44 +210,17 @@ const initialCards = [
         link: 'https://images.unsplash.com/photo-1513326738677-b964603b136d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=749&q=80'
     }
 ];
-//Функция добавления карточки
-function addCard(item) {
-    const card = document.querySelector('#card-template').content.cloneNode(true);
-    card.querySelector('.card__name').textContent = item.name;
-    card.querySelector('.card__link').src = item.link;
-    card.querySelector('.card__link').alt = 'Изображение ' + item.name;
-    //Добавляем элемент
-    cards.prepend(card);
-}
 
-initialCards.forEach(item => addCard(item));
+enableCard({
+    cardsClass: '.cards',
+    cardTemplate: '#card-template',
+    cardNameClass: '.card__name',
+    cardLinkClass: '.card__link',
+    cardHeartClass: '.card__heart',
+    cardTrashClass: '.card__trash'
+});
 
-function hundleClickCards(e) {
-    //Выбраем нужный элемент
-    const selectButton = e.target.closest('.card__link') || e.target.closest('.card__heart') || e.target.closest('.card__trash');
-    //Если нажат нужный элемент
-    if (selectButton) {
-        switch (selectButton.classList[0]) {
-            case 'card__link':
-                //Получаем копию элемента
-                const cloneSelectButton = selectButton.cloneNode(true);
-                //Удаляем ненужный селектор
-                cloneSelectButton.classList.remove('card__link');
-                //Добавляем нужный
-                cloneSelectButton.classList.add('popup__link');
-                //Передаем элемент в попап и показываем попап
-                popup_on(cloneSelectButton);
-                break;
-            case 'card__heart':
-                //Переключаем сердечко
-                selectButton.classList.toggle('card__heart_active');
-                break;
-            case 'card__trash':
-                //Удаляем карточку
-                e.target.closest('.card').remove();
-                break;
-        }
-    }
-}
+initialCards.forEach(item => enableCard.addCard(item));
+
 //Вешаем обработчик на блок
 cards.addEventListener('click', hundleClickCards);
