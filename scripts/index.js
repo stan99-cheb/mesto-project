@@ -180,10 +180,6 @@ function handleClickEditButton() {
 addButton.addEventListener('click', handleClickAddButton)
 editButton.addEventListener('click', handleClickEditButton);
 
-
-
-import { enableCard } from '../module/cards.js';
-
 const initialCards = [
     {
         name: 'Владивосток',
@@ -211,16 +207,9 @@ const initialCards = [
     }
 ];
 
-enableCard({
-    cardsClass: '.cards',
-    cardTemplate: '#card-template',
-    cardNameClass: '.card__name',
-    cardLinkClass: '.card__link',
-    cardHeartClass: '.card__heart',
-    cardTrashClass: '.card__trash'
-});
+import { addCard } from '../module/card.js';
 
-initialCards.forEach(item => enableCard.addCard(item));
+initialCards.forEach(item => addCard(item, cards));
 
 //Вешаем обработчик на блок
 cards.addEventListener('click', hundleClickCards);
