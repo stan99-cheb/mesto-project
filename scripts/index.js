@@ -209,7 +209,29 @@ const initialCards = [
 
 import { addCard } from '../module/card.js';
 
-initialCards.forEach(item => addCard(item, cards));
+initialCards.forEach(item => addCard(item));
 
+function hundleClickCards(e) {
+    //Выбраем нужный элемент
+    const selectButton = e.target.closest('.card__link') || e.target.closest('.card__heart') || e.target.closest('.card__trash');
+    //Если нажат нужный элемент
+    if (!selectButton) { return };
+
+    if (selectButton.classList.contains('card__heart'))
+        {
+            selectButton.classList.toggle('card__heart_active')
+        }
+    else if (selectButton.classList.contains('card__trash'))
+        {
+            e.target.closest('.card').remove()
+        }
+    else if (selectButton.classList.contains('card__link'))
+        {
+            const cloneSelectButton = selectButton.cloneNode(true);
+            cloneSelectButton.classList.remove('card__link');
+            cloneSelectButton.classList.add('popup__link');
+            popup_on(cloneSelectButton);
+        };
+};
 //Вешаем обработчик на блок
 cards.addEventListener('click', hundleClickCards);
