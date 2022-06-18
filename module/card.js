@@ -1,8 +1,8 @@
 
 
-const cards = document.querySelector('.cards');
+const elementCards = document.querySelector('.cards');
 
-const initCards = function () {
+(function (addCard) {   //Добавляем первоначальные карточки
     const initialCards = [
         {
             name: 'Владивосток',
@@ -30,37 +30,43 @@ const initCards = function () {
         }
     ];
 
-    initialCards.forEach(item => addCard(item));
+    initialCards.forEach(item => addCard(item)); //Добавляем карточки
+})(addCard);
+
+function addCard(item) {    //На входе объект из ссылки и названия карточки
+    const elementCard = document.querySelector('#card-template').content.cloneNode(true); //Клонируем элемент карточки из шаблона
+    const nodeCardName = elementCard.querySelector('.card__name');    //Имя карточки
+    const nodeCardLink = elementCard.querySelector('.card__link');    //Ссылка карточки
+
+    nodeCardName.textContent = item.name;           //Добавляем новой карточке имя
+    nodeCardLink.src = item.link;                   //Добавляем новой карточке ссылку 
+    nodeCardLink.alt = 'Изображение ' + item.name;  //Добавляем новой карточке атрибут Alt
+    
+    elementCards.prepend(elementCard);              //Добавляем элемент
 }
 
-function addCard(item) {
-    const card = document.querySelector('#card-template').content.cloneNode(true);
-
-    card.querySelector('.card__name').textContent = item.name;
-    card.querySelector('.card__link').src = item.link;
-    card.querySelector('.card__link').alt = 'Изображение ' + item.name;
-    //Добавляем элемент
-    cards.prepend(card);
-};
-
 function hundleClickCards(e, popup_on) {
-    //Выбраем нужный элемент
-    const selectButton = e.target.closest('.card__link') || e.target.closest('.card__heart') || e.target.closest('.card__trash');
-    //Если нажат нужный элемент
-    if (!selectButton) { return };
+    
+    const selectButton = e.target.closest('.card__link') || //Выбраем нужный элемент
+                            e.target.closest('.card__heart') ||
+                                e.target.closest('.card__trash');
+    
+    if (!selectButton) { return; }; //Если не нажат нужный элемент - выходим
 
     if (selectButton.classList.contains('card__heart')) {
-        selectButton.classList.toggle('card__heart_active')
+        selectButton.classList.toggle('card__heart_active');
     }
     else if (selectButton.classList.contains('card__trash')) {
-        e.target.closest('.card').remove()
+        e.target.closest('.card').remove();
     }
     else if (selectButton.classList.contains('card__link')) {
         const cloneSelectButton = selectButton.cloneNode(true);
+
         cloneSelectButton.classList.remove('card__link');
         cloneSelectButton.classList.add('popup__link');
+
         popup_on(cloneSelectButton);
     };
-};
+}
 
-export { initCards, addCard, hundleClickCards };
+export { addCard, hundleClickCards };

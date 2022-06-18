@@ -1,49 +1,34 @@
-const timeAnimation = parseInt((getComputedStyle(document.querySelector(':root')).getPropertyValue('--time-animation')), 10) - 15;
+import { setEscapeKeylistener, setClickAnyPlaceListener } from './utils.js'
 
-function popupHandlerKey(e) {
-    if (e.key === 'Escape') {
-        //Убираем обработчик клавиатуры
-        document.removeEventListener('keydown', popupHandlerKey);
-        popup_out();
-    };
-}
+const timeAnimation = parseInt((getComputedStyle(document.querySelector(':root')).  //Стили из Root
+                        getPropertyValue('--time-animation')), 10) - 15;            //Свойство. Тут магическое число, знаю, что нельзя.
+                                                                                    //Просто попап пропадает чуть-чуть раньше, чем успевает закончиться анимация
 
 function popup_on(element) {
-    //Клонируем попап из шаблона
-    const popupCopy = document.querySelector('#popup-template').content.cloneNode(true);
+    const popupElement = document.querySelector('#popup-template').content.cloneNode(true);    //Клонируем попап из шаблона
+    const popupCloseButton = popupElement.querySelector('.popup__close-button');
 
-    //добавляем в попап элемент
-    popupCopy.querySelector('.popup__container').append(element);
-    //Подмешиваем селектор плавного появления окна
-    popupCopy.querySelector('.popup').classList.add('popup_fade-in');
-    //показываем попап на экране
-    document.body.append(popupCopy);
+    popupElement.querySelector('.popup__container').append(element);        //добавляем в попап элемент
+    
+    popupElement.querySelector('.popup').classList.add('popup_fade-in');    //Подмешиваем селектор плавного появления окна
+    
+    document.body.append(popupElement);     //показываем попап на экране
 
-    document.querySelector('.popup__close-button').addEventListener('click', popup_out, { once: true });
+    popupCloseButton.addEventListener('click', popup_out, { once: true });  //Добавляем обработчик, срабатывает только 1 раз
 
-    const clickAnyPlace = document.querySelector('.popup');
+    setEscapeKeylistener();
 
-    function handleClickAnyPlace(e) {
-        if (e.target.classList.contains('popup')) {
-            clickAnyPlace.removeEventListener('click', handleClickAnyPlace);
-            popup_out();
-        }
-    };
-
-    clickAnyPlace.addEventListener('click', handleClickAnyPlace);
-
-    //Добавляем слушатель событий клавиатуры
-    document.addEventListener('keydown', popupHandlerKey);
+    setClickAnyPlaceListener();
 }
 
 function popup_out() {
     const popup = document.querySelector('.popup');
-    //Удаляем селектор плавного открытия
-    popup.classList.remove('popup_fade-in');
-    //Подмешиваем селектор плавного закрытия
-    popup.classList.add('popup_fade-out');
-    //Ждем окончания анимации
-    setTimeout(() => { popup.remove() }, timeAnimation);
+    
+    popup.classList.remove('popup_fade-in');    //Удаляем селектор плавного открытия
+    
+    popup.classList.add('popup_fade-out');      //Подмешиваем селектор плавного закрытия
+    
+    setTimeout(() => { popup.remove() }, timeAnimation);    //Ждем окончания анимации
 };
 
 export { popup_on, popup_out };

@@ -1,9 +1,9 @@
 'use strict'
 
-import { initCards, addCard, hundleClickCards } from '../module/card.js';
+import { hundleClickCards } from '../module/card.js';
 import { popup_on, popup_out } from '../module/popup.js'
 import { enableValidation } from '../module/validate.js'
-import { } from '../module/utils.js'
+import { getDataProfile, setDataProfile, getNewCard } from '../module/utils.js'
 
 (function () {
     const addButton = document.querySelector('.profile__add-button');
@@ -15,7 +15,7 @@ import { } from '../module/utils.js'
 
         const form = document.querySelector('.form-add-place');
 
-        enableValidation(form, popup_out);
+        enableValidation(form, popup_out, getNewCard);
     };
 
     addButton.addEventListener('click', handleClickAddButton)
@@ -25,16 +25,15 @@ import { } from '../module/utils.js'
     const editButton = document.querySelector('.profile__edit-button');
 
     function handleClickEditButton() {
-        const elementEditPlace = document.querySelector('#form-edit-profile-template').content.cloneNode(true);
+        const elementEditProfile = document.querySelector('#form-edit-profile-template').content.cloneNode(true);
 
-        elementEditPlace.querySelector('.form-edit-profile__name-input').value = document.querySelector('.profile__title').textContent;
-        elementEditPlace.querySelector('.form-edit-profile__job-input').value = document.querySelector('.profile__subtitle').textContent;
+        getDataProfile(elementEditProfile);   //Получение текущих значений из профиля
+        
+        popup_on(elementEditProfile);         //Открываем попап
 
-        popup_on(elementEditPlace);
+        const form = document.querySelector('.form-edit-profile'); //Получаем элемент формы
 
-        const form = document.querySelector('.form-edit-profile');
-
-        enableValidation(form, popup_out);
+        enableValidation(form, popup_out, setDataProfile);  //Добавляем валидацию полей
     }
 
     editButton.addEventListener('click', handleClickEditButton);
@@ -42,8 +41,8 @@ import { } from '../module/utils.js'
 
 (function () {
     const cards = document.querySelector('.cards');
-
-    initCards();    //Первоначальная инициализация карточек
     
-    cards.addEventListener('click', (e) => { hundleClickCards(e, popup_on) });  //Вешаем обработчик на блок
+    cards.addEventListener('click', (e) => {    //Вешаем обработчик на блок
+        hundleClickCards(e, popup_on)           //Передаем в обработчик функцию открытия попапа
+    });
 })();
