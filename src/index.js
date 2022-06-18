@@ -1,9 +1,11 @@
 'use strict'
 
-import { hundleClickCards } from '../module/card.js';
-import { popup_on, popup_out } from '../module/popup.js'
-import { enableValidation } from '../module/validate.js'
-import { getDataProfile, setDataProfile, getNewCard } from '../module/utils.js'
+import { hundleClickCards } from './components/card.js';
+import { popup_on, popup_out } from './components/popup.js'
+import { enableValidation } from './components/validate.js'
+import { getDataProfile, setDataProfile, getNewCard } from './components/utils.js'
+
+import './pages/index.css';
 
 (function () {
     const addButton = document.querySelector('.profile__add-button');
@@ -46,3 +48,12 @@ import { getDataProfile, setDataProfile, getNewCard } from '../module/utils.js'
         hundleClickCards(e, popup_on)           //Передаем в обработчик функцию открытия попапа
     });
 })();
+
+console.log('Hello, World!');
+
+const numbers = [2, 3, 5];
+
+// Стрелочная функция. Не запнётся ли на ней Internet Explorer?
+const doubledNumbers = numbers.map(number => number * 2);
+
+console.log(doubledNumbers); // 4, 6, 10 
