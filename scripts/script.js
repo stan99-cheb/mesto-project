@@ -1,3 +1,9 @@
+
+
+import { } from '../components/cards.js';
+import { } from '../components/validate.js';
+import { } from '../components/popup.js';
+
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 //Находим попап в DOM
@@ -27,55 +33,27 @@ const popupImage = document.querySelector('.popup-image');
 //Находим кнопку в DOM
 const imagePopupCloseButton = popupImage.querySelector('.popup__close-button');
 
-const cardsElement = document.querySelector('.cards'),
-      initialCards = [
-        {
-          name: 'Архыз',
-          link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-        },
-        {
-          name: 'Челябинская область',
-          link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-        },
-        {
-          name: 'Иваново',
-          link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-        },
-        {
-          name: 'Камчатка',
-          link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-        },
-        {
-          name: 'Холмогорский район',
-          link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-        },
-        {
-          name: 'Байкал',
-          link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-        }
-      ];
-
 const newCard = {};
 
-      
+
 //Я не понимаю, что не так? Я не понимаю Вашего замечания. Может можно как-то визуализировать?
 nameInput.value = profileTitle.textContent;
 jobInput.value = profileSubtitle.textContent;
 // Обработчик «отправки» формы, хотя пока она никуда отправляться не будет
-function handleProfileFormSubmit (evt) {
-  evt.preventDefault(); 
-  // Получите значение полей jobInput и nameInput из свойства value
-  // Выберите элементы, куда должны быть вставлены значения полей
-  // Вставьте новые значения с помощью textContent
-  profileTitle.textContent = nameInput.value;
-  profileSubtitle.textContent = jobInput.value;
-  closePopup(popupProfile);
+function handleProfileFormSubmit(evt) {
+    evt.preventDefault();
+    // Получите значение полей jobInput и nameInput из свойства value
+    // Выберите элементы, куда должны быть вставлены значения полей
+    // Вставьте новые значения с помощью textContent
+    profileTitle.textContent = nameInput.value;
+    profileSubtitle.textContent = jobInput.value;
+    closePopup(popupProfile);
 }
 // Прикрепляем обработчик к форме:
 formProfile.addEventListener('submit', handleProfileFormSubmit);
 //Обработчки кнопки редактирования профиля
 function openProfilePopup() {
-  openPopup(popupProfile);
+    openPopup(popupProfile);
 }
 // Прикрепляем обработчик к кнопке:
 editProfileButton.addEventListener('click', openProfilePopup);
@@ -84,23 +62,23 @@ editProfileButton.addEventListener('click', openProfilePopup);
 closeAddButton.addEventListener('click', () => closePopup(popupProfile));
 
 // Обработчик сохранения новой карточки
-function handleCardFormSubmit (evt) {
-  evt.preventDefault(); 
-  // Получите значение полей jobInput и nameInput из свойства value
-  // Выберите элементы, куда должны быть вставлены значения полей
-  newCard.name = nameCardInput.value;
-  newCard.link = linkCardInput.value;
-  //Очищаем инпуты
-  formCard.reset();
-  addCard(newCard);
-  closePopup(popupCard);
+function handleCardFormSubmit(evt) {
+    evt.preventDefault();
+    // Получите значение полей jobInput и nameInput из свойства value
+    // Выберите элементы, куда должны быть вставлены значения полей
+    newCard.name = nameCardInput.value;
+    newCard.link = linkCardInput.value;
+    //Очищаем инпуты
+    formCard.reset();
+    addCard(newCard);
+    closePopup(popupCard);
 }
 // Прикрепляем обработчик к форме:
 formCard.addEventListener('submit', handleCardFormSubmit);
 
 //Обработчки кнопки редактирования профиля
 function openCardPopup() {
-  openPopup(popupCard);
+    openPopup(popupCard);
 }
 // Прикрепляем обработчик к кнопке:
 addCardButton.addEventListener('click', openCardPopup);
@@ -110,67 +88,3 @@ closeProfileButton.addEventListener('click', () => closePopup(popupCard));
 
 // Прикрепляем обработчик к кнопке:
 imagePopupCloseButton.addEventListener('click', () => closePopup(popupImage));
-
-function openPopup(activePopup) {
-  activePopup.classList.toggle('popup_active');
-}
-
-function closePopup(activePopup) {
-  activePopup.classList.toggle('popup_active');
-}
-
-//Функция создания карточки
-function createCard(item) {
-  //Я не смог вытащить эти константы наверх. Может есть какая-то хитрость?
-  //Или возвращаемое значение функции не может быть в глобальной константе?
-  //Получаем форму из шаблона
-  const cardTemplate = document.querySelector('#new-place');
-  //Клонируем карточку из шаблона
-  const card = cardTemplate.content.cloneNode(true);
-  //Получаем изображение карточки
-  const imageCard = card.querySelector('.card__link');
-  const nameCard = card.querySelector('.card__name');
-  const heartCard = card.querySelector('.card__heart');
-  const trashCard = card.querySelector('.card__trash');
-  //Заполняем карточку
-  nameCard.textContent = item.name;
-  imageCard.src = item.link;
-  imageCard.alt = item.name;
-  //Вешаем обработчик на изображение
-  imageCard.addEventListener('click', () => openImagePopup(item));
-  //Вешаем обработчик на сердечко
-  heartCard.addEventListener('click', likeCard);
-  //Вешаем обработчик на корзину
-  trashCard.addEventListener('click', deleteCard);
-return card
-}
-//Функция добавления карточки
-function addCard(item) {
-  const cardElement = createCard(item);
-  //Добавляем элемент
-  cardsElement.prepend(cardElement);
-}
-
-//Каждый элемента массива передаем в функцию
-initialCards.forEach(addCard);
-
-function openImagePopup(item) {
-  const popupLink = popupImage.querySelector('.popup__link');
-  const popupName = popupImage.querySelector('.popup__name');
-
-  popupLink.src = item.link;
-  popupLink.alt = item.name;
-  popupName.textContent = item.name;
-
-  openPopup(popupImage);
-}
-
-function likeCard(e) {
-  //Переключаем сердечко
-  e.target.classList.toggle('card__heart_active');
-}
-
-function deleteCard(e) {
-  //Удаляем карточку
-  e.target.closest('.card').remove();
-}
