@@ -2,7 +2,8 @@
 
 import { } from '../components/cards.js';
 import { } from '../components/validate.js';
-import { } from '../components/popup.js';
+import { openPopup, closePopup } from '../components/popup.js';
+import { } from '../components/utils.js';
 
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');

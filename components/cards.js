@@ -1,4 +1,4 @@
-
+import { openImagePopup } from './popup.js';
 
 const cardsElement = document.querySelector('.cards');
 

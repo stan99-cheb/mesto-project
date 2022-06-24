@@ -1,4 +1,5 @@
-
+//Находим попап в DOM
+const popupImage = document.querySelector('.popup-image');
 
 function openPopup(activePopup) {
     activePopup.classList.toggle('popup_active');
@@ -18,3 +19,5 @@ function openImagePopup(item) {
 
     openPopup(popupImage);
 }
+
+export { openPopup, closePopup, openImagePopup }
