@@ -36,8 +36,6 @@ const imagePopupCloseButton = popupImage.querySelector('.popup__close-button');
 
 const newCard = {};
 
-
-//Я не понимаю, что не так? Я не понимаю Вашего замечания. Может можно как-то визуализировать?
 nameInput.value = profileTitle.textContent;
 jobInput.value = profileSubtitle.textContent;
 // Обработчик «отправки» формы, хотя пока она никуда отправляться не будет
