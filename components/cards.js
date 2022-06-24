@@ -2,37 +2,34 @@ import { openImagePopup } from './popup.js';
 
 const cardsElement = document.querySelector('.cards');
 
-(() => {
-    
-    const initialCards = [
-        {
-            name: 'Архыз',
-            link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-        },
-        {
-            name: 'Челябинская область',
-            link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-        },
-        {
-            name: 'Иваново',
-            link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-        },
-        {
-            name: 'Камчатка',
-            link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-        },
-        {
-            name: 'Холмогорский район',
-            link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-        },
-        {
-            name: 'Байкал',
-            link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-        }
-    ];
-    
-    initialCards.forEach(addCard);
-})();
+const initialCards = [
+    {
+        name: 'Архыз',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    },
+    {
+        name: 'Челябинская область',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    },
+    {
+        name: 'Иваново',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    },
+    {
+        name: 'Камчатка',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    },
+    {
+        name: 'Холмогорский район',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    },
+    {
+        name: 'Байкал',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    }
+];
+
+initialCards.forEach(addCard);
 
 //Функция добавления карточки
 function addCard(item) {
@@ -43,8 +40,6 @@ function addCard(item) {
 
 //Функция создания карточки
 function createCard(item) {
-    //Я не смог вытащить эти константы наверх. Может есть какая-то хитрость?
-    //Или возвращаемое значение функции не может быть в глобальной константе?
     //Получаем форму из шаблона
     const cardTemplate = document.querySelector('#new-place');
     //Клонируем карточку из шаблона
@@ -64,6 +59,7 @@ function createCard(item) {
     heartCard.addEventListener('click', likeCard);
     //Вешаем обработчик на корзину
     trashCard.addEventListener('click', deleteCard);
+    
     return card
 }
 
@@ -76,3 +72,5 @@ function deleteCard(e) {
     //Удаляем карточку
     e.target.closest('.card').remove();
 }
+
+export { addCard }
