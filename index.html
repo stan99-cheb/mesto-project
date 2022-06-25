@@ -42,21 +42,25 @@
             <form class="form form-edit-profile" novalidate>
                 <h2 class="form-edit-profile__header">Редактировать профиль</h2>
                 <input
-                    class="form-edit-profile__name-input"
+                    id="profile-name-input"
+                    class="form__input form-edit-profile__name-input"
                     type="text"
                     placeholder="Иван Иванов"
                     minlength="2"
                     maxlength="30"
                     required
                 >
+                <span class="profile-name-input-error"></span>
                 <input
-                    class="form-edit-profile__job-input"
+                    id="profile-job-input"
+                    class="form__input form-edit-profile__job-input"
                     type="text"
                     placeholder="О себе"
                     minlength="2"
                     maxlength="30"
                     required
                 >
+                <span class="profile-job-input-error"></span>
                 <button class="form-edit-profile__submit-button" type="submit" aria-label="submit">Сохранить</button>
             </form>
         </div>
@@ -69,21 +73,25 @@
             <form class="form form-add-card" novalidate>
                 <h2 class="form-add-card__header">Новое место</h2>
                 <input
-                    class="form-add-card__name-input"
+                    id="profile-name-input"
+                    class="form__input form-add-card__name-input"
                     type="text"
                     placeholder="Название"
                     minlength="2"
                     maxlength="30"
                     required
                 >
+                <span class="profile-name-input-error"></span>
                 <input
-                    class="form-add-card__link-input"
-                    type="text"
+                    id="profile-link-input"
+                    class="form__input form-add-card__link-input"
+                    type="url"
                     placeholder="Ссылка на картинку"
                     minlength="2"
                     maxlength="30"
                     required
                 >
+                <span class="profile-link-input-error"></span>
                 <button class="form-add-card__submit-button" type="submit" aria-label="submit">Создать</button>
             </form>
         </div>

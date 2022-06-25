@@ -1,5 +1,5 @@
 import { addCard } from '../components/cards.js';
-import { } from '../components/validate.js';
+import { enableValidation } from '../components/validate.js';
 import { openPopup, closePopup } from '../components/popup.js';
 import { } from '../components/utils.js';
 
@@ -29,12 +29,14 @@ import { } from '../components/utils.js';
     formProfile.addEventListener('submit', handleProfileFormSubmit);
     //Обработчки кнопки редактирования профиля
     function openProfilePopup() {
+        // Прикрепляем обработчик к кнопке:
+        closeProfileButton.addEventListener('click', () => closePopup(popupProfile));
+
+
         openPopup(popupProfile);
     }
     // Прикрепляем обработчик к кнопке:
     editProfileButton.addEventListener('click', openProfilePopup);
-    // Прикрепляем обработчик к кнопке:
-    closeProfileButton.addEventListener('click', () => closePopup(popupProfile));
 })();
 
 
@@ -80,3 +82,6 @@ import { } from '../components/utils.js';
     // Прикрепляем обработчик к кнопке:
     imagePopupCloseButton.addEventListener('click', () => closePopup(popupImage));
 })();
+
+// Вызовем функцию
+enableValidation();

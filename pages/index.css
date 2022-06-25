@@ -38,6 +38,8 @@
 @import url(../blocks/popup/__name/popup__name.css);
 
 @import url(../blocks/form/form.css);
+@import url(../blocks/form/__input_type_error/form__input_type_error.css);
+@import url(../blocks/form/profile-name-input/profile-name-input.css);
 
 @import url(../blocks/form-edit-profile/form-edit-profile.css);
 @import url(../blocks/form-edit-profile/__header/form-edit-profile__header.css);
