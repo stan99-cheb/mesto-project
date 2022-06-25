@@ -1,0 +1,6 @@
+.form-add-card__header {
+    margin: 0 0 calc((100vw - 320px)/(1280 - 320)*(54 - 75) + 75px) 0;
+
+    font-weight: 900;
+    font-size: calc((100vw - 320px)/(1280 - 320)*(24 - 18) + 18px);
+}

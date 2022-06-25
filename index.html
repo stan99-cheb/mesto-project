@@ -32,17 +32,17 @@
         </section>
     </main>
     <footer class="footer">
-        <p class="footer__text">&copy; 2020 Mesto Russia</p>
+        <p class="footer__text">&copy; 2022 Mesto Russia</p>
     </footer>
     <div class="popup popup-profile">
         <div class="popup__container">
             <button class="popup__close-button" type="button" aria-label="Close" title="Закрыть">
                 <img class="popup__close-button-image" src="./images/close-icon.svg" alt="Кнопка закрыть">
             </button>
-            <form class="form" novalidate>
-                <h2 class="form__header">Редактировать профиль</h2>
+            <form class="form form-edit-profile" novalidate>
+                <h2 class="form-edit-profile__header">Редактировать профиль</h2>
                 <input
-                    class="form__name-input"
+                    class="form-edit-profile__name-input"
                     type="text"
                     placeholder="Иван Иванов"
                     minlength="2"
@@ -50,14 +50,14 @@
                     required
                 >
                 <input
-                    class="form__job-input"
+                    class="form-edit-profile__job-input"
                     type="text"
                     placeholder="О себе"
                     minlength="2"
                     maxlength="30"
                     required
                 >
-                <button class="form__submit-button" type="submit" aria-label="submit">Сохранить</button>
+                <button class="form-edit-profile__submit-button" type="submit" aria-label="submit">Сохранить</button>
             </form>
         </div>
     </div>
@@ -66,10 +66,10 @@
             <button class="popup__close-button" type="button" aria-label="Close" title="Закрыть">
                 <img class="popup__close-button-image" src="./images/close-icon.svg" alt="Кнопка закрыть">
             </button>
-            <form class="form" novalidate>
-                <h2 class="form__header">Новое место</h2>
+            <form class="form form-add-card" novalidate>
+                <h2 class="form-add-card__header">Новое место</h2>
                 <input
-                    class="form__name-input"
+                    class="form-add-card__name-input"
                     type="text"
                     placeholder="Название"
                     minlength="2"
@@ -77,14 +77,14 @@
                     required
                 >
                 <input
-                    class="form__job-input"
+                    class="form-add-card__link-input"
                     type="text"
                     placeholder="Ссылка на картинку"
                     minlength="2"
                     maxlength="30"
                     required
                 >
-                <button class="form__submit-button" type="submit" aria-label="submit">Создать</button>
+                <button class="form-add-card__submit-button" type="submit" aria-label="submit">Создать</button>
             </form>
         </div>
     </div>

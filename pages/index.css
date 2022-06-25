@@ -38,7 +38,15 @@
 @import url(../blocks/popup/__name/popup__name.css);
 
 @import url(../blocks/form/form.css);
-@import url(../blocks/form/__header/form__header.css);
-@import url(../blocks/form/__name-input/form__name-input.css);
-@import url(../blocks/form/__job-input/form__job-input.css);
-@import url(../blocks/form/__submit-button/form__submit-button.css);
+
+@import url(../blocks/form-edit-profile/form-edit-profile.css);
+@import url(../blocks/form-edit-profile/__header/form-edit-profile__header.css);
+@import url(../blocks/form-edit-profile/__job-input/form-edit-profile__job-input.css);
+@import url(../blocks/form-edit-profile/__name-input/form-edit-profile__name-input.css);
+@import url(../blocks/form-edit-profile/__submit-button/form-edit-profile__submit-button.css);
+
+@import url(../blocks/form-add-card/form-add-card.css);
+@import url(../blocks/form-add-card/__header/form-add-card__header.css);
+@import url(../blocks/form-add-card/__name-input/form-add-card__name-input.css);
+@import url(../blocks/form-add-card/__link-input/form-add-card__link-input.css);
+@import url(../blocks/form-add-card/__submit-button/form-add-card__submit-button.css);

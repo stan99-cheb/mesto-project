@@ -5,9 +5,9 @@ import { } from '../components/utils.js';
 
 (function () {
     const popupProfile = document.querySelector('.popup-profile');
-    const formProfile = popupProfile.querySelector('.form');
-    const nameInput = formProfile.querySelector('.form__name-input');
-    const jobInput = formProfile.querySelector('.form__job-input');
+    const formProfile = popupProfile.querySelector('.form-edit-profile');
+    const nameInput = formProfile.querySelector('.form-edit-profile__name-input');
+    const jobInput = formProfile.querySelector('.form-edit-profile__job-input');
     const profileTitle = document.querySelector('.profile__title');
     const profileSubtitle = document.querySelector('.profile__subtitle');
     const editProfileButton = document.querySelector('.profile__edit-button');
@@ -40,12 +40,12 @@ import { } from '../components/utils.js';
 
 (function () {
     const popupCard = document.querySelector('.popup-card');
-    const formCard = popupCard.querySelector('.form');
+    const formCard = popupCard.querySelector('.form-add-card');
     const addCardButton = document.querySelector('.profile__add-button');
     const closeAddButton = popupCard.querySelector('.popup__close-button');
     const newCard = {};
-    const nameCardInput = formCard.querySelector('.form__name-input');
-    const linkCardInput = formCard.querySelector('.form__job-input');
+    const nameCardInput = formCard.querySelector('.form-add-card__name-input');
+    const linkCardInput = formCard.querySelector('.form-add-card__link-input');
 
     // Обработчик сохранения новой карточки
     function handleCardFormSubmit(evt) {

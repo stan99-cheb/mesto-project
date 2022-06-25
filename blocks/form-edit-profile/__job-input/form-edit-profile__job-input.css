@@ -1,0 +1,17 @@
+.form-edit-profile__job-input {
+    margin: 0 0 48px 0;
+    padding: 0;
+
+    width: 100%;
+
+    font-size: 14px;
+
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+    color: #000;
+}
+
+.form-edit-profile__job-input:focus {
+    outline: none;
+}

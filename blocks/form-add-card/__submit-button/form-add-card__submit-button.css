@@ -1,0 +1,22 @@
+.form-add-card__submit-button {
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+
+    font-size: calc((100vw - 320px)/(1280 - 320)*(18 - 14) + 14px);
+    line-height: calc((100vw - 320px)/(1280 - 320)*(50 - 46) + 46px);
+
+    text-align: center;
+
+    color: #FFFFFF;
+
+    background-color: #000000;
+
+    border: none;
+}
+
+.form__submit-button:hover {
+    opacity: .8;
+    cursor: pointer;
+}
