@@ -33,22 +33,20 @@
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__close-button/popup__close-button.css);
 @import url(../blocks/popup/__close-button-image/popup__close-button-image.css);
-@import url(../blocks/popup/__link/popup__link.css);
 @import url(../blocks/popup/_active/popup_active.css);
-@import url(../blocks/popup/__name/popup__name.css);
 
 @import url(../blocks/form/form.css);
-@import url(../blocks/form/__input_type_error/form__input_type_error.css);
-@import url(../blocks/form/profile-name-input/profile-name-input.css);
+@import url(../blocks/form/__header/form__header.css);
+@import url(../blocks/form/__input/form__input.css);
+@import url(../blocks/form/__input-error/form__input-error.css);
+@import url(../blocks/form/__submit-button/form__submit-button.css);
 
-@import url(../blocks/form-edit-profile/form-edit-profile.css);
+/* @import url(../blocks/form-edit-profile/form-edit-profile.css);
 @import url(../blocks/form-edit-profile/__header/form-edit-profile__header.css);
 @import url(../blocks/form-edit-profile/__job-input/form-edit-profile__job-input.css);
 @import url(../blocks/form-edit-profile/__name-input/form-edit-profile__name-input.css);
-@import url(../blocks/form-edit-profile/__submit-button/form-edit-profile__submit-button.css);
+@import url(../blocks/form-edit-profile/__submit-button/form-edit-profile__submit-button.css); */
 
-@import url(../blocks/form-add-card/form-add-card.css);
-@import url(../blocks/form-add-card/__header/form-add-card__header.css);
+@import url(../blocks/form-card/);
 @import url(../blocks/form-add-card/__name-input/form-add-card__name-input.css);
 @import url(../blocks/form-add-card/__link-input/form-add-card__link-input.css);
-@import url(../blocks/form-add-card/__submit-button/form-add-card__submit-button.css);
