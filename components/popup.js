@@ -10,8 +10,8 @@ function closePopup(activePopup) {
 }
 
 function openImagePopup(item) {
-    const popupLink = popupImage.querySelector('.popup__link');
-    const popupName = popupImage.querySelector('.popup__name');
+    const popupLink = popupImage.querySelector('.popup-image__link');
+    const popupName = popupImage.querySelector('.popup-image__name');
 
     popupLink.src = item.link;
     popupLink.alt = item.name;
