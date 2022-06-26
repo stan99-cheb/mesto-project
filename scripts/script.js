@@ -15,10 +15,10 @@ import { } from '../components/utils.js';
 
     nameInput.value = profileTitle.textContent;
     jobInput.value = profileSubtitle.textContent;
-    
+
     function handleProfileFormSubmit(evt) {
         evt.preventDefault();
-        
+
         profileTitle.textContent = nameInput.value;
         profileSubtitle.textContent = jobInput.value;
         closePopup(popupProfile);
@@ -48,7 +48,7 @@ import { } from '../components/utils.js';
 
         newCard.name = nameCardInput.value;
         newCard.link = linkCardInput.value;
-        
+
         formCard.reset();
         addCard(newCard);
         closePopup(popupCard);
@@ -73,4 +73,10 @@ import { } from '../components/utils.js';
 })();
 
 // Вызовем функцию
-enableValidation();
+enableValidation({
+    formSelector: '.form',
+    inputSelector: '.form__input',
+    submitButtonSelector: '.form__submit-button',
+    inactiveButtonClass: 'form__submit-button_inactive',
+    inputErrorClass: 'form__input_type_error'
+});
