@@ -1,8 +1,0 @@
-.header__logo {
-    display: block;
-    margin-bottom: var(--header-logo-margin-bottom);
-    padding-top: var(--header-logo-padding-top);
-    padding-left: var(--header-logo-padding-left);
-
-    width: var(--header-logo-width);
-}

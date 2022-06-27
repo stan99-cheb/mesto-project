@@ -1,9 +1,0 @@
-.cards {
-    margin: 0 auto var(--cards-margin-bottom);
-    padding: 0 var(--cards-padding-left-right);
-
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
-    grid-auto-rows: auto;
-    gap: 16px 16px;
-}

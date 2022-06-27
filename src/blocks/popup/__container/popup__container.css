@@ -1,6 +1,0 @@
-.popup__container {
-    margin: 0;
-    padding: 0;
-    /*Для кнопки "закрыть" задаем позиционирование*/
-    position: relative;
-}

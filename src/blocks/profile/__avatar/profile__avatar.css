@@ -1,6 +1,0 @@
-.profile__avatar {
-    width: var(--profile-avatar-width);
-    height: var(--profile-avatar-heght);
-
-    border-radius: var(--profile-avatar-border-radius);
-}
