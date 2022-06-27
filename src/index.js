@@ -1,7 +1,9 @@
-import { addCard } from '../components/cards.js';
-import { enableValidation } from '../components/validate.js';
-import { openPopup, closePopup } from '../components/popup.js';
-import { } from '../components/utils.js';
+import './pages/index.css'
+
+import { addCard } from './components/cards.js';
+import { enableValidation } from './components/validate.js';
+import { openPopup, closePopup } from './components/popup.js';
+import { } from './components/utils.js';
 
 (function () {
     const editProfileButton = document.querySelector('.profile__edit-button');
