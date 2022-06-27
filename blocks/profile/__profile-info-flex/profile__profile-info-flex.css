@@ -1,0 +1,14 @@
+.profile__profile-info-flex {
+    margin: 0 0 15px 0;
+    padding: 0;
+
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 18px;
+}
+
+@media (max-width: 560px) {
+    .profile__profile-info-flex {
+        justify-content: center;
+    }
+}

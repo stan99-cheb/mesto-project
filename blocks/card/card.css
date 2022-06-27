@@ -1,0 +1,18 @@
+.card {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+    background-color: #FFFFFF;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    display: grid;
+    grid-template-areas:
+        "A A A A A A A A"
+        "B B B B B B B C";
+
+    position: relative;
+}
