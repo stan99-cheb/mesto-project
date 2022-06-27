@@ -72,7 +72,6 @@ import { } from '../components/utils.js';
     imagePopupCloseButton.addEventListener('click', () => closePopup(popupImage));
 })();
 
-// Вызовем функцию
 enableValidation({
     formSelector: '.form',
     inputSelector: '.form__input',
