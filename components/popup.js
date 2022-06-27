@@ -2,6 +2,15 @@
 const popupImage = document.querySelector('.popup-image');
 
 function openPopup(activePopup) {
+    const keyEscape = (evt) => {
+        if (evt.key === 'Escape') {
+            document.removeEventListener('keydown', keyEscape);
+            closePopup(activePopup);
+        };
+    };
+
+    document.addEventListener('keydown', keyEscape);
+
     activePopup.classList.toggle('popup_active');
 }
 
