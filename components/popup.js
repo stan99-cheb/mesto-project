@@ -11,6 +11,16 @@ function openPopup(activePopup) {
 
     document.addEventListener('keydown', keyEscape);
 
+    const anyClick = (evt) => {
+        console.log(evt.target);
+        if (evt.target.classList.contains('popup')) {
+            closePopup(activePopup);
+            activePopup.removeEventListener('click', anyClick);
+        }
+    }
+
+    activePopup.addEventListener('click', anyClick);
+
     activePopup.classList.toggle('popup_active');
 }
 
