@@ -1,7 +1,5 @@
-const popupImage = document.querySelector('.popup-image');
 const popups = document.querySelectorAll('.popup')
-const popupLink = popupImage.querySelector('.popup-image__link');
-const popupName = popupImage.querySelector('.popup-image__name');
+
 
 popups.forEach((popup) => {
     popup.addEventListener('mousedown', (evt) => {
@@ -33,12 +31,4 @@ function closePopup(activePopup) {
     activePopup.classList.remove('popup_active');
 };
 
-function openImagePopup(item) {
-    popupLink.src = item.link;
-    popupLink.alt = item.name;
-    popupName.textContent = item.name;
-
-    openPopup(popupImage);
-};
-
-export { openPopup, closePopup, openImagePopup };
+export { openPopup, closePopup };
