@@ -32,7 +32,6 @@ import { } from './components/utils.js';
         openPopup(popupProfile);
     }
 
-    closeButtonPopup.addEventListener('click', () => closePopup(popupProfile));
     editProfileButton.addEventListener('click', openProfilePopup);
 })();
 
@@ -62,16 +61,13 @@ import { } from './components/utils.js';
         openPopup(popupCard);
     }
 
-    closeButtonPopup.addEventListener('click', () => closePopup(popupCard));
     addCardButton.addEventListener('click', openCardPopup);
 })();
 
 
 (function () {
     const popupImage = document.querySelector('.popup-image');
-    const imagePopupCloseButton = popupImage.querySelector('.popup__close-button');
-
-    imagePopupCloseButton.addEventListener('click', () => closePopup(popupImage));
+    
 })();
 
 // Вызовем функцию

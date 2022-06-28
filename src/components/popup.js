@@ -1,4 +1,13 @@
-//Находим попап в DOM
+const popups = document.querySelectorAll('.popup')
+
+popups.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+        if (evt.target.classList.contains('popup__close-button')) {
+            closePopup(popup)
+        }
+    })
+});
+
 const popupImage = document.querySelector('.popup-image');
 
 function openPopup(activePopup) {
@@ -11,22 +20,21 @@ function openPopup(activePopup) {
 
     document.addEventListener('keydown', keyEscape);
 
-    const anyClick = (evt) => {
-        console.log(evt.target);
-        if (evt.target.classList.contains('popup')) {
-            closePopup(activePopup);
-            activePopup.removeEventListener('click', anyClick);
-        }
-    }
+    // const anyClick = (evt) => {
+    //     if (evt.target.classList.contains('popup')) {
+    //         closePopup(activePopup);
+    //         activePopup.removeEventListener('click', anyClick);
+    //     }
+    // }
 
-    activePopup.addEventListener('click', anyClick);
+    // activePopup.addEventListener('click', anyClick);
 
-    activePopup.classList.toggle('popup_active');
-}
+    activePopup.classList.add('popup_active');
+};
 
 function closePopup(activePopup) {
-    activePopup.classList.toggle('popup_active');
-}
+    activePopup.classList.remove('popup_active');
+};
 
 function openImagePopup(item) {
     const popupLink = popupImage.querySelector('.popup-image__link');
@@ -37,6 +45,6 @@ function openImagePopup(item) {
     popupName.textContent = item.name;
 
     openPopup(popupImage);
-}
+};
 
-export { openPopup, closePopup, openImagePopup }
+export { openPopup, closePopup, openImagePopup };
