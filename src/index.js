@@ -9,7 +9,6 @@ import { } from './components/utils.js';
     const editProfileButton = document.querySelector('.profile__edit-button');
     const popupProfile = document.querySelector('.popup-profile');
     const formProfile = popupProfile.querySelector('.form-profile');
-    const closeButtonPopup = popupProfile.querySelector('.popup__close-button');
     const nameInput = formProfile.querySelector('.form-profile__name');
     const jobInput = formProfile.querySelector('.form-profile__job');
     const profileTitle = document.querySelector('.profile__title');
@@ -20,6 +19,8 @@ import { } from './components/utils.js';
 
         profileTitle.textContent = nameInput.value;
         profileSubtitle.textContent = jobInput.value;
+        
+        formProfile.reset();
         closePopup(popupProfile);
     }
 
@@ -39,7 +40,6 @@ import { } from './components/utils.js';
     const addCardButton = document.querySelector('.profile__add-button');
     const popupCard = document.querySelector('.popup-card');
     const formCard = popupCard.querySelector('.form-card');
-    const closeButtonPopup = popupCard.querySelector('.popup__close-button');
     const nameCardInput = formCard.querySelector('.form-card__name');
     const linkCardInput = formCard.querySelector('.form-card__link');
     const newCard = {};

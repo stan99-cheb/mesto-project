@@ -1,6 +1,7 @@
 import { openImagePopup } from './popup.js';
 
 const cardsElement = document.querySelector('.cards');
+const cardTemplate = document.querySelector('#new-place');
 
 const initialCards = [
     {
@@ -40,24 +41,20 @@ function addCard(item) {
 
 //Функция создания карточки
 function createCard(item) {
-    //Получаем форму из шаблона
-    const cardTemplate = document.querySelector('#new-place');
-    //Клонируем карточку из шаблона
     const card = cardTemplate.content.cloneNode(true);
-    //Получаем изображение карточки
     const imageCard = card.querySelector('.card__link');
     const nameCard = card.querySelector('.card__name');
     const heartCard = card.querySelector('.card__heart');
     const trashCard = card.querySelector('.card__trash');
-    //Заполняем карточку
+    
     nameCard.textContent = item.name;
     imageCard.src = item.link;
     imageCard.alt = item.name;
-    //Вешаем обработчик на изображение
+    
     imageCard.addEventListener('click', () => openImagePopup(item));
-    //Вешаем обработчик на сердечко
+    
     heartCard.addEventListener('click', likeCard);
-    //Вешаем обработчик на корзину
+    
     trashCard.addEventListener('click', deleteCard);
     
     return card
