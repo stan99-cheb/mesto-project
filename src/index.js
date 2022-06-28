@@ -1,4 +1,4 @@
-import './pages/index.css'
+//import './pages/index.css'
 
 import { addCard } from './components/cards.js';
 import { enableValidation } from './components/validate.js';
@@ -15,9 +15,6 @@ import { } from './components/utils.js';
     const profileTitle = document.querySelector('.profile__title');
     const profileSubtitle = document.querySelector('.profile__subtitle');
 
-    nameInput.value = profileTitle.textContent;
-    jobInput.value = profileSubtitle.textContent;
-
     function handleProfileFormSubmit(evt) {
         evt.preventDefault();
 
@@ -29,6 +26,9 @@ import { } from './components/utils.js';
     formProfile.addEventListener('submit', handleProfileFormSubmit);
 
     function openProfilePopup() {
+        nameInput.value = profileTitle.textContent;
+        jobInput.value = profileSubtitle.textContent;
+
         openPopup(popupProfile);
     }
 
