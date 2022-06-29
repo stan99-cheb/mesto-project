@@ -26,6 +26,8 @@ import { } from './components/utils.js';
     formProfile.addEventListener('submit', handleProfileFormSubmit);
 
     function openProfilePopup() {
+        formProfile.reset();
+
         nameInput.value = profileTitle.textContent;
         jobInput.value = profileSubtitle.textContent;
 
@@ -49,7 +51,7 @@ import { } from './components/utils.js';
 
         newCard.name = nameCardInput.value;
         newCard.link = linkCardInput.value;
-        newCardArray.push(newCard);
+        newCardArray[0] = newCard;
         creationCard(newCardArray);
         
         closePopup(popupCard);
@@ -57,7 +59,9 @@ import { } from './components/utils.js';
 
     formCard.addEventListener('submit', handleCardFormSubmit);
 
-    function openCardPopup() {
+    function openCardPopup(evt) {
+        formCard.reset();
+
         openPopup(popupCard);
     }
 
