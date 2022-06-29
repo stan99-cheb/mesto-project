@@ -25,7 +25,7 @@ const creationCard = (cardsArray) => {
 
 const renderCards = (cardElementArray) => {
     cardElementArray.forEach(element => {
-        cardsElement.append(element)
+        cardsElement.prepend(element)
     });
 };
 

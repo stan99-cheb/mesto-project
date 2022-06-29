@@ -42,14 +42,16 @@ import { } from './components/utils.js';
     const nameCardInput = formCard.querySelector('.form-card__name');
     const linkCardInput = formCard.querySelector('.form-card__link');
     const newCard = {};
+    const newCardArray = []
 
     function handleCardFormSubmit(evt) {
         evt.preventDefault();
 
         newCard.name = nameCardInput.value;
         newCard.link = linkCardInput.value;
-
-        addCard(newCard);
+        newCardArray.push(newCard);
+        creationCard(newCardArray);
+        
         closePopup(popupCard);
     }
 
