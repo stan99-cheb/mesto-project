@@ -1,5 +1,10 @@
+import { openPopup } from './popup.js';
+
 const cardsElement = document.querySelector('.cards');
 const cardTemplate = document.querySelector('#new-place').content;
+const popupImage = document.querySelector('.popup-image');
+const popupImageName = popupImage.querySelector('.popup-image__name');
+const popupImageLink = popupImage.querySelector('.popup-image__link');
 
 const creationCard = (cardsArray) => {
     const cardElementArray = cardsArray.map(element => {
@@ -7,7 +12,11 @@ const creationCard = (cardsArray) => {
 
         cardElement.querySelector('.card__name').textContent = element.name;
         cardElement.querySelector('.card__link').src = element.link;
-        
+
+        cardElement.querySelector('.card__link').addEventListener('click', showCard);
+        cardElement.querySelector('.card__heart').addEventListener('click', likeCard);
+        cardElement.querySelector('.card__trash').addEventListener('click', deleteCard);
+
         return cardElement;
     });
 
@@ -18,45 +27,21 @@ const renderCards = (cardElementArray) => {
     cardElementArray.forEach(element => {
         cardsElement.append(element)
     });
-}
+};
 
+const showCard = (e) => {
+    popupImageName.textContent = e.target.alt;
+    popupImageLink.src = e.target.src;
 
-// //Функция добавления карточки
-// function addCard(item) {
-//     const cardElement = createCard(item);
-//     //Добавляем элемент
-//     cardsElement.prepend(cardElement);
-// }
+    openPopup(popupImage);
+};
 
-// //Функция создания карточки
-// function createCard(item) {
-//     const card = cardTemplate.content.cloneNode(true);
-//     const imageCard = card.querySelector('.card__link');
-//     const nameCard = card.querySelector('.card__name');
-//     const heartCard = card.querySelector('.card__heart');
-//     const trashCard = card.querySelector('.card__trash');
+const likeCard = (e) => {
+    e.target.classList.toggle('card__heart_active');
+};
 
-//     nameCard.textContent = item.name;
-//     imageCard.src = item.link;
-//     imageCard.alt = item.name;
-
-//     imageCard.addEventListener('click', () => openImagePopup(item));
-
-//     heartCard.addEventListener('click', likeCard);
-
-//     trashCard.addEventListener('click', deleteCard);
-
-//     return card
-// }
-
-// function likeCard(e) {
-//     //Переключаем сердечко
-//     e.target.classList.toggle('card__heart_active');
-// }
-
-// function deleteCard(e) {
-//     //Удаляем карточку
-//     e.target.closest('.card').remove();
-// }
+const deleteCard = (e) => {
+    e.target.closest('.card').remove();
+};
 
 export { creationCard }

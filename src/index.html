@@ -19,7 +19,8 @@
                 <div class="profile__profile-info-flex">
                     <h1 class="profile__title">Жак-Ив Кусто</h1>
                     <button class="profile__edit-button" type="button" aria-label="Edit" title="Редактировать">
-                        <img id="profileEditButtonIcon" src="<%=require('./images/edit-icon.svg')%>" alt="Кнопка редактировать">
+                        <img id="profileEditButtonIcon" src="<%=require('./images/edit-icon.svg')%>"
+                            alt="Кнопка редактировать">
                     </button>
                 </div>
                 <p class="profile__subtitle">Исследователь океанов</p>
@@ -40,25 +41,11 @@
             </button>
             <form class="form form-profile" novalidate>
                 <h2 class="form__header">Редактировать профиль</h2>
-                <input
-                    id="profile-name-input"
-                    class="form__input form-profile__name"
-                    type="text"
-                    placeholder="Иван Иванов"
-                    minlength="2"
-                    maxlength="40"
-                    required
-                >
+                <input id="profile-name-input" class="form__input form-profile__name" type="text"
+                    placeholder="Иван Иванов" minlength="2" maxlength="40" required>
                 <span class="profile-name-input-error form__input-error"></span>
-                <input
-                    id="profile-job-input"
-                    class="form__input form-profile__job"
-                    type="text"
-                    placeholder="О себе"
-                    minlength="2"
-                    maxlength="200"
-                    required
-                >
+                <input id="profile-job-input" class="form__input form-profile__job" type="text" placeholder="О себе"
+                    minlength="2" maxlength="200" required>
                 <span class="profile-job-input-error form__input-error"></span>
                 <button class="form__submit-button" type="submit" aria-label="submit">Сохранить</button>
             </form>
@@ -70,25 +57,11 @@
             </button>
             <form class="form form-card" novalidate>
                 <h2 class="form__header">Новое место</h2>
-                <input
-                    id="card-name-input"
-                    class="form__input form-card__name"
-                    type="text"
-                    placeholder="Название"
-                    minlength="2"
-                    maxlength="30"
-                    required
-                >
+                <input id="card-name-input" class="form__input form-card__name" type="text" placeholder="Название"
+                    minlength="2" maxlength="30" required>
                 <span class="card-name-input-error form__input-error"></span>
-                <input
-                    id="card-link-input"
-                    class="form__input form-card__link"
-                    type="url"
-                    placeholder="Ссылка на картинку"
-                    minlength="2"
-                    maxlength="200"
-                    required
-                >
+                <input id="card-link-input" class="form__input form-card__link" type="url"
+                    placeholder="Ссылка на картинку" minlength="2" maxlength="200" required>
                 <span class="card-link-input-error form__input-error"></span>
                 <button class="form__submit-button" type="submit" aria-label="submit">Создать</button>
             </form>
@@ -106,9 +79,9 @@
         <div class="card">
             <img class="card__link" src="" alt="">
             <h2 class="card__name"></h2>
-            <button class="card__heart" type="button" aria-label="heart button"></button>
-            <img class="card__trash" src="<%=require('./images/trash.svg')%>" alt="Изображение кнопки удаления">
-          </div>
+            <button class="card__heart" type="button" name="heart"></button>
+            <button class="card__trash" type="button" name="trash"></button>
+        </div>
     </template>
     <script type="module" src="./index.js"></script>
 </body>
