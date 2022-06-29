@@ -1,9 +1,9 @@
-//import './pages/index.css'
+import './pages/index.css'
 
 import { creationCard } from './components/cards.js';
 import { enableValidation } from './components/validate.js';
 import { openPopup, closePopup } from './components/popup.js';
-import { } from './components/utils.js';
+import { cleanForm } from './components/utils.js';
 
 (function () {
     const editProfileButton = document.querySelector('.profile__edit-button');
@@ -26,7 +26,7 @@ import { } from './components/utils.js';
     formProfile.addEventListener('submit', handleProfileFormSubmit);
 
     function openProfilePopup() {
-        formProfile.reset();
+        cleanForm(formProfile);
 
         nameInput.value = profileTitle.textContent;
         jobInput.value = profileSubtitle.textContent;
@@ -60,7 +60,7 @@ import { } from './components/utils.js';
     formCard.addEventListener('submit', handleCardFormSubmit);
 
     function openCardPopup(evt) {
-        formCard.reset();
+        cleanForm(formCard);
 
         openPopup(popupCard);
     }
@@ -98,7 +98,6 @@ import { } from './components/utils.js';
     ];
 
     creationCard(initialCards);
-
 })();
 
 // Вызовем функцию
@@ -107,5 +106,6 @@ enableValidation({
     inputSelector: '.form__input',
     submitButtonSelector: '.form__submit-button',
     inactiveButtonClass: 'form__submit-button_inactive',
-    inputErrorClass: 'form__input_type_error'
+    inputErrorClass: 'form__input_type_error',
+    errorClass: 'form__input-error_active'
 });

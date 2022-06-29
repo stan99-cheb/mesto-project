@@ -3,7 +3,8 @@ const enableValidation = ({
     inputSelector,
     submitButtonSelector,
     inactiveButtonClass,
-    inputErrorClass
+    inputErrorClass,
+    errorClass
 }) => {
     const formList = Array.from(document.querySelectorAll(formSelector));
 
@@ -21,6 +22,7 @@ const enableValidation = ({
 
         inputElement.classList.add(inputErrorClass);
         errorElement.textContent = errorMessage;
+        errorElement.classList.add(errorClass);
     };
 
     const hideInputError = (formElement, inputElement) => {
@@ -28,6 +30,7 @@ const enableValidation = ({
 
         inputElement.classList.remove(inputErrorClass);
         errorElement.textContent = '';
+        errorElement.classList.remove(errorClass);
     };
 
     const isValid = (formElement, inputElement) => {
