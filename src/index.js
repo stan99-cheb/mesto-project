@@ -53,7 +53,7 @@ import { cleanForm } from './components/utils.js';
         newCard.link = linkCardInput.value;
         newCardArray[0] = newCard;
         creationCard(newCardArray);
-        
+
         closePopup(popupCard);
     }
 
@@ -70,6 +70,7 @@ import { cleanForm } from './components/utils.js';
 
 
 (function () {
+    const cardsElement = document.querySelector('.cards');
     const initialCards = [
         {
             name: 'Архыз',
@@ -96,8 +97,13 @@ import { cleanForm } from './components/utils.js';
             link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
         }
     ];
+    const cardElementArray = creationCard(initialCards);
 
-    creationCard(initialCards);
+    cardElementArray.forEach(cardElement => {
+        cardsElement.prepend(cardElement)
+    });
+
+
 })();
 
 // Вызовем функцию

@@ -16,7 +16,8 @@ const cleanForm = (form) => {
     });
 
     if (!submitButton.classList.contains('form__submit-button_inactive')) {
-        submitButton.classList.add('form__submit-button_inactive')
+        submitButton.classList.add('form__submit-button_inactive');
+        submitButton.setAttribute('disabled', '');
     }
 }
 
