@@ -1,6 +1,6 @@
 import './pages/index.css'
 
-import { creationCard } from './components/cards.js';
+import { createCard, renderCard } from './components/cards.js';
 import { enableValidation } from './components/validate.js';
 import { openPopup, closePopup } from './components/popup.js';
 import { cleanForm } from './components/utils.js';
@@ -44,15 +44,14 @@ import { cleanForm } from './components/utils.js';
     const nameCardInput = formCard.querySelector('.form-card__name');
     const linkCardInput = formCard.querySelector('.form-card__link');
     const newCard = {};
-    const newCardArray = []
 
     function handleCardFormSubmit(evt) {
         evt.preventDefault();
 
         newCard.name = nameCardInput.value;
         newCard.link = linkCardInput.value;
-        newCardArray[0] = newCard;
-        creationCard(newCardArray);
+
+        renderCard(createCard(newCard));
 
         closePopup(popupCard);
     }
@@ -70,7 +69,6 @@ import { cleanForm } from './components/utils.js';
 
 
 (function () {
-    const cardsElement = document.querySelector('.cards');
     const initialCards = [
         {
             name: 'Архыз',
@@ -97,10 +95,13 @@ import { cleanForm } from './components/utils.js';
             link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
         }
     ];
-    const cardElementArray = creationCard(initialCards);
+
+    const cardElementArray = initialCards.map(card => {
+        return createCard(card)
+    });
 
     cardElementArray.forEach(cardElement => {
-        cardsElement.prepend(cardElement)
+        renderCard(cardElement)
     });
 
 
