@@ -27,6 +27,7 @@ const renderCard = (cardElement) => {
 const showCard = (e) => {
     popupImageName.textContent = e.target.alt;
     popupImageLink.src = e.target.src;
+    popupImageLink.alt = e.target.alt;
 
     openPopup(popupImage);
 };
