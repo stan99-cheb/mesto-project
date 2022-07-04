@@ -4,7 +4,7 @@ import { createCard, renderCard } from './components/cards.js';
 import { enableValidation } from './components/validate.js';
 import { openPopup, closePopup } from './components/popup.js';
 import { cleanForm } from './components/utils.js';
-import { getInitialCards } from './components/api.js'
+import { getInitialCards, getUserMe } from './components/api.js'
 
 (function () {
     const editProfileButton = document.querySelector('.profile__edit-button');
@@ -29,8 +29,12 @@ import { getInitialCards } from './components/api.js'
     function openProfilePopup() {
         cleanForm(formProfile);
 
-        nameInput.value = profileTitle.textContent;
-        jobInput.value = profileSubtitle.textContent;
+        getUserMe()
+            .then(data => {
+                nameInput.value = data.name;
+                jobInput.value = data.about;
+                console.log(data.name, data.about);
+            });
 
         openPopup(popupProfile);
     }
@@ -69,25 +73,24 @@ import { getInitialCards } from './components/api.js'
 })();
 
 
-(function () {
-    getInitialCards()
-        .then(data => {
-            const initialCardArray = data.map(element => {
-                return {
-                    name: element.name,
-                    link: element.link
-                }
-            });
 
-            const cardElementArray = initialCardArray.map(card => {
-                return createCard(card)
-            });
-
-            cardElementArray.forEach(cardElement => {
-                renderCard(cardElement)
-            });
+getInitialCards()
+    .then(data => {
+        const initialCardArray = data.map(element => {
+            return {
+                name: element.name,
+                link: element.link
+            }
         });
-})();
+
+        const cardElementArray = initialCardArray.map(card => {
+            return createCard(card)
+        });
+
+        cardElementArray.forEach(cardElement => {
+            renderCard(cardElement)
+        });
+    });
 
 // Вызовем функцию
 enableValidation({
