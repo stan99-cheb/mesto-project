@@ -1,9 +1,10 @@
-import './pages/index.css'
+//import './pages/index.css'
 
 import { createCard, renderCard } from './components/cards.js';
 import { enableValidation } from './components/validate.js';
 import { openPopup, closePopup } from './components/popup.js';
 import { cleanForm } from './components/utils.js';
+import { getInitialCards } from './components/api.js'
 
 (function () {
     const editProfileButton = document.querySelector('.profile__edit-button');
@@ -69,42 +70,23 @@ import { cleanForm } from './components/utils.js';
 
 
 (function () {
-    const initialCards = [
-        {
-            name: 'Архыз',
-            link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-        },
-        {
-            name: 'Челябинская область',
-            link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-        },
-        {
-            name: 'Иваново',
-            link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-        },
-        {
-            name: 'Камчатка',
-            link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-        },
-        {
-            name: 'Холмогорский район',
-            link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-        },
-        {
-            name: 'Байкал',
-            link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-        }
-    ];
+    getInitialCards()
+        .then(data => {
+            const initialCardArray = data.map(element => {
+                return {
+                    name: element.name,
+                    link: element.link
+                }
+            });
 
-    const cardElementArray = initialCards.map(card => {
-        return createCard(card)
-    });
+            const cardElementArray = initialCardArray.map(card => {
+                return createCard(card)
+            });
 
-    cardElementArray.forEach(cardElement => {
-        renderCard(cardElement)
-    });
-
-
+            cardElementArray.forEach(cardElement => {
+                renderCard(cardElement)
+            });
+        });
 })();
 
 // Вызовем функцию
