@@ -36,4 +36,24 @@ const getUserMe = () => {
         });
 }
 
-export { getInitialCards, getUserMe }
+const setUserMe = (name, about) => {
+    return fetch(`${config.baseUrl}/users/me`, {
+        method: 'PATCH',
+        headers: config.headers,
+        body: JSON.stringify({
+            name: name,
+            about: about
+          })
+    })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
+
+export { getInitialCards, getUserMe, setUserMe }

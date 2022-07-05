@@ -4,7 +4,7 @@ import { createCard, renderCard } from './components/cards.js';
 import { enableValidation } from './components/validate.js';
 import { openPopup, closePopup } from './components/popup.js';
 import { cleanForm } from './components/utils.js';
-import { getInitialCards, getUserMe } from './components/api.js'
+import { getInitialCards, getUserMe, setUserMe } from './components/api.js'
 
 (function () {
     const editProfileButton = document.querySelector('.profile__edit-button');
@@ -21,6 +21,8 @@ import { getInitialCards, getUserMe } from './components/api.js'
         profileTitle.textContent = nameInput.value;
         profileSubtitle.textContent = jobInput.value;
 
+        setUserMe(nameInput.value, jobInput.value);
+
         closePopup(popupProfile);
     }
 
@@ -33,11 +35,16 @@ import { getInitialCards, getUserMe } from './components/api.js'
             .then(data => {
                 nameInput.value = data.name;
                 jobInput.value = data.about;
-                console.log(data.name, data.about);
             });
 
         openPopup(popupProfile);
     }
+
+    getUserMe()
+        .then(data => {
+            profileTitle.textContent = data.name;
+            profileSubtitle.textContent = data.about;
+        });
 
     editProfileButton.addEventListener('click', openProfilePopup);
 })();
@@ -71,8 +78,6 @@ import { getInitialCards, getUserMe } from './components/api.js'
 
     addCardButton.addEventListener('click', openCardPopup);
 })();
-
-
 
 getInitialCards()
     .then(data => {
