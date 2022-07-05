@@ -76,4 +76,20 @@ const setNewCard = (name, link) => {
         });
 }
 
-export { getInitialCards, getUserMe, setUserMe, setNewCard }
+const delCard = (cardId) => {
+    return fetch(`${config.baseUrl}/cards/${cardId}`, {
+        method: 'DELETE',
+        headers: config.headers
+    })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
+
+export { getInitialCards, getUserMe, setUserMe, setNewCard, delCard }

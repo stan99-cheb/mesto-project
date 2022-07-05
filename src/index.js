@@ -60,12 +60,15 @@ import { getInitialCards, getUserMe, setUserMe, setNewCard } from './components/
     function handleCardFormSubmit(evt) {
         evt.preventDefault();
 
-        newCard.name = nameCardInput.value;
-        newCard.link = linkCardInput.value;
-
-        renderCard(createCard(newCard));
-
-        //setNewCard(newCard.name, newCard.link);
+        setNewCard(nameCardInput.value, linkCardInput.value)
+            .then(data => {
+                newCard.name = data.name;
+                newCard.link = data.link;
+                newCard.ownerId = data.owner._id;
+                newCard.like = data.likes.length;
+                newCard.id = data._id
+            })
+            .then(() => renderCard(createCard(newCard)));
 
         closePopup(popupCard);
     }
@@ -87,7 +90,9 @@ getInitialCards()
             return {
                 name: element.name,
                 link: element.link,
-                like: element.likes.length
+                like: element.likes.length,
+                id: element._id,
+                ownerId: element.owner._id
             }
         });
 
