@@ -11,5 +11,5 @@
     overflow: hidden;
     text-overflow: ellipsis;
 
-    grid-area: B;
+    grid-area: Name;
 }

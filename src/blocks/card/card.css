@@ -10,9 +10,13 @@
     overflow: hidden;
 
     display: grid;
+    grid-template-columns: 1.6fr 0.4fr;
+    grid-template-rows: 282px min-content min-content;
+    gap: 10px 10px;
     grid-template-areas:
-        "A A A A A A A A"
-        "B B B B B B B C";
+        "Link Link"
+        "Name Heart"
+        "Name Like";
 
     position: relative;
 }
