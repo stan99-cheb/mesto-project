@@ -4,7 +4,7 @@ import { createCard, renderCard } from './components/cards.js';
 import { enableValidation } from './components/validate.js';
 import { openPopup, closePopup } from './components/popup.js';
 import { cleanForm } from './components/utils.js';
-import { getInitialCards, getUserMe, setUserMe } from './components/api.js'
+import { getInitialCards, getUserMe, setUserMe, setNewCard } from './components/api.js'
 
 (function () {
     const editProfileButton = document.querySelector('.profile__edit-button');
@@ -64,6 +64,8 @@ import { getInitialCards, getUserMe, setUserMe } from './components/api.js'
         newCard.link = linkCardInput.value;
 
         renderCard(createCard(newCard));
+
+        //setNewCard(newCard.name, newCard.link);
 
         closePopup(popupCard);
     }

@@ -43,7 +43,7 @@ const setUserMe = (name, about) => {
         body: JSON.stringify({
             name: name,
             about: about
-          })
+        })
     })
         .then(res => {
             if (res.ok) {
@@ -56,4 +56,24 @@ const setUserMe = (name, about) => {
         });
 }
 
-export { getInitialCards, getUserMe, setUserMe }
+const setNewCard = (name, link) => {
+    return fetch(`${config.baseUrl}/cards`, {
+        method: 'POST',
+        headers: config.headers,
+        body: JSON.stringify({
+            name: name,
+            link: link
+        })
+    })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
+
+export { getInitialCards, getUserMe, setUserMe, setNewCard }
