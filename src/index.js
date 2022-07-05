@@ -86,7 +86,8 @@ getInitialCards()
         const initialCardArray = data.map(element => {
             return {
                 name: element.name,
-                link: element.link
+                link: element.link,
+                like: element.likes.length
             }
         });
 
