@@ -90,9 +90,9 @@ getInitialCards()
             return {
                 name: element.name,
                 link: element.link,
-                like: element.likes.length,
+                like: element.likes,
                 id: element._id,
-                ownerId: element.owner._id
+                ownerId: element.owner._id,
             }
         });
 

@@ -92,4 +92,36 @@ const delCard = (cardId) => {
         });
 }
 
-export { getInitialCards, getUserMe, setUserMe, setNewCard, delCard }
+const likesCard = (cardId) => {
+    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+        method: 'PUT',
+        headers: config.headers
+    })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
+
+const delLikesCard = (cardId) => {
+    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+        method: 'DELETE',
+        headers: config.headers
+    })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
+
+export { getInitialCards, getUserMe, setUserMe, setNewCard, delCard, likesCard, delLikesCard }
