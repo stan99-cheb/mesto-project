@@ -124,4 +124,32 @@ const delLikesCard = (cardId) => {
         });
 }
 
-export { getInitialCards, getUserMe, setUserMe, setNewCard, delCard, likesCard, delLikesCard }
+const setAvatar = (ava) => {
+    return fetch(`${config.baseUrl}/users/me/avatar`, {
+        method: 'PATCH',
+        headers: config.headers,
+        body: JSON.stringify({
+            avatar: ava,
+        })
+    })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
+
+export {
+    getInitialCards,
+    getUserMe,
+    setUserMe,
+    setNewCard,
+    delCard,
+    likesCard,
+    delLikesCard,
+    setAvatar
+}

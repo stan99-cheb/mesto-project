@@ -105,6 +105,26 @@ getInitialCards()
         });
     });
 
+(function () {
+    const avatarButton = document.querySelector('.profile__avatar');
+    const avatarPopup = document.querySelector('.popup-avatar');
+    const formAvatar = document.querySelector('.form-avatar');
+
+    const handleAvatarFormSubmit = (evt) => {
+        evt.preventDefault();
+
+        closePopup(avatarPopup);
+    }
+
+    formAvatar.addEventListener('submit', handleAvatarFormSubmit);
+
+    const openAvatarPopup = () => {
+        openPopup(avatarPopup);
+    }
+
+    avatarButton.addEventListener('click', openAvatarPopup)
+})()
+
 // Вызовем функцию
 enableValidation({
     formSelector: '.form',
