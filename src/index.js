@@ -65,7 +65,7 @@ import { getInitialCards, getUserMe, setUserMe, setNewCard } from './components/
                 newCard.name = data.name;
                 newCard.link = data.link;
                 newCard.ownerId = data.owner._id;
-                newCard.like = data.likes.length;
+                newCard.like = data.likes;
                 newCard.id = data._id
             })
             .then(() => renderCard(createCard(newCard)));

@@ -13,7 +13,7 @@ const isMyCard = (id) => {
 }
 
 const hasLikeCard = (arrayLike) => {
-    return arrayLike.find(item => item._id == myOwnerId)
+    return arrayLike.some(element => element._id === myOwnerId)
 }
 
 const createCard = (card) => {
@@ -46,7 +46,7 @@ const createCard = (card) => {
 };
 
 const renderCard = (cardElement) => {
-    cardsElement.prepend(cardElement)
+    cardsElement.append(cardElement)
 }
 
 const showCard = (e) => {
