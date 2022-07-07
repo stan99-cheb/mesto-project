@@ -4,7 +4,7 @@ import { createCard, renderCard } from './components/cards.js';
 import { enableValidation } from './components/validate.js';
 import { openPopup, closePopup } from './components/popup.js';
 import { cleanForm } from './components/utils.js';
-import { getInitialCards, getUserMe, setUserMe, setNewCard } from './components/api.js'
+import { getInitialCards, getUserMe, setUserMe, setNewCard, setAvatar } from './components/api.js'
 
 (function () {
     const editProfileButton = document.querySelector('.profile__edit-button');
@@ -12,6 +12,7 @@ import { getInitialCards, getUserMe, setUserMe, setNewCard } from './components/
     const formProfile = popupProfile.querySelector('.form-profile');
     const nameInput = formProfile.querySelector('.form-profile__name');
     const jobInput = formProfile.querySelector('.form-profile__job');
+    const avatarProfile = document.querySelector('.profile__avatar');
     const profileTitle = document.querySelector('.profile__title');
     const profileSubtitle = document.querySelector('.profile__subtitle');
 
@@ -44,6 +45,7 @@ import { getInitialCards, getUserMe, setUserMe, setNewCard } from './components/
         .then(data => {
             profileTitle.textContent = data.name;
             profileSubtitle.textContent = data.about;
+            avatarProfile.src = data.avatar;
         });
 
     editProfileButton.addEventListener('click', openProfilePopup);
@@ -109,9 +111,17 @@ getInitialCards()
     const avatarButton = document.querySelector('.profile__avatar');
     const avatarPopup = document.querySelector('.popup-avatar');
     const formAvatar = document.querySelector('.form-avatar');
+    const avatarProfile = document.querySelector('.profile__avatar');
+    const avatarInput = formAvatar.querySelector('.form-avatar__link');
+    //link = 'https://bn1303files.storage.live.com/y4mngPFLWUFKUVKWzGHn3o5iEOuw5X2UZcomJxUkOuVTKSmc9LOtj6LXyzxloPWXlP07EaL22gqCQ4kUhaaQ56XhCVeVjnACyQvVsV8GxN4FnNCCAUQvxUjhieI4XYzetv7r8lqAay0lxIvCmoPCsD6ucEdyCHUEGpvqJAlwFhczDBPa4sVWkc47WpznW09-7SsZRzsQo20EcOIlCsaugoElJ2PwxVKcpRV1J2u7GtaRkQ?encodeFailures=1&width=337&height=450'
 
     const handleAvatarFormSubmit = (evt) => {
         evt.preventDefault();
+
+        setAvatar(avatarInput.value)
+            .then(data => {
+                avatarProfile.src = data.avatar;
+            })
 
         closePopup(avatarPopup);
     }
@@ -119,6 +129,8 @@ getInitialCards()
     formAvatar.addEventListener('submit', handleAvatarFormSubmit);
 
     const openAvatarPopup = () => {
+        cleanForm(formAvatar);
+
         openPopup(avatarPopup);
     }
 
