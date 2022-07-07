@@ -46,7 +46,7 @@ const createCard = (card) => {
 };
 
 const renderCard = (cardElement) => {
-    cardsElement.append(cardElement)
+    cardsElement.prepend(cardElement)
 }
 
 const showCard = (e) => {

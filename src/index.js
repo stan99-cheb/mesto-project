@@ -3,7 +3,7 @@
 import { createCard, renderCard } from './components/cards.js';
 import { enableValidation } from './components/validate.js';
 import { openPopup, closePopup } from './components/popup.js';
-import { cleanForm } from './components/utils.js';
+import { cleanForm, renderLoading } from './components/utils.js';
 import { getInitialCards, getUserMe, setUserMe, setNewCard, setAvatar } from './components/api.js'
 
 (function () {
@@ -19,10 +19,15 @@ import { getInitialCards, getUserMe, setUserMe, setNewCard, setAvatar } from './
     function handleProfileFormSubmit(evt) {
         evt.preventDefault();
 
+        renderLoading(formProfile, true);
+
         profileTitle.textContent = nameInput.value;
         profileSubtitle.textContent = jobInput.value;
 
-        setUserMe(nameInput.value, jobInput.value);
+        setUserMe(nameInput.value, jobInput.value)
+            .finally(() => {
+                renderLoading(formProfile, false);
+            });
 
         closePopup(popupProfile);
     }
@@ -62,6 +67,8 @@ import { getInitialCards, getUserMe, setUserMe, setNewCard, setAvatar } from './
     function handleCardFormSubmit(evt) {
         evt.preventDefault();
 
+        renderLoading(formCard, true);
+
         setNewCard(nameCardInput.value, linkCardInput.value)
             .then(data => {
                 newCard.name = data.name;
@@ -70,7 +77,10 @@ import { getInitialCards, getUserMe, setUserMe, setNewCard, setAvatar } from './
                 newCard.like = data.likes;
                 newCard.id = data._id
             })
-            .then(() => renderCard(createCard(newCard)));
+            .then(() => renderCard(createCard(newCard)))
+            .finally(() => {
+                renderLoading(formCard, false);
+            });;
 
         closePopup(popupCard);
     }
@@ -118,10 +128,15 @@ getInitialCards()
     const handleAvatarFormSubmit = (evt) => {
         evt.preventDefault();
 
+        renderLoading(formAvatar, true);
+
         setAvatar(avatarInput.value)
             .then(data => {
                 avatarProfile.src = data.avatar;
             })
+            .finally(() => {
+                renderLoading(formAvatar, false);
+            });
 
         closePopup(avatarPopup);
     }
