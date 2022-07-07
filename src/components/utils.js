@@ -1,4 +1,4 @@
-
+let str = '';
 
 const cleanForm = (form) => {
     const inputList = Array.from(form.querySelectorAll('.form__input'));
@@ -21,4 +21,15 @@ const cleanForm = (form) => {
     }
 }
 
-export { cleanForm };
+const renderLoading = (form, isLoading) => {
+    const formSubmitButton = form.querySelector('.form__submit-button');
+
+    if (isLoading) {
+        str = formSubmitButton.textContent;
+        formSubmitButton.textContent = 'Сохранение...';
+    } else {
+        formSubmitButton.textContent = str;
+    }
+}
+
+export { cleanForm, renderLoading };

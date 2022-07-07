@@ -1,0 +1,8 @@
+.card__like {
+    margin: 0;
+    padding: 0;
+
+    justify-self: center;
+    
+    grid-area: Like;
+}
