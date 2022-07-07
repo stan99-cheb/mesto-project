@@ -5,6 +5,7 @@
     display: flex;
     flex-wrap: nowrap;
     gap: 18px;
+    align-items: baseline;
 }
 
 @media (max-width: 560px) {

@@ -1,16 +1,14 @@
 .profile__add-button {
-    display: block;
-    border: 2px solid #FFFFFF;
-    margin: 0;
     padding: 0;
 
     width: 150px;
     height: 50px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    border: 2px solid #FFFFFF;
 
+    background-image: url(../../../images/add-icon.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
     background-color: transparent;
 
     flex: 1 1 auto;
