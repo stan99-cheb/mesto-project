@@ -112,7 +112,7 @@ getInitialCards()
             return createCard(card)
         });
 
-        cardElementArray.forEach(cardElement => {
+        cardElementArray.reverse().forEach(cardElement => {
             renderCard(cardElement)
         });
     });
