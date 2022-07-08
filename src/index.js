@@ -1,4 +1,4 @@
-import './pages/index.css'
+//import './pages/index.css'
 
 import { createCard, renderCard } from './components/cards.js';
 import { enableValidation } from './components/validate.js';
