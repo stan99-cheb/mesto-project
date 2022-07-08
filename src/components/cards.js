@@ -10,7 +10,6 @@ const myOwnerId = '912df452cc2f9c1b7c925e7c';
 
 const delCardPopup = document.querySelector('.popup-delcard');
 const delCardForm = document.querySelector('.form-delcard');
-let delCardElement = '';
 
 const isMyCard = (id) => {
     return id === myOwnerId
@@ -84,24 +83,23 @@ const likeCard = (e, id) => {
 };
 
 const deleteCard = (e, id) => {
-    // delCardElement = e.target;
-    // openPopup(delCardPopup);
+    openPopup(delCardPopup);
 
-    // const handleDelCardFormSubmit = (evt, delCardElement) => {
-    //     evt.preventDefault();
+    const handleDelCardFormSubmit = (evt) => {
+        evt.preventDefault();
+        
+        delCard(id)
+            .then(() => {
+                e.target.closest('.card').remove();
+                id = null;
+            })
 
-    //     delCardElement.closest('.card').remove();
-    //     delCard(id);
+        closePopup(delCardPopup);
 
-    //     closePopup(delCardPopup);
-    // }
+        delCardForm.removeEventListener('submit', handleDelCardFormSubmit);
+    }
 
-    // delCardForm.addEventListener('submit', (evt) => {
-    //     handleDelCardFormSubmit(evt, delCardElement)
-    // });
-
-    e.target.closest('.card').remove();
-    delCard(id);
+    delCardForm.addEventListener('submit', handleDelCardFormSubmit);
 };
 
 export { createCard, renderCard }
