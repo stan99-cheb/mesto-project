@@ -1,4 +1,4 @@
-import { openPopup } from './popup.js';
+import { openPopup, closePopup } from './popup.js';
 import { delCard, likesCard, delLikesCard } from './api.js';
 
 const cardsElement = document.querySelector('.cards');
@@ -7,6 +7,10 @@ const popupImage = document.querySelector('.popup-image');
 const popupImageName = popupImage.querySelector('.popup-image__name');
 const popupImageLink = popupImage.querySelector('.popup-image__link');
 const myOwnerId = '912df452cc2f9c1b7c925e7c';
+
+const delCardPopup = document.querySelector('.popup-delcard');
+const delCardForm = document.querySelector('.form-delcard');
+let delCardElement = '';
 
 const isMyCard = (id) => {
     return id === myOwnerId
@@ -80,6 +84,22 @@ const likeCard = (e, id) => {
 };
 
 const deleteCard = (e, id) => {
+    // delCardElement = e.target;
+    // openPopup(delCardPopup);
+
+    // const handleDelCardFormSubmit = (evt, delCardElement) => {
+    //     evt.preventDefault();
+
+    //     delCardElement.closest('.card').remove();
+    //     delCard(id);
+
+    //     closePopup(delCardPopup);
+    // }
+
+    // delCardForm.addEventListener('submit', (evt) => {
+    //     handleDelCardFormSubmit(evt, delCardElement)
+    // });
+
     e.target.closest('.card').remove();
     delCard(id);
 };
