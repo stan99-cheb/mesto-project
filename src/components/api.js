@@ -1,3 +1,8 @@
+const cardForDel = {
+    id: '',
+    card: null
+}
+
 const config = {
     baseUrl: 'https://nomoreparties.co/v1/plus-cohort-12',
     headers: {
@@ -151,5 +156,6 @@ export {
     delCard,
     likesCard,
     delLikesCard,
-    setAvatar
+    setAvatar,
+    cardForDel
 }

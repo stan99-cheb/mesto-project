@@ -1,5 +1,5 @@
-import { openPopup, closePopup } from './popup.js';
-import { delCard, likesCard, delLikesCard } from './api.js';
+import { openPopup } from './popup.js';
+import { likesCard, delLikesCard, cardForDel } from './api.js';
 
 const cardsElement = document.querySelector('.cards');
 const cardTemplate = document.querySelector('#new-place').content;
@@ -9,7 +9,6 @@ const popupImageLink = popupImage.querySelector('.popup-image__link');
 const myOwnerId = '912df452cc2f9c1b7c925e7c';
 
 const delCardPopup = document.querySelector('.popup-delcard');
-const delCardForm = document.querySelector('.form-delcard');
 
 const isMyCard = (id) => {
     return id === myOwnerId
@@ -85,21 +84,8 @@ const likeCard = (e, id) => {
 const deleteCard = (e, id) => {
     openPopup(delCardPopup);
 
-    const handleDelCardFormSubmit = (evt) => {
-        evt.preventDefault();
-        
-        delCard(id)
-            .then(() => {
-                e.target.closest('.card').remove();
-                id = null;
-            })
-
-        closePopup(delCardPopup);
-
-        delCardForm.removeEventListener('submit', handleDelCardFormSubmit);
-    }
-
-    delCardForm.addEventListener('submit', handleDelCardFormSubmit);
+    cardForDel.id = id;
+    cardForDel.card = e.target
 };
 
 export { createCard, renderCard }

@@ -1,10 +1,10 @@
-import './index.css'
+//import './index.css'
 
 import { createCard, renderCard } from './components/cards.js';
 import { enableValidation } from './components/validate.js';
 import { openPopup, closePopup } from './components/popup.js';
 import { cleanForm, renderLoading } from './components/utils.js';
-import { getInitialCards, getUserMe, setUserMe, setNewCard, setAvatar } from './components/api.js'
+import { getInitialCards, getUserMe, setUserMe, setNewCard, setAvatar, delCard, cardForDel } from './components/api.js'
 
 (function () {
     const editProfileButton = document.querySelector('.profile__edit-button');
@@ -150,7 +150,25 @@ getInitialCards()
     }
 
     avatarButton.addEventListener('click', openAvatarPopup)
-})()
+})();
+
+(function () {
+    const delCardPopup = document.querySelector('.popup-delcard');
+    const delCardForm = document.querySelector('.form-delcard');
+
+    const handleDelCardFormSubmit = (evt) => {
+        evt.preventDefault();
+
+        delCard(cardForDel.id)
+            .then(() => {
+                cardForDel.card.closest('.card').remove();
+            })
+
+        closePopup(delCardPopup);
+    }
+
+    delCardForm.addEventListener('submit', handleDelCardFormSubmit);
+})();
 
 // Вызовем функцию
 enableValidation({
