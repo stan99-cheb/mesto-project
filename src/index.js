@@ -1,4 +1,4 @@
-//import './index.css'
+import './index.css'
 
 import { createCard, renderCard } from './components/cards.js';
 import { enableValidation } from './components/validate.js';
@@ -123,7 +123,6 @@ getInitialCards()
     const formAvatar = document.querySelector('.form-avatar');
     const avatarProfile = document.querySelector('.profile__avatar');
     const avatarInput = formAvatar.querySelector('.form-avatar__link');
-    //link = 'https://bn1303files.storage.live.com/y4mngPFLWUFKUVKWzGHn3o5iEOuw5X2UZcomJxUkOuVTKSmc9LOtj6LXyzxloPWXlP07EaL22gqCQ4kUhaaQ56XhCVeVjnACyQvVsV8GxN4FnNCCAUQvxUjhieI4XYzetv7r8lqAay0lxIvCmoPCsD6ucEdyCHUEGpvqJAlwFhczDBPa4sVWkc47WpznW09-7SsZRzsQo20EcOIlCsaugoElJ2PwxVKcpRV1J2u7GtaRkQ?encodeFailures=1&width=337&height=450'
 
     const handleAvatarFormSubmit = (evt) => {
         evt.preventDefault();
