@@ -1,6 +1,6 @@
 //import './index.css'
 
-import { createCard, renderCard } from './components/cards.js';
+import { createCard, renderCard, delCardElement } from './components/cards.js';
 import { enableValidation } from './components/validate.js';
 import { openPopup, closePopup } from './components/popup.js';
 import { cleanForm, renderLoading } from './components/utils.js';
@@ -150,10 +150,10 @@ getInitialCards()
 
         delCard(cardForDel.id)
             .then(() => {
-                cardForDel.card.closest('.card').remove();
+                delCardElement(cardForDel.card);
+                
+                closePopup(delCardPopup);
             })
-
-        closePopup(delCardPopup);
     }
 
     delCardForm.addEventListener('submit', handleDelCardFormSubmit);

@@ -88,4 +88,8 @@ const deleteCard = (e, id) => {
     cardForDel.card = e.target
 };
 
-export { createCard, renderCard }
+const delCardElement = (card) => {
+    card.closest('.card').remove();
+}
+
+export { createCard, renderCard, delCardElement }
