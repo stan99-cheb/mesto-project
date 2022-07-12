@@ -6,7 +6,6 @@ const cardTemplate = document.querySelector('#new-place').content;
 const popupImage = document.querySelector('.popup-image');
 const popupImageName = popupImage.querySelector('.popup-image__name');
 const popupImageLink = popupImage.querySelector('.popup-image__link');
-
 const delCardPopup = document.querySelector('.popup-delcard');
 
 const isMyCard = (cardId, myId) => {

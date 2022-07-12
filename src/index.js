@@ -104,19 +104,21 @@ const likeCard = (heart, id) => {
 
         renderLoading(formCard, true);
 
-        setNewCard(nameCardInput.value, linkCardInput.value)
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
+        Promise.all([getUserMe(), setNewCard(nameCardInput.value, linkCardInput.value)])
+            .then(responses => Promise.all(responses.map(response => {
+                if (response.ok) {
+                    return response.json()
                 }
-                return Promise.reject(`Ошибка: ${res.status}`);
-            })
-            .then(data => {
-                newCard.name = data.name;
-                newCard.link = data.link;
-                newCard.ownerId = data.owner._id;
-                newCard.like = data.likes;
-                newCard.id = data._id
+                return Promise.reject(`Ошибка: ${response.status}`);
+            })))
+            .then(([response1, response2]) => {
+                console.log(response1, response2);
+                newCard.name = response2.name;
+                newCard.link = response2.link;
+                newCard.ownerId = response2.owner._id;
+                newCard.like = response2.likes;
+                newCard.id = response2._id
+                newCard.myId = response1._id
 
                 renderCard(createCard(newCard))
             })
@@ -154,7 +156,7 @@ Promise.all([getUserMe(), getInitialCards()])
                 like: element.likes,
                 id: element._id,
                 ownerId: element.owner._id,
-                myId: response1.id
+                myId: response1._id
             }
         })
     })
