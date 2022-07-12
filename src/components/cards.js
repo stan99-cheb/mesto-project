@@ -1,3 +1,4 @@
+import { likeCard } from '../index.js';
 import { openPopup } from './popup.js';
 import { likesCard, delLikesCard, cardForDel } from './api.js';
 
@@ -32,7 +33,7 @@ const createCard = (card) => {
 
     cardLink.addEventListener('click', showCard);
     cardHeart.addEventListener('click', (e) => {
-        likeCard(e, card.id);
+        likeCard(e.target, card.id);
     });
     cardTrash.addEventListener('click', (e) => {
         deleteCard(e, card.id);
@@ -59,27 +60,17 @@ const showCard = (e) => {
     openPopup(popupImage);
 };
 
-const isLike = (e) => {
-    return e.target.classList.contains('card__heart_active')
+const isLike = (card) => {
+    return card.classList.contains('card__heart_active')
 }
 
-const likeCard = (e, id) => {
-    if (isLike(e)) {
-        e.target.classList.remove('card__heart_active');
-        delLikesCard(id)
-            .then(data => {
-                e.target.closest('.card').
-                    querySelector('.card__like').textContent = data.likes.length;
-            });
-    } else {
-        e.target.classList.add('card__heart_active');
-        likesCard(id)
-            .then(data => {
-                e.target.closest('.card').
-                    querySelector('.card__like').textContent = data.likes.length;
-            });
-    }
-};
+const updateLike = (card, num) => {
+    card.closest('.card').querySelector('.card__like').textContent = num;
+}
+
+const changeStatusHeart = (card) => {
+    card.classList.toggle('card__heart_active')
+}
 
 const deleteCard = (e, id) => {
     openPopup(delCardPopup);
@@ -92,4 +83,4 @@ const delCardElement = (card) => {
     card.closest('.card').remove();
 }
 
-export { createCard, delCardElement }
+export { createCard, isLike, delCardElement, updateLike, changeStatusHeart }

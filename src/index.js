@@ -1,16 +1,31 @@
 //import './index.css'
 
-import { createCard, delCardElement } from './components/cards.js';
+import { createCard, isLike, delCardElement, updateLike, changeStatusHeart } from './components/cards.js';
 import { enableValidation } from './components/validate.js';
 import { openPopup, closePopup } from './components/popup.js';
 import { cleanForm, renderLoading } from './components/utils.js';
-import { getInitialCards, getUserMe, setUserMe, setNewCard, setAvatar, delCard, cardForDel } from './components/api.js'
+import { getInitialCards, setUserMe, setNewCard, setAvatar, delCard, likesCard, delLikesCard, cardForDel } from './components/api.js'
 
 const cardsElement = document.querySelector('.cards');
 
 const renderCard = (cardElement) => {
     cardsElement.prepend(cardElement)
 }
+
+const likeCard = (heart, id) => {
+    if (isLike(heart)) {
+        delLikesCard(id)
+            .then(card => {
+                updateLike(heart, card.likes.length)
+            });
+    } else {
+        likesCard(id)
+            .then(card => {
+                updateLike(heart, card.likes.length)
+            });
+    }
+    changeStatusHeart(heart);
+};
 
 (function () {
     const editProfileButton = document.querySelector('.profile__edit-button');
@@ -176,3 +191,5 @@ enableValidation({
     inputErrorClass: 'form__input_type_error',
     errorClass: 'form__input-error_active'
 });
+
+export { likeCard }
