@@ -15,13 +15,31 @@ const renderCard = (cardElement) => {
 const likeCard = (heart, id) => {
     if (isLike(heart)) {
         delLikesCard(id)
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
+            })
             .then(card => {
                 updateLike(heart, card.likes.length)
+            })
+            .catch((err) => {
+                console.log(err);
             });
     } else {
         likesCard(id)
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
+            })
             .then(card => {
                 updateLike(heart, card.likes.length)
+            })
+            .catch((err) => {
+                console.log(err);
             });
     }
     changeStatusHeart(heart);
@@ -45,6 +63,15 @@ const likeCard = (heart, id) => {
         profileSubtitle.textContent = jobInput.value;
 
         setUserMe(nameInput.value, jobInput.value)
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
             .finally(() => {
                 renderLoading(formProfile, false);
             });
@@ -78,6 +105,12 @@ const likeCard = (heart, id) => {
         renderLoading(formCard, true);
 
         setNewCard(nameCardInput.value, linkCardInput.value)
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
+            })
             .then(data => {
                 newCard.name = data.name;
                 newCard.link = data.link;
@@ -86,6 +119,9 @@ const likeCard = (heart, id) => {
                 newCard.id = data._id
 
                 renderCard(createCard(newCard))
+            })
+            .catch((err) => {
+                console.log(err);
             })
             .finally(() => {
                 renderLoading(formCard, false);
@@ -104,7 +140,12 @@ const likeCard = (heart, id) => {
 })();
 
 Promise.all([getUserMe(), getInitialCards()])
-    .then(responses => Promise.all(responses.map(response => response.json())))
+    .then(responses => Promise.all(responses.map(response => {
+        if (response.ok) {
+            return response.json()
+        }
+        return Promise.reject(`Ошибка: ${response.status}`);
+    })))
     .then(([response1, response2]) => {
         return response2.map(element => {
             return {
@@ -126,6 +167,9 @@ Promise.all([getUserMe(), getInitialCards()])
         array.reverse().forEach(cardElement => {
             renderCard(cardElement)
         })
+    })
+    .catch((err) => {
+        console.log(err);
     });
 
 (function () {
@@ -141,8 +185,17 @@ Promise.all([getUserMe(), getInitialCards()])
         renderLoading(formAvatar, true);
 
         setAvatar(avatarInput.value)
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
+            })
             .then(data => {
                 avatarProfile.src = data.avatar;
+            })
+            .catch((err) => {
+                console.log(err);
             })
             .finally(() => {
                 renderLoading(formAvatar, false);
@@ -168,12 +221,21 @@ Promise.all([getUserMe(), getInitialCards()])
         evt.preventDefault();
 
         delCard(cardForDel.id)
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
+            })
             .then(() => {
                 delCardElement(cardForDel.card);
 
                 closePopup(delCardPopup);
             })
-    }
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 
     delCardForm.addEventListener('submit', handleDelCardFormSubmit);
 })();
