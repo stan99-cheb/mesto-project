@@ -12,7 +12,6 @@ import { getInitialCards, getUserMe, setUserMe, setNewCard, setAvatar, delCard, 
     const formProfile = popupProfile.querySelector('.form-profile');
     const nameInput = formProfile.querySelector('.form-profile__name');
     const jobInput = formProfile.querySelector('.form-profile__job');
-    const avatarProfile = document.querySelector('.profile__avatar');
     const profileTitle = document.querySelector('.profile__title');
     const profileSubtitle = document.querySelector('.profile__subtitle');
 
@@ -37,21 +36,11 @@ import { getInitialCards, getUserMe, setUserMe, setNewCard, setAvatar, delCard, 
     function openProfilePopup() {
         cleanForm(formProfile);
 
-        getUserMe()
-            .then(data => {
-                nameInput.value = data.name;
-                jobInput.value = data.about;
-            });
+        nameInput.value = profileTitle.textContent;
+        jobInput.value = profileSubtitle.textContent;
 
         openPopup(popupProfile);
     }
-
-    getUserMe()
-        .then(data => {
-            profileTitle.textContent = data.name;
-            profileSubtitle.textContent = data.about;
-            avatarProfile.src = data.avatar;
-        });
 
     editProfileButton.addEventListener('click', openProfilePopup);
 })();
