@@ -69,14 +69,15 @@ const likeCard = (heart, id) => {
                 }
                 return Promise.reject(`Ошибка: ${res.status}`);
             })
+            .then(() => {
+                closePopup(popupProfile)
+            })
             .catch((err) => {
-                console.log(err);
+                console.log(err)
             })
             .finally(() => {
-                renderLoading(formProfile, false);
+                renderLoading(formProfile, false)
             });
-
-        closePopup(popupProfile);
     }
 
     formProfile.addEventListener('submit', handleProfileFormSubmit);
@@ -112,24 +113,23 @@ const likeCard = (heart, id) => {
                 return Promise.reject(`Ошибка: ${response.status}`);
             })))
             .then(([response1, response2]) => {
-                console.log(response1, response2);
                 newCard.name = response2.name;
                 newCard.link = response2.link;
                 newCard.ownerId = response2.owner._id;
                 newCard.like = response2.likes;
-                newCard.id = response2._id
-                newCard.myId = response1._id
+                newCard.id = response2._id;
+                newCard.myId = response1._id;
 
-                renderCard(createCard(newCard))
+                renderCard(createCard(newCard));
+
+                closePopup(popupCard);
             })
             .catch((err) => {
                 console.log(err);
             })
             .finally(() => {
-                renderLoading(formCard, false);
+                renderLoading(formCard, false)
             });
-
-        closePopup(popupCard);
     };
 
     formCard.addEventListener('submit', handleCardFormSubmit);
@@ -195,6 +195,8 @@ Promise.all([getUserMe(), getInitialCards()])
             })
             .then(data => {
                 avatarProfile.src = data.avatar;
+
+                closePopup(avatarPopup);
             })
             .catch((err) => {
                 console.log(err);
@@ -202,8 +204,6 @@ Promise.all([getUserMe(), getInitialCards()])
             .finally(() => {
                 renderLoading(formAvatar, false);
             });
-
-        closePopup(avatarPopup);
     }
 
     formAvatar.addEventListener('submit', handleAvatarFormSubmit);
