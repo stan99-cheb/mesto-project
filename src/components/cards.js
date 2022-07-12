@@ -19,28 +19,33 @@ const hasLikeCard = (arrayLike) => {
 
 const createCard = (card) => {
     const cardElement = cardTemplate.cloneNode(true);
+    const cardLink = cardElement.querySelector('.card__link');
+    const cardName = cardElement.querySelector('.card__name');
+    const cardLike = cardElement.querySelector('.card__like');
+    const cardHeart = cardElement.querySelector('.card__heart');
+    const cardTrash = cardElement.querySelector('.card__trash');
 
-    cardElement.querySelector('.card__name').textContent = card.name;
-    cardElement.querySelector('.card__link').src = card.link;
-    cardElement.querySelector('.card__link').alt = 'Изображение ' + card.name;
-    cardElement.querySelector('.card__like').textContent = card.like.length;
+    cardName.textContent = card.name;
+    cardLink.src = card.link;
+    cardLink.alt = 'Изображение ' + card.name;
+    cardLike.textContent = card.like.length;
 
-    cardElement.querySelector('.card__link').addEventListener('click', showCard);
-    cardElement.querySelector('.card__heart').addEventListener('click', (e) => {
+    cardLink.addEventListener('click', showCard);
+    cardHeart.addEventListener('click', (e) => {
         likeCard(e, card.id);
     });
-    cardElement.querySelector('.card__trash').addEventListener('click', (e) => {
+    cardTrash.addEventListener('click', (e) => {
         deleteCard(e, card.id);
     });
 
     if (!isMyCard(card.ownerId)) {
-        cardElement.querySelector('.card__trash').remove();
+        cardTrash.remove();
     }
 
     if (hasLikeCard(card.like)) {
-        cardElement.querySelector('.card__heart').classList.add('card__heart_active');
+        cardHeart.classList.add('card__heart_active');
     } else {
-        cardElement.querySelector('.card__heart').classList.remove('card__heart_active');
+        cardHeart.classList.remove('card__heart_active');
     };
 
     return cardElement;
