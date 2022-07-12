@@ -1,4 +1,4 @@
-//import './index.css'
+import './index.css'
 
 import { createCard, isLike, delCardElement, updateLike, changeStatusHeart } from './components/cards.js';
 import { enableValidation } from './components/validate.js';
@@ -55,8 +55,6 @@ const likeCard = (heart, id) => {
     formProfile.addEventListener('submit', handleProfileFormSubmit);
 
     function openProfilePopup() {
-        cleanForm(formProfile);
-
         nameInput.value = profileTitle.textContent;
         jobInput.value = profileSubtitle.textContent;
 
@@ -180,23 +178,13 @@ getInitialCards()
     delCardForm.addEventListener('submit', handleDelCardFormSubmit);
 })();
 
-const formList = document.querySelectorAll('.form');
-
-const handleFormSubmit = (evt) => {
-    evt.preventDefault();
-
-    // form.reset();
-
-    enableValidation({
-        formSelector: '.form',
-        inputSelector: '.form__input',
-        submitButtonSelector: '.form__submit-button',
-        inactiveButtonClass: 'form__submit-button_inactive',
-        inputErrorClass: 'form__input_type_error',
-        errorClass: 'form__input-error_active'
-    });
-};
-
-formList.forEach(form => form.addEventListener('submit', handleFormSubmit));
+enableValidation({
+    formSelector: '.form',
+    inputSelector: '.form__input',
+    submitButtonSelector: '.form__submit-button',
+    inactiveButtonClass: 'form__submit-button_inactive',
+    inputErrorClass: 'form__input_type_error',
+    errorClass: 'form__input-error_active'
+});
 
 export { likeCard }
