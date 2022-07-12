@@ -1,7 +1,6 @@
 import { openPopup } from './popup.js';
 import { likesCard, delLikesCard, cardForDel } from './api.js';
 
-const cardsElement = document.querySelector('.cards');
 const cardTemplate = document.querySelector('#new-place').content;
 const popupImage = document.querySelector('.popup-image');
 const popupImageName = popupImage.querySelector('.popup-image__name');
@@ -47,10 +46,6 @@ const createCard = (card) => {
     return cardElement;
 };
 
-const renderCard = (cardElement) => {
-    cardsElement.prepend(cardElement)
-}
-
 const showCard = (e) => {
     popupImageName.textContent = e.target.alt;
     popupImageLink.src = e.target.src;
@@ -92,4 +87,4 @@ const delCardElement = (card) => {
     card.closest('.card').remove();
 }
 
-export { createCard, renderCard, delCardElement }
+export { createCard, delCardElement }

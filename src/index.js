@@ -1,10 +1,16 @@
 //import './index.css'
 
-import { createCard, renderCard, delCardElement } from './components/cards.js';
+import { createCard, delCardElement } from './components/cards.js';
 import { enableValidation } from './components/validate.js';
 import { openPopup, closePopup } from './components/popup.js';
 import { cleanForm, renderLoading } from './components/utils.js';
 import { getInitialCards, getUserMe, setUserMe, setNewCard, setAvatar, delCard, cardForDel } from './components/api.js'
+
+const cardsElement = document.querySelector('.cards');
+
+const renderCard = (cardElement) => {
+    cardsElement.prepend(cardElement)
+}
 
 (function () {
     const editProfileButton = document.querySelector('.profile__edit-button');
@@ -87,8 +93,8 @@ import { getInitialCards, getUserMe, setUserMe, setNewCard, setAvatar, delCard, 
 })();
 
 getInitialCards()
-    .then(data => {
-        const initialCardArray = data.map(element => {
+    .then((array) => {
+        return array.map(element => {
             return {
                 name: element.name,
                 link: element.link,
@@ -96,15 +102,17 @@ getInitialCards()
                 id: element._id,
                 ownerId: element.owner._id,
             }
-        });
-
-        const cardElementArray = initialCardArray.map(card => {
+        })
+    })
+    .then((array) => {
+        return array.map(card => {
             return createCard(card)
         });
-
-        cardElementArray.reverse().forEach(cardElement => {
+    })
+    .then((array) => {
+        array.reverse().forEach(cardElement => {
             renderCard(cardElement)
-        });
+        })
     });
 
 (function () {
@@ -151,7 +159,7 @@ getInitialCards()
         delCard(cardForDel.id)
             .then(() => {
                 delCardElement(cardForDel.card);
-                
+
                 closePopup(delCardPopup);
             })
     }
