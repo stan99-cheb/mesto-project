@@ -3,7 +3,7 @@
 import { createCard, isLike, delCardElement, updateLike, changeStatusHeart } from './components/cards.js';
 import { enableValidation } from './components/validate.js';
 import { openPopup, closePopup } from './components/popup.js';
-import { cleanForm, renderLoading } from './components/utils.js';
+import { renderLoading } from './components/utils.js';
 import { getInitialCards, setUserMe, setNewCard, setAvatar, delCard, likesCard, delLikesCard, cardForDel } from './components/api.js'
 
 const cardsElement = document.querySelector('.cards');
@@ -99,8 +99,6 @@ const likeCard = (heart, id) => {
     formCard.addEventListener('submit', handleCardFormSubmit);
 
     function openCardPopup(evt) {
-        cleanForm(formCard);
-
         openPopup(popupCard);
     };
 
@@ -182,14 +180,23 @@ getInitialCards()
     delCardForm.addEventListener('submit', handleDelCardFormSubmit);
 })();
 
-// Вызовем функцию
-enableValidation({
-    formSelector: '.form',
-    inputSelector: '.form__input',
-    submitButtonSelector: '.form__submit-button',
-    inactiveButtonClass: 'form__submit-button_inactive',
-    inputErrorClass: 'form__input_type_error',
-    errorClass: 'form__input-error_active'
-});
+const formList = document.querySelectorAll('.form');
+
+const handleFormSubmit = (evt) => {
+    evt.preventDefault();
+
+    // form.reset();
+
+    enableValidation({
+        formSelector: '.form',
+        inputSelector: '.form__input',
+        submitButtonSelector: '.form__submit-button',
+        inactiveButtonClass: 'form__submit-button_inactive',
+        inputErrorClass: 'form__input_type_error',
+        errorClass: 'form__input-error_active'
+    });
+};
+
+formList.forEach(form => form.addEventListener('submit', handleFormSubmit));
 
 export { likeCard }
