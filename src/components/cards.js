@@ -1,21 +1,20 @@
 import { likeCard } from '../index.js';
 import { openPopup } from './popup.js';
-import { likesCard, delLikesCard, cardForDel } from './api.js';
+import { cardForDel } from './api.js';
 
 const cardTemplate = document.querySelector('#new-place').content;
 const popupImage = document.querySelector('.popup-image');
 const popupImageName = popupImage.querySelector('.popup-image__name');
 const popupImageLink = popupImage.querySelector('.popup-image__link');
-const myOwnerId = '912df452cc2f9c1b7c925e7c';
 
 const delCardPopup = document.querySelector('.popup-delcard');
 
-const isMyCard = (id) => {
-    return id === myOwnerId
+const isMyCard = (cardId, myId) => {
+    return cardId === myId
 }
 
-const hasLikeCard = (arrayLike) => {
-    return arrayLike.some(element => element._id === myOwnerId)
+const hasLikeCard = (arrayLike, myId) => {
+    return arrayLike.some(element => element._id === myId)
 }
 
 const createCard = (card) => {
@@ -39,11 +38,11 @@ const createCard = (card) => {
         deleteCard(e, card.id);
     });
 
-    if (!isMyCard(card.ownerId)) {
+    if (!isMyCard(card.ownerId, card.myId)) {
         cardTrash.remove();
     }
 
-    if (hasLikeCard(card.like)) {
+    if (hasLikeCard(card.like, card.myId)) {
         cardHeart.classList.add('card__heart_active');
     } else {
         cardHeart.classList.remove('card__heart_active');

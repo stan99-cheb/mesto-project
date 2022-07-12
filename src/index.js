@@ -4,7 +4,7 @@ import { createCard, isLike, delCardElement, updateLike, changeStatusHeart } fro
 import { enableValidation } from './components/validate.js';
 import { openPopup, closePopup } from './components/popup.js';
 import { renderLoading } from './components/utils.js';
-import { getInitialCards, setUserMe, setNewCard, setAvatar, delCard, likesCard, delLikesCard, cardForDel } from './components/api.js'
+import { getUserMe, getInitialCards, setUserMe, setNewCard, setAvatar, delCard, likesCard, delLikesCard, cardForDel } from './components/api.js'
 
 const cardsElement = document.querySelector('.cards');
 
@@ -103,15 +103,17 @@ const likeCard = (heart, id) => {
     addCardButton.addEventListener('click', openCardPopup);
 })();
 
-getInitialCards()
-    .then((array) => {
-        return array.map(element => {
+Promise.all([getUserMe(), getInitialCards()])
+    .then(responses => Promise.all(responses.map(response => response.json())))
+    .then(([response1, response2]) => {
+        return response2.map(element => {
             return {
                 name: element.name,
                 link: element.link,
                 like: element.likes,
                 id: element._id,
                 ownerId: element.owner._id,
+                myId: response1.id
             }
         })
     })
@@ -152,8 +154,6 @@ getInitialCards()
     formAvatar.addEventListener('submit', handleAvatarFormSubmit);
 
     const openAvatarPopup = () => {
-        cleanForm(formAvatar);
-
         openPopup(avatarPopup);
     }
 

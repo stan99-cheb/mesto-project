@@ -15,30 +15,12 @@ const getInitialCards = () => {
     return fetch(`${config.baseUrl}/cards`, {
         headers: config.headers
     })
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
 }
 
 const getUserMe = () => {
     return fetch(`${config.baseUrl}/users/me`, {
         headers: config.headers
     })
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
 }
 
 const setUserMe = (name, about) => {
