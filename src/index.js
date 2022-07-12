@@ -1,4 +1,4 @@
-import './index.css'
+//import './index.css'
 
 import { createCard, renderCard } from './components/cards.js';
 import { enableValidation } from './components/validate.js';
@@ -76,14 +76,15 @@ import { getInitialCards, getUserMe, setUserMe, setNewCard, setAvatar, delCard, 
                 newCard.ownerId = data.owner._id;
                 newCard.like = data.likes;
                 newCard.id = data._id
+
+                renderCard(createCard(newCard))
             })
-            .then(() => renderCard(createCard(newCard)))
             .finally(() => {
                 renderLoading(formCard, false);
-            });;
+            });
 
         closePopup(popupCard);
-    }
+    };
 
     formCard.addEventListener('submit', handleCardFormSubmit);
 
@@ -91,7 +92,7 @@ import { getInitialCards, getUserMe, setUserMe, setNewCard, setAvatar, delCard, 
         cleanForm(formCard);
 
         openPopup(popupCard);
-    }
+    };
 
     addCardButton.addEventListener('click', openCardPopup);
 })();
