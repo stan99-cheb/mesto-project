@@ -6,7 +6,7 @@ const enableValidation = ({
     inputErrorClass,
     errorClass
 }) => {
-    const formList = Array.from(document.querySelectorAll(formSelector));
+    const formList = document.querySelectorAll(formSelector);
 
     const showInputError = (formElement, inputElement, errorMessage) => {
         const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -61,15 +61,15 @@ const enableValidation = ({
         const inputList = Array.from(formElement.querySelectorAll(inputSelector));
         const buttonElement = formElement.querySelector(submitButtonSelector);
 
-        toggleButtonState(inputList, buttonElement);
-
         inputList.forEach((inputElement) => {
+            toggleButtonState(inputList, buttonElement);
+
             inputElement.addEventListener('input', () => {
                 isValid(formElement, inputElement);
 
                 toggleButtonState(inputList, buttonElement);
-            });
-        });
+            })
+        })
     };
 
     formList.forEach((formElement) => {

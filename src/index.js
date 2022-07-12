@@ -1,175 +1,236 @@
 import './index.css'
 
-import { createCard, renderCard } from './components/cards.js';
+import { createCard, isLike, delCardElement, updateLike, changeStatusHeart } from './components/cards.js';
 import { enableValidation } from './components/validate.js';
 import { openPopup, closePopup } from './components/popup.js';
-import { cleanForm, renderLoading } from './components/utils.js';
-import { getInitialCards, getUserMe, setUserMe, setNewCard, setAvatar, delCard, cardForDel } from './components/api.js'
+import { renderLoading } from './components/utils.js';
+import { getUserMe, getInitialCards, setUserMe, setNewCard, setAvatar, delCard, likesCard, delLikesCard, cardForDel } from './components/api.js';
 
-(function () {
-    const editProfileButton = document.querySelector('.profile__edit-button');
-    const popupProfile = document.querySelector('.popup-profile');
-    const formProfile = popupProfile.querySelector('.form-profile');
-    const nameInput = formProfile.querySelector('.form-profile__name');
-    const jobInput = formProfile.querySelector('.form-profile__job');
-    const avatarProfile = document.querySelector('.profile__avatar');
-    const profileTitle = document.querySelector('.profile__title');
-    const profileSubtitle = document.querySelector('.profile__subtitle');
+const cardsElement = document.querySelector('.cards');
+const editProfileButton = document.querySelector('.profile__edit-button');
+const popupProfile = document.querySelector('.popup-profile');
+const formProfile = popupProfile.querySelector('.form-profile');
+const nameInput = formProfile.querySelector('.form-profile__name');
+const jobInput = formProfile.querySelector('.form-profile__job');
+const profileTitle = document.querySelector('.profile__title');
+const profileSubtitle = document.querySelector('.profile__subtitle');
+const addCardButton = document.querySelector('.profile__add-button');
+const popupCard = document.querySelector('.popup-card');
+const formCard = popupCard.querySelector('.form-card');
+const nameCardInput = formCard.querySelector('.form-card__name');
+const linkCardInput = formCard.querySelector('.form-card__link');
+const newCard = {};
+const avatarButton = document.querySelector('.profile__avatar');
+const avatarPopup = document.querySelector('.popup-avatar');
+const formAvatar = document.querySelector('.form-avatar');
+const avatarProfile = document.querySelector('.profile__avatar');
+const avatarInput = formAvatar.querySelector('.form-avatar__link');
+const delCardPopup = document.querySelector('.popup-delcard');
+const delCardForm = document.querySelector('.form-delcard');
 
-    function handleProfileFormSubmit(evt) {
-        evt.preventDefault();
+function handleProfileFormSubmit(evt) {
+    evt.preventDefault();
 
-        renderLoading(formProfile, true);
+    renderLoading(formProfile, true);
 
-        profileTitle.textContent = nameInput.value;
-        profileSubtitle.textContent = jobInput.value;
+    profileTitle.textContent = nameInput.value;
+    profileSubtitle.textContent = jobInput.value;
 
-        setUserMe(nameInput.value, jobInput.value)
-            .finally(() => {
-                renderLoading(formProfile, false);
-            });
+    setUserMe(nameInput.value, jobInput.value)
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`)
+        })
+        .then(() => {
+            closePopup(popupProfile)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+        .finally(() => {
+            renderLoading(formProfile, false)
+        })
+}
 
-        closePopup(popupProfile);
-    }
+formProfile.addEventListener('submit', handleProfileFormSubmit);
 
-    formProfile.addEventListener('submit', handleProfileFormSubmit);
+function openProfilePopup() {
+    nameInput.value = profileTitle.textContent;
+    jobInput.value = profileSubtitle.textContent;
 
-    function openProfilePopup() {
-        cleanForm(formProfile);
+    openPopup(popupProfile)
+}
 
-        getUserMe()
-            .then(data => {
-                nameInput.value = data.name;
-                jobInput.value = data.about;
-            });
+editProfileButton.addEventListener('click', openProfilePopup);
 
-        openPopup(popupProfile);
-    }
+function handleCardFormSubmit(evt) {
+    evt.preventDefault();
 
-    getUserMe()
+    renderLoading(formCard, true);
+
+    Promise.all([getUserMe(), setNewCard(nameCardInput.value, linkCardInput.value)])
+        .then(responses => Promise.all(responses.map(response => {
+            if (response.ok) {
+                return response.json()
+            }
+            return Promise.reject(`Ошибка: ${response.status}`)
+        })))
+        .then(([response1, response2]) => {
+            newCard.name = response2.name;
+            newCard.link = response2.link;
+            newCard.ownerId = response2.owner._id;
+            newCard.like = response2.likes;
+            newCard.id = response2._id;
+            newCard.myId = response1._id;
+
+            renderCard(createCard(newCard));
+
+            closePopup(popupCard)
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+        .finally(() => {
+            renderLoading(formCard, false)
+        })
+};
+
+formCard.addEventListener('submit', handleCardFormSubmit);
+
+function openCardPopup(evt) {
+    openPopup(popupCard)
+};
+
+addCardButton.addEventListener('click', openCardPopup);
+
+const handleAvatarFormSubmit = (evt) => {
+    evt.preventDefault();
+
+    renderLoading(formAvatar, true);
+
+    setAvatar(avatarInput.value)
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`)
+        })
         .then(data => {
-            profileTitle.textContent = data.name;
-            profileSubtitle.textContent = data.about;
             avatarProfile.src = data.avatar;
-        });
 
-    editProfileButton.addEventListener('click', openProfilePopup);
-})();
+            closePopup(avatarPopup)
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+        .finally(() => {
+            renderLoading(formAvatar, false)
+        })
+};
 
-(function () {
-    const addCardButton = document.querySelector('.profile__add-button');
-    const popupCard = document.querySelector('.popup-card');
-    const formCard = popupCard.querySelector('.form-card');
-    const nameCardInput = formCard.querySelector('.form-card__name');
-    const linkCardInput = formCard.querySelector('.form-card__link');
-    const newCard = {};
+formAvatar.addEventListener('submit', handleAvatarFormSubmit);
 
-    function handleCardFormSubmit(evt) {
-        evt.preventDefault();
+const openAvatarPopup = () => {
+    openPopup(avatarPopup)
+};
 
-        renderLoading(formCard, true);
+avatarButton.addEventListener('click', openAvatarPopup);
 
-        setNewCard(nameCardInput.value, linkCardInput.value)
-            .then(data => {
-                newCard.name = data.name;
-                newCard.link = data.link;
-                newCard.ownerId = data.owner._id;
-                newCard.like = data.likes;
-                newCard.id = data._id
-            })
-            .then(() => renderCard(createCard(newCard)))
-            .finally(() => {
-                renderLoading(formCard, false);
-            });;
+const handleDelCardFormSubmit = (evt) => {
+    evt.preventDefault();
 
-        closePopup(popupCard);
-    }
+    delCard(cardForDel.id)
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`)
+        })
+        .then(() => {
+            delCardElement(cardForDel.card);
 
-    formCard.addEventListener('submit', handleCardFormSubmit);
+            closePopup(delCardPopup)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+};
 
-    function openCardPopup(evt) {
-        cleanForm(formCard);
+delCardForm.addEventListener('submit', handleDelCardFormSubmit);
 
-        openPopup(popupCard);
-    }
+const renderCard = (cardElement) => {
+    cardsElement.prepend(cardElement)
+};
 
-    addCardButton.addEventListener('click', openCardPopup);
-})();
-
-getInitialCards()
-    .then(data => {
-        const initialCardArray = data.map(element => {
+Promise.all([getUserMe(), getInitialCards()])
+    .then(responses => Promise.all(responses.map(response => {
+        if (response.ok) {
+            return response.json()
+        }
+        return Promise.reject(`Ошибка: ${response.status}`)
+    })))
+    .then(([response1, response2]) => {
+        return response2.map(element => {
             return {
                 name: element.name,
                 link: element.link,
                 like: element.likes,
                 id: element._id,
                 ownerId: element.owner._id,
+                myId: response1._id
             }
-        });
-
-        const cardElementArray = initialCardArray.map(card => {
+        })
+    })
+    .then((array) => {
+        return array.map(card => {
             return createCard(card)
-        });
-
-        cardElementArray.reverse().forEach(cardElement => {
+        })
+    })
+    .then((array) => {
+        array.reverse().forEach(cardElement => {
             renderCard(cardElement)
-        });
+        })
+    })
+    .catch((err) => {
+        console.log(err)
     });
 
-(function () {
-    const avatarButton = document.querySelector('.profile__avatar');
-    const avatarPopup = document.querySelector('.popup-avatar');
-    const formAvatar = document.querySelector('.form-avatar');
-    const avatarProfile = document.querySelector('.profile__avatar');
-    const avatarInput = formAvatar.querySelector('.form-avatar__link');
-
-    const handleAvatarFormSubmit = (evt) => {
-        evt.preventDefault();
-
-        renderLoading(formAvatar, true);
-
-        setAvatar(avatarInput.value)
-            .then(data => {
-                avatarProfile.src = data.avatar;
+const likeCard = (heart, id) => {
+    if (isLike(heart)) {
+        delLikesCard(id)
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
             })
-            .finally(() => {
-                renderLoading(formAvatar, false);
+            .then(card => {
+                updateLike(heart, card.likes.length)
+            })
+            .catch((err) => {
+                console.log(err);
             });
-
-        closePopup(avatarPopup);
-    }
-
-    formAvatar.addEventListener('submit', handleAvatarFormSubmit);
-
-    const openAvatarPopup = () => {
-        cleanForm(formAvatar);
-
-        openPopup(avatarPopup);
-    }
-
-    avatarButton.addEventListener('click', openAvatarPopup)
-})();
-
-(function () {
-    const delCardPopup = document.querySelector('.popup-delcard');
-    const delCardForm = document.querySelector('.form-delcard');
-
-    const handleDelCardFormSubmit = (evt) => {
-        evt.preventDefault();
-
-        delCard(cardForDel.id)
-            .then(() => {
-                cardForDel.card.closest('.card').remove();
+    } else {
+        likesCard(id)
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
             })
+            .then(card => {
+                updateLike(heart, card.likes.length)
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 
-        closePopup(delCardPopup);
-    }
+    changeStatusHeart(heart)
+};
 
-    delCardForm.addEventListener('submit', handleDelCardFormSubmit);
-})();
-
-// Вызовем функцию
 enableValidation({
     formSelector: '.form',
     inputSelector: '.form__input',
@@ -178,3 +239,5 @@ enableValidation({
     inputErrorClass: 'form__input_type_error',
     errorClass: 'form__input-error_active'
 });
+
+export { likeCard };

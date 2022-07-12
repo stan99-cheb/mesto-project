@@ -1,55 +1,54 @@
+import { likeCard } from '../index.js';
 import { openPopup } from './popup.js';
-import { likesCard, delLikesCard, cardForDel } from './api.js';
+import { cardForDel } from './api.js';
 
-const cardsElement = document.querySelector('.cards');
 const cardTemplate = document.querySelector('#new-place').content;
 const popupImage = document.querySelector('.popup-image');
 const popupImageName = popupImage.querySelector('.popup-image__name');
 const popupImageLink = popupImage.querySelector('.popup-image__link');
-const myOwnerId = '912df452cc2f9c1b7c925e7c';
-
 const delCardPopup = document.querySelector('.popup-delcard');
 
-const isMyCard = (id) => {
-    return id === myOwnerId
+const isMyCard = (cardId, myId) => {
+    return cardId === myId
 }
 
-const hasLikeCard = (arrayLike) => {
-    return arrayLike.some(element => element._id === myOwnerId)
+const hasLikeCard = (arrayLike, myId) => {
+    return arrayLike.some(element => element._id === myId)
 }
 
 const createCard = (card) => {
     const cardElement = cardTemplate.cloneNode(true);
+    const cardLink = cardElement.querySelector('.card__link');
+    const cardName = cardElement.querySelector('.card__name');
+    const cardLike = cardElement.querySelector('.card__like');
+    const cardHeart = cardElement.querySelector('.card__heart');
+    const cardTrash = cardElement.querySelector('.card__trash');
 
-    cardElement.querySelector('.card__name').textContent = card.name;
-    cardElement.querySelector('.card__link').src = card.link;
-    cardElement.querySelector('.card__link').alt = 'Изображение ' + card.name;
-    cardElement.querySelector('.card__like').textContent = card.like.length;
+    cardName.textContent = card.name;
+    cardLink.src = card.link;
+    cardLink.alt = 'Изображение ' + card.name;
+    cardLike.textContent = card.like.length;
 
-    cardElement.querySelector('.card__link').addEventListener('click', showCard);
-    cardElement.querySelector('.card__heart').addEventListener('click', (e) => {
-        likeCard(e, card.id);
+    cardLink.addEventListener('click', showCard);
+    cardHeart.addEventListener('click', (e) => {
+        likeCard(e.target, card.id);
     });
-    cardElement.querySelector('.card__trash').addEventListener('click', (e) => {
+    cardTrash.addEventListener('click', (e) => {
         deleteCard(e, card.id);
     });
 
-    if (!isMyCard(card.ownerId)) {
-        cardElement.querySelector('.card__trash').remove();
+    if (!isMyCard(card.ownerId, card.myId)) {
+        cardTrash.remove();
     }
 
-    if (hasLikeCard(card.like)) {
-        cardElement.querySelector('.card__heart').classList.add('card__heart_active');
+    if (hasLikeCard(card.like, card.myId)) {
+        cardHeart.classList.add('card__heart_active');
     } else {
-        cardElement.querySelector('.card__heart').classList.remove('card__heart_active');
+        cardHeart.classList.remove('card__heart_active');
     };
 
     return cardElement;
 };
-
-const renderCard = (cardElement) => {
-    cardsElement.prepend(cardElement)
-}
 
 const showCard = (e) => {
     popupImageName.textContent = e.target.alt;
@@ -59,27 +58,17 @@ const showCard = (e) => {
     openPopup(popupImage);
 };
 
-const isLike = (e) => {
-    return e.target.classList.contains('card__heart_active')
+const isLike = (card) => {
+    return card.classList.contains('card__heart_active')
 }
 
-const likeCard = (e, id) => {
-    if (isLike(e)) {
-        e.target.classList.remove('card__heart_active');
-        delLikesCard(id)
-            .then(data => {
-                e.target.closest('.card').
-                    querySelector('.card__like').textContent = data.likes.length;
-            });
-    } else {
-        e.target.classList.add('card__heart_active');
-        likesCard(id)
-            .then(data => {
-                e.target.closest('.card').
-                    querySelector('.card__like').textContent = data.likes.length;
-            });
-    }
-};
+const updateLike = (card, num) => {
+    card.closest('.card').querySelector('.card__like').textContent = num;
+}
+
+const changeStatusHeart = (card) => {
+    card.classList.toggle('card__heart_active')
+}
 
 const deleteCard = (e, id) => {
     openPopup(delCardPopup);
@@ -88,4 +77,8 @@ const deleteCard = (e, id) => {
     cardForDel.card = e.target
 };
 
-export { createCard, renderCard }
+const delCardElement = (card) => {
+    card.closest('.card').remove();
+}
+
+export { createCard, isLike, delCardElement, updateLike, changeStatusHeart }
