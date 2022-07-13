@@ -1,4 +1,4 @@
-//import './index.css'
+import './index.css'
 
 import { createCard, isLike, delCardElement, updateLike, changeStatusHeart } from './components/cards.js';
 import { enableValidation } from './components/validate.js';
