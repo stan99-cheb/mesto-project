@@ -158,6 +158,9 @@ const likeCard = (heart, id) => {
             .then(card => {
                 updateLike(heart, card.likes.length)
             })
+            .then(
+                changeStatusHeart(heart)
+            )
             .catch((err) => {
                 console.log(err);
             });
@@ -166,12 +169,13 @@ const likeCard = (heart, id) => {
             .then(card => {
                 updateLike(heart, card.likes.length)
             })
+            .then(
+                changeStatusHeart(heart)
+            )
             .catch((err) => {
                 console.log(err);
             });
     };
-
-    changeStatusHeart(heart)
 };
 
 const deleteCard = (e, id) => {
