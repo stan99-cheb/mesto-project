@@ -15,12 +15,24 @@ const getInitialCards = () => {
     return fetch(`${config.baseUrl}/cards`, {
         headers: config.headers
     })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`)
+        })
 }
 
 const getUserMe = () => {
     return fetch(`${config.baseUrl}/users/me`, {
         headers: config.headers
     })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`)
+        })
 }
 
 const setUserMe = (name, about) => {
@@ -32,6 +44,12 @@ const setUserMe = (name, about) => {
             about: about
         })
     })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`)
+        })
 }
 
 const setNewCard = (name, link) => {
@@ -43,6 +61,12 @@ const setNewCard = (name, link) => {
             link: link
         })
     })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`)
+        })
 }
 
 const delCard = (cardId) => {
@@ -50,6 +74,12 @@ const delCard = (cardId) => {
         method: 'DELETE',
         headers: config.headers
     })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`)
+        })
 }
 
 const likesCard = (cardId) => {
@@ -57,6 +87,12 @@ const likesCard = (cardId) => {
         method: 'PUT',
         headers: config.headers
     })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`)
+        })
 }
 
 const delLikesCard = (cardId) => {
@@ -64,6 +100,12 @@ const delLikesCard = (cardId) => {
         method: 'DELETE',
         headers: config.headers
     })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`)
+        })
 }
 
 const setAvatar = (ava) => {
@@ -74,6 +116,12 @@ const setAvatar = (ava) => {
             avatar: ava,
         })
     })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`)
+        })
 }
 
 export {

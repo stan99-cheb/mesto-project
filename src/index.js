@@ -1,4 +1,4 @@
-import './index.css'
+//import './index.css'
 
 import { createCard, isLike, delCardElement, updateLike, changeStatusHeart } from './components/cards.js';
 import { enableValidation } from './components/validate.js';
@@ -37,12 +37,6 @@ function handleProfileFormSubmit(evt) {
     profileSubtitle.textContent = jobInput.value;
 
     setUserMe(nameInput.value, jobInput.value)
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`)
-        })
         .then(() => {
             closePopup(popupProfile)
         })
@@ -71,12 +65,6 @@ function handleCardFormSubmit(evt) {
     renderLoading(formCard, true);
 
     Promise.all([getUserMe(), setNewCard(nameCardInput.value, linkCardInput.value)])
-        .then(responses => Promise.all(responses.map(response => {
-            if (response.ok) {
-                return response.json()
-            }
-            return Promise.reject(`Ошибка: ${response.status}`)
-        })))
         .then(([response1, response2]) => {
             newCard.name = response2.name;
             newCard.link = response2.link;
@@ -111,12 +99,6 @@ const handleAvatarFormSubmit = (evt) => {
     renderLoading(formAvatar, true);
 
     setAvatar(avatarInput.value)
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`)
-        })
         .then(data => {
             avatarProfile.src = data.avatar;
 
@@ -142,12 +124,6 @@ const handleDelCardFormSubmit = (evt) => {
     evt.preventDefault();
 
     delCard(cardForDel.id)
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`)
-        })
         .then(() => {
             delCardElement(cardForDel.card);
 
@@ -165,12 +141,6 @@ const renderCard = (cardElement) => {
 };
 
 Promise.all([getUserMe(), getInitialCards()])
-    .then(responses => Promise.all(responses.map(response => {
-        if (response.ok) {
-            return response.json()
-        }
-        return Promise.reject(`Ошибка: ${response.status}`)
-    })))
     .then(([response1, response2]) => {
         return response2.map(element => {
             return {
@@ -200,12 +170,6 @@ Promise.all([getUserMe(), getInitialCards()])
 const likeCard = (heart, id) => {
     if (isLike(heart)) {
         delLikesCard(id)
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
-            })
             .then(card => {
                 updateLike(heart, card.likes.length)
             })
@@ -214,12 +178,6 @@ const likeCard = (heart, id) => {
             });
     } else {
         likesCard(id)
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
-            })
             .then(card => {
                 updateLike(heart, card.likes.length)
             })
