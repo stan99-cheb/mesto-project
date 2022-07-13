@@ -1,3 +1,5 @@
+import { checkRes } from './utils.js';
+
 const cardForDel = {
     id: '',
     card: null
@@ -15,12 +17,14 @@ const getInitialCards = () => {
     return fetch(`${config.baseUrl}/cards`, {
         headers: config.headers
     })
+        .then(checkRes);
 }
 
 const getUserMe = () => {
     return fetch(`${config.baseUrl}/users/me`, {
         headers: config.headers
     })
+        .then(checkRes);
 }
 
 const setUserMe = (name, about) => {
@@ -32,6 +36,7 @@ const setUserMe = (name, about) => {
             about: about
         })
     })
+        .then(checkRes);
 }
 
 const setNewCard = (name, link) => {
@@ -43,6 +48,7 @@ const setNewCard = (name, link) => {
             link: link
         })
     })
+        .then(checkRes);
 }
 
 const delCard = (cardId) => {
@@ -50,6 +56,7 @@ const delCard = (cardId) => {
         method: 'DELETE',
         headers: config.headers
     })
+        .then(checkRes);
 }
 
 const likesCard = (cardId) => {
@@ -57,6 +64,7 @@ const likesCard = (cardId) => {
         method: 'PUT',
         headers: config.headers
     })
+        .then(checkRes);
 }
 
 const delLikesCard = (cardId) => {
@@ -64,6 +72,7 @@ const delLikesCard = (cardId) => {
         method: 'DELETE',
         headers: config.headers
     })
+        .then(checkRes);
 }
 
 const setAvatar = (ava) => {
@@ -74,6 +83,7 @@ const setAvatar = (ava) => {
             avatar: ava,
         })
     })
+        .then(checkRes);
 }
 
 export {

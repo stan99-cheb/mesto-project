@@ -1,22 +1,19 @@
-import { likeCard } from '../index.js';
 import { openPopup } from './popup.js';
-import { cardForDel } from './api.js';
 
 const cardTemplate = document.querySelector('#new-place').content;
 const popupImage = document.querySelector('.popup-image');
 const popupImageName = popupImage.querySelector('.popup-image__name');
 const popupImageLink = popupImage.querySelector('.popup-image__link');
-const delCardPopup = document.querySelector('.popup-delcard');
 
 const isMyCard = (cardId, myId) => {
     return cardId === myId
 }
 
-const hasLikeCard = (arrayLike, myId) => {
-    return arrayLike.some(element => element._id === myId)
+const hasLikeCard = (likes, myId) => {
+    return likes.some(element => element._id === myId)
 }
 
-const createCard = (card) => {
+const createCard = (card, myUserId, likeCard, deleteCard) => {
     const cardElement = cardTemplate.cloneNode(true);
     const cardLink = cardElement.querySelector('.card__link');
     const cardName = cardElement.querySelector('.card__name');
@@ -27,21 +24,21 @@ const createCard = (card) => {
     cardName.textContent = card.name;
     cardLink.src = card.link;
     cardLink.alt = 'Изображение ' + card.name;
-    cardLike.textContent = card.like.length;
+    cardLike.textContent = card.likes.length;
 
     cardLink.addEventListener('click', showCard);
     cardHeart.addEventListener('click', (e) => {
-        likeCard(e.target, card.id);
+        likeCard(e.target, card._id);
     });
     cardTrash.addEventListener('click', (e) => {
-        deleteCard(e, card.id);
+        deleteCard(e, card._id);
     });
 
-    if (!isMyCard(card.ownerId, card.myId)) {
+    if (!isMyCard(card.owner._id, myUserId)) {
         cardTrash.remove();
     }
 
-    if (hasLikeCard(card.like, card.myId)) {
+    if (hasLikeCard(card.likes, myUserId)) {
         cardHeart.classList.add('card__heart_active');
     } else {
         cardHeart.classList.remove('card__heart_active');
@@ -69,13 +66,6 @@ const updateLike = (card, num) => {
 const changeStatusHeart = (card) => {
     card.classList.toggle('card__heart_active')
 }
-
-const deleteCard = (e, id) => {
-    openPopup(delCardPopup);
-
-    cardForDel.id = id;
-    cardForDel.card = e.target
-};
 
 const delCardElement = (card) => {
     card.closest('.card').remove();

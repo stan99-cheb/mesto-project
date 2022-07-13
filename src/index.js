@@ -19,7 +19,6 @@ const popupCard = document.querySelector('.popup-card');
 const formCard = popupCard.querySelector('.form-card');
 const nameCardInput = formCard.querySelector('.form-card__name');
 const linkCardInput = formCard.querySelector('.form-card__link');
-const newCard = {};
 const avatarButton = document.querySelector('.profile__avatar');
 const avatarPopup = document.querySelector('.popup-avatar');
 const formAvatar = document.querySelector('.form-avatar');
@@ -27,6 +26,7 @@ const avatarProfile = document.querySelector('.profile__avatar');
 const avatarInput = formAvatar.querySelector('.form-avatar__link');
 const delCardPopup = document.querySelector('.popup-delcard');
 const delCardForm = document.querySelector('.form-delcard');
+let myUserId = '';
 
 function handleProfileFormSubmit(evt) {
     evt.preventDefault();
@@ -37,12 +37,6 @@ function handleProfileFormSubmit(evt) {
     profileSubtitle.textContent = jobInput.value;
 
     setUserMe(nameInput.value, jobInput.value)
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`)
-        })
         .then(() => {
             closePopup(popupProfile)
         })
@@ -70,22 +64,9 @@ function handleCardFormSubmit(evt) {
 
     renderLoading(formCard, true);
 
-    Promise.all([getUserMe(), setNewCard(nameCardInput.value, linkCardInput.value)])
-        .then(responses => Promise.all(responses.map(response => {
-            if (response.ok) {
-                return response.json()
-            }
-            return Promise.reject(`Ошибка: ${response.status}`)
-        })))
-        .then(([response1, response2]) => {
-            newCard.name = response2.name;
-            newCard.link = response2.link;
-            newCard.ownerId = response2.owner._id;
-            newCard.like = response2.likes;
-            newCard.id = response2._id;
-            newCard.myId = response1._id;
-
-            renderCard(createCard(newCard));
+    setNewCard(nameCardInput.value, linkCardInput.value)
+        .then((card) => {
+            renderCard(createCard(card, myUserId, likeCard, deleteCard));
 
             closePopup(popupCard)
         })
@@ -111,12 +92,6 @@ const handleAvatarFormSubmit = (evt) => {
     renderLoading(formAvatar, true);
 
     setAvatar(avatarInput.value)
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`)
-        })
         .then(data => {
             avatarProfile.src = data.avatar;
 
@@ -142,12 +117,6 @@ const handleDelCardFormSubmit = (evt) => {
     evt.preventDefault();
 
     delCard(cardForDel.id)
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`)
-        })
         .then(() => {
             delCardElement(cardForDel.card);
 
@@ -165,31 +134,17 @@ const renderCard = (cardElement) => {
 };
 
 Promise.all([getUserMe(), getInitialCards()])
-    .then(responses => Promise.all(responses.map(response => {
-        if (response.ok) {
-            return response.json()
-        }
-        return Promise.reject(`Ошибка: ${response.status}`)
-    })))
-    .then(([response1, response2]) => {
-        return response2.map(element => {
-            return {
-                name: element.name,
-                link: element.link,
-                like: element.likes,
-                id: element._id,
-                ownerId: element.owner._id,
-                myId: response1._id
-            }
+    .then(([res1, res2]) => {
+        myUserId = res1._id;
+        return res2
+    })
+    .then((cards) => {
+        return cards.map(card => {
+            return createCard(card, myUserId, likeCard, deleteCard)
         })
     })
-    .then((array) => {
-        return array.map(card => {
-            return createCard(card)
-        })
-    })
-    .then((array) => {
-        array.reverse().forEach(cardElement => {
+    .then((cardsElement) => {
+        cardsElement.reverse().forEach(cardElement => {
             renderCard(cardElement)
         })
     })
@@ -200,35 +155,34 @@ Promise.all([getUserMe(), getInitialCards()])
 const likeCard = (heart, id) => {
     if (isLike(heart)) {
         delLikesCard(id)
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
-            })
             .then(card => {
                 updateLike(heart, card.likes.length)
             })
+            .then(
+                changeStatusHeart(heart)
+            )
             .catch((err) => {
                 console.log(err);
             });
     } else {
         likesCard(id)
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
-            })
             .then(card => {
                 updateLike(heart, card.likes.length)
             })
+            .then(
+                changeStatusHeart(heart)
+            )
             .catch((err) => {
                 console.log(err);
             });
     };
+};
 
-    changeStatusHeart(heart)
+const deleteCard = (e, id) => {
+    openPopup(delCardPopup);
+
+    cardForDel.id = id;
+    cardForDel.card = e.target
 };
 
 enableValidation({
@@ -239,5 +193,3 @@ enableValidation({
     inputErrorClass: 'form__input_type_error',
     errorClass: 'form__input-error_active'
 });
-
-export { likeCard };
