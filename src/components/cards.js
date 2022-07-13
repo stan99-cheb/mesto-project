@@ -16,7 +16,7 @@ const hasLikeCard = (arrayLike, myId) => {
     return arrayLike.some(element => element._id === myId)
 }
 
-const createCard = (card) => {
+const createCard = (card, myUserId) => {
     const cardElement = cardTemplate.cloneNode(true);
     const cardLink = cardElement.querySelector('.card__link');
     const cardName = cardElement.querySelector('.card__name');
@@ -27,21 +27,21 @@ const createCard = (card) => {
     cardName.textContent = card.name;
     cardLink.src = card.link;
     cardLink.alt = 'Изображение ' + card.name;
-    cardLike.textContent = card.like.length;
+    cardLike.textContent = card.likes.length;
 
     cardLink.addEventListener('click', showCard);
     cardHeart.addEventListener('click', (e) => {
-        likeCard(e.target, card.id);
+        likeCard(e.target, card._id);
     });
     cardTrash.addEventListener('click', (e) => {
-        deleteCard(e, card.id);
+        deleteCard(e, card._id);
     });
 
-    if (!isMyCard(card.ownerId, card.myId)) {
+    if (!isMyCard(card.owner._id, myUserId)) {
         cardTrash.remove();
     }
 
-    if (hasLikeCard(card.like, card.myId)) {
+    if (hasLikeCard(card.likes, myUserId)) {
         cardHeart.classList.add('card__heart_active');
     } else {
         cardHeart.classList.remove('card__heart_active');

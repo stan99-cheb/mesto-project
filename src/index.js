@@ -27,6 +27,7 @@ const avatarProfile = document.querySelector('.profile__avatar');
 const avatarInput = formAvatar.querySelector('.form-avatar__link');
 const delCardPopup = document.querySelector('.popup-delcard');
 const delCardForm = document.querySelector('.form-delcard');
+let myUserId = '';
 
 function handleProfileFormSubmit(evt) {
     evt.preventDefault();
@@ -64,16 +65,9 @@ function handleCardFormSubmit(evt) {
 
     renderLoading(formCard, true);
 
-    Promise.all([getUserMe(), setNewCard(nameCardInput.value, linkCardInput.value)])
-        .then(([response1, response2]) => {
-            newCard.name = response2.name;
-            newCard.link = response2.link;
-            newCard.ownerId = response2.owner._id;
-            newCard.like = response2.likes;
-            newCard.id = response2._id;
-            newCard.myId = response1._id;
-
-            renderCard(createCard(newCard));
+    setNewCard(nameCardInput.value, linkCardInput.value)
+        .then((card) => {
+            renderCard(createCard(card, myUserId));
 
             closePopup(popupCard)
         })
@@ -141,25 +135,17 @@ const renderCard = (cardElement) => {
 };
 
 Promise.all([getUserMe(), getInitialCards()])
-    .then(([response1, response2]) => {
-        return response2.map(element => {
-            return {
-                name: element.name,
-                link: element.link,
-                like: element.likes,
-                id: element._id,
-                ownerId: element.owner._id,
-                myId: response1._id
-            }
+    .then(([res1, res2]) => {
+        myUserId = res1._id;
+        return res2
+    })
+    .then((cards) => {
+        return cards.map(card => {
+            return createCard(card, myUserId)
         })
     })
-    .then((array) => {
-        return array.map(card => {
-            return createCard(card)
-        })
-    })
-    .then((array) => {
-        array.reverse().forEach(cardElement => {
+    .then((cardsElement) => {
+        cardsElement.reverse().forEach(cardElement => {
             renderCard(cardElement)
         })
     })
