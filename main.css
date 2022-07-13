@@ -40,7 +40,7 @@
 .form-card__name{margin-bottom:30px}
 .form-card__link{margin-bottom:48px}
 .form-avatar__link{margin-bottom:48px}
-
+.popup-image{background:rgba(0,0,0,.9)}
 .popup-image__name{color:#fff;font-size:12px;margin:0;padding:0}
 .popup-image__link{max-height:80vh;max-width:80vw}
 
