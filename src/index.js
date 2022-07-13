@@ -19,7 +19,6 @@ const popupCard = document.querySelector('.popup-card');
 const formCard = popupCard.querySelector('.form-card');
 const nameCardInput = formCard.querySelector('.form-card__name');
 const linkCardInput = formCard.querySelector('.form-card__link');
-const newCard = {};
 const avatarButton = document.querySelector('.profile__avatar');
 const avatarPopup = document.querySelector('.popup-avatar');
 const formAvatar = document.querySelector('.form-avatar');
@@ -67,7 +66,7 @@ function handleCardFormSubmit(evt) {
 
     setNewCard(nameCardInput.value, linkCardInput.value)
         .then((card) => {
-            renderCard(createCard(card, myUserId));
+            renderCard(createCard(card, myUserId, likeCard, deleteCard));
 
             closePopup(popupCard)
         })
@@ -141,7 +140,7 @@ Promise.all([getUserMe(), getInitialCards()])
     })
     .then((cards) => {
         return cards.map(card => {
-            return createCard(card, myUserId)
+            return createCard(card, myUserId, likeCard, deleteCard)
         })
     })
     .then((cardsElement) => {
@@ -175,6 +174,13 @@ const likeCard = (heart, id) => {
     changeStatusHeart(heart)
 };
 
+const deleteCard = (e, id) => {
+    openPopup(delCardPopup);
+
+    cardForDel.id = id;
+    cardForDel.card = e.target
+};
+
 enableValidation({
     formSelector: '.form',
     inputSelector: '.form__input',
@@ -183,5 +189,3 @@ enableValidation({
     inputErrorClass: 'form__input_type_error',
     errorClass: 'form__input-error_active'
 });
-
-export { likeCard };
