@@ -36,15 +36,15 @@ const createCard = (card, myUserId, likeCard, deleteCard) => {
 
     if (!isMyCard(card.owner._id, myUserId)) {
         cardTrash.remove();
-    }
-
-    if (hasLikeCard(card.likes, myUserId)) {
-        cardHeart.classList.add('card__heart_active');
-    } else {
-        cardHeart.classList.remove('card__heart_active');
     };
 
-    return cardElement;
+    if (hasLikeCard(card.likes, myUserId)) {
+        cardHeart.classList.add('card__heart_active')
+    } else {
+        cardHeart.classList.remove('card__heart_active')
+    };
+
+    return cardElement
 };
 
 const showCard = (e) => {
@@ -57,18 +57,18 @@ const showCard = (e) => {
 
 const isLike = (card) => {
     return card.classList.contains('card__heart_active')
-}
+};
 
 const updateLike = (card, num) => {
-    card.closest('.card').querySelector('.card__like').textContent = num;
-}
+    card.closest('.card').querySelector('.card__like').textContent = num
+};
 
 const changeStatusHeart = (card) => {
     card.classList.toggle('card__heart_active')
-}
+};
 
 const delCardElement = (card) => {
-    card.closest('.card').remove();
-}
+    card.closest('.card').remove()
+};
 
-export { createCard, isLike, delCardElement, updateLike, changeStatusHeart }
+export { createCard, isLike, delCardElement, updateLike, changeStatusHeart };

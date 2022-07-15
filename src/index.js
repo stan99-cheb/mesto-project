@@ -156,26 +156,22 @@ const likeCard = (heart, id) => {
     if (isLike(heart)) {
         delLikesCard(id)
             .then(card => {
+                changeStatusHeart(heart);
                 updateLike(heart, card.likes.length)
             })
-            .then(
-                changeStatusHeart(heart)
-            )
             .catch((err) => {
-                console.log(err);
-            });
+                console.log(err)
+            })
     } else {
         likesCard(id)
             .then(card => {
+                changeStatusHeart(heart);
                 updateLike(heart, card.likes.length)
             })
-            .then(
-                changeStatusHeart(heart)
-            )
             .catch((err) => {
-                console.log(err);
-            });
-    };
+                console.log(err)
+            })
+    }
 };
 
 const deleteCard = (e, id) => {
