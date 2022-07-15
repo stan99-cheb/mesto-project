@@ -1,19 +1,6 @@
-import { openPopup } from './popup.js';
-
 const cardTemplate = document.querySelector('#new-place').content;
-const popupImage = document.querySelector('.popup-image');
-const popupImageName = popupImage.querySelector('.popup-image__name');
-const popupImageLink = popupImage.querySelector('.popup-image__link');
 
-const isMyCard = (cardId, myId) => {
-    return cardId === myId
-}
-
-const hasLikeCard = (likes, myId) => {
-    return likes.some(element => element._id === myId)
-}
-
-const createCard = (card, myUserId, likeCard, deleteCard) => {
+const createCard = (card, myUserId, showCard, likeCard, deleteCard) => {
     const cardElement = cardTemplate.cloneNode(true);
     const cardLink = cardElement.querySelector('.card__link');
     const cardName = cardElement.querySelector('.card__name');
@@ -39,36 +26,36 @@ const createCard = (card, myUserId, likeCard, deleteCard) => {
     };
 
     if (hasLikeCard(card.likes, myUserId)) {
-        cardHeart.classList.add('card__heart_active')
+        cardHeart.classList.add('card__heart_active');
     } else {
-        cardHeart.classList.remove('card__heart_active')
+        cardHeart.classList.remove('card__heart_active');
     };
 
-    return cardElement
+    return cardElement;
 };
 
-const showCard = (e) => {
-    popupImageName.textContent = e.target.alt;
-    popupImageLink.src = e.target.src;
-    popupImageLink.alt = e.target.alt;
+const isMyCard = (cardId, myId) => {
+    return cardId === myId;
+};
 
-    openPopup(popupImage);
+const hasLikeCard = (likes, myId) => {
+    return likes.some(element => element._id === myId);
 };
 
 const isLike = (card) => {
-    return card.classList.contains('card__heart_active')
+    return card.classList.contains('card__heart_active');
 };
 
 const updateLike = (card, num) => {
-    card.closest('.card').querySelector('.card__like').textContent = num
+    card.closest('.card').querySelector('.card__like').textContent = num;
 };
 
 const changeStatusHeart = (card) => {
-    card.classList.toggle('card__heart_active')
+    card.classList.toggle('card__heart_active');
 };
 
 const delCardElement = (card) => {
-    card.closest('.card').remove()
+    card.closest('.card').remove();
 };
 
 export { createCard, isLike, delCardElement, updateLike, changeStatusHeart };

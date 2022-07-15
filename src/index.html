@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesto-Project</title>
-    <link rel="stylesheet" href="./index.css">
+    <!-- <link rel="stylesheet" href="./index.css"> -->
 </head>
 
 <body class="page">
@@ -18,12 +18,12 @@
             <div class="profile__info">
                 <div class="profile__info-wrapper">
                     <h1 class="profile__title">Степанов Андрей</h1>
-                    <button class="profile__edit-button" type="button" name="button-edit" title="Редактировать">
+                    <button class="profile__edit-button" type="button" name="edit-button">
                     </button>
                 </div>
                 <p class="profile__subtitle">Начинающий веб-разработчик</p>
             </div>
-            <button class="profile__add-button" type="button" aria-label="Add" title="Добавить">
+            <button class="profile__add-button" type="button" name="add-button">
             </button>
         </section>
         <section class="cards" aria-label="Карточки мест">
@@ -35,67 +35,63 @@
 
     <div class="popup popup-profile">
         <div class="popup__container">
-            <button class="popup__close-button" type="button" aria-label="Close" title="Закрыть">
-            </button>
-            <form class="form form-profile" novalidate>
-                <h2 class="form__header">Редактировать профиль</h2>
-                <input id="profile-name-input" class="form__input form-profile__name" type="text"
+            <button class="popup__close" type="button"></button>
+            <form class="popup__form" name="profile-form" novalidate>
+                <h3 class="popup__title">Редактировать профиль</h3>
+                <input id="profile-name-input" class="popup__input popup__input_type_name" type="text"
                     placeholder="Иван Иванов" minlength="2" maxlength="40" required>
                 <span class="profile-name-input-error form__input-error"></span>
-                <input id="profile-job-input" class="form__input form-profile__job" type="text" placeholder="О себе"
-                    minlength="2" maxlength="200" required>
-                <span class="profile-job-input-error form__input-error"></span>
-                <button class="form__submit-button" type="submit" aria-label="submit">Сохранить</button>
+                <input id="profile-about-input" class="popup__input popup__input_type_about" type="text"
+                    placeholder="О себе" minlength="2" maxlength="200" required>
+                <span class="profile-about-input-error form__input-error"></span>
+                <button class="button popup__button" type="submit">Сохранить</button>
             </form>
         </div>
     </div>
 
     <div class="popup popup-card">
         <div class="popup__container">
-            <button class="popup__close-button" type="button" aria-label="Close" title="Закрыть">
-            </button>
-            <form class="form form-card" novalidate>
-                <h2 class="form__header">Новое место</h2>
-                <input id="card-name-input" class="form__input form-card__name" type="text" placeholder="Название"
-                    minlength="2" maxlength="30" required>
-                <span class="card-name-input-error form__input-error"></span>
-                <input id="card-link-input" class="form__input form-card__link" type="url"
+            <button class="popup__close" type="button"></button>
+            <form class="popup__form" name="addcard-form" novalidate>
+                <h3 class="popup__title">Новое место</h3>
+                <input id="place-name-input" class="popup__input popup__input_type_place-name" type="text"
+                    name="place-name" placeholder="Название" minlength="2" maxlength="30" required>
+                <span class="place-name-input-error form__input-error"></span>
+                <input id="card-link-input" class="popup__input popup__input_type_link" type="url" name="card-link"
                     placeholder="Ссылка на картинку" minlength="2" maxlength="200" required>
                 <span class="card-link-input-error form__input-error"></span>
-                <button class="form__submit-button" type="submit" aria-label="submit">Создать</button>
+                <button class="button popup__button" type="submit">Создать</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="popup popup-avatar">
+        <div class="popup__container">
+            <button class="popup__close" type="button"></button>
+            <form class="popup__form" name="avatar-form" novalidate>
+                <h3 class="popup__title">Обновить аватар</h3>
+                <input id="avatar-input" class="popup__input popup__input_type_link" type="url"
+                    placeholder="Ссылка на аватар" minlength="2" maxlength="200" required>
+                <span class="avatar-input-error form__input-error"></span>
+                <button class="button popup__button" type="submit">Сохранить</button>
             </form>
         </div>
     </div>
 
     <div class="popup popup-image">
         <div class="popup__container">
-            <button class="popup__close-button" type="button" aria-label="Close" title="Закрыть">
-            </button>
-            <img class="popup-image__link" src="#" alt="">
-            <p class="popup-image__name"></p>
-        </div>
-    </div>
-
-    <div class="popup popup-avatar">
-        <div class="popup__container">
-            <button class="popup__close-button" type="button" aria-label="Close" title="Закрыть">
-            </button>
-            <form class="form form-avatar" novalidate>
-                <h2 class="form__header">Обновить аватар</h2>
-                <input id="avatar-input" class="form__input form-avatar__link" type="url" placeholder="Ссылка на аватар"
-                    minlength="2" maxlength="400" required>
-                <span class="avatar-input-error form__input-error"></span>
-                <button class="form__submit-button" type="submit" aria-label="submit">Сохранить</button>
-            </form>
+            <button class="popup__close" type="button"></button>
+            <img class="popup__image" src="#" alt="">
+            <p class="popup__caption"></p>
         </div>
     </div>
 
     <div class="popup popup-delcard">
         <div class="popup__container">
-            <button class="popup__close-button" type="button" name="Close"></button>
-            <form class="form form-delcard" novalidate>
-                <h2 class="form__header">Вы уверены?</h2>
-                <button class="form__submit-button" type="submit" aria-label="submit">Да</button>
+            <button class="popup__close" type="button"></button>
+            <form class="popup__form" name="delcard-form" novalidate>
+                <h3 class="popup__title">Вы уверены?</h3>
+                <button class="button popup__button" type="submit">Да</button>
             </form>
         </div>
     </div>
@@ -109,7 +105,7 @@
             <button class="card__trash" type="button" name="trash"></button>
         </div>
     </template>
-    <script type="module" src="./index.js"></script>
+    <!-- <script type="module" src="./index.js"></script> -->
 </body>
 
 </html>

@@ -1,13 +1,13 @@
-const popups = document.querySelectorAll('.popup')
+const popups = document.querySelectorAll('.popup');
 
 popups.forEach((popup) => {
     popup.addEventListener('mousedown', (evt) => {
         if (evt.target.classList.contains('popup_active')) {
-            closePopup(popup)
-        }
-        if (evt.target.classList.contains('popup__close-button')) {
-            closePopup(popup)
-        }
+            closePopup(popup);
+        };
+        if (evt.target.classList.contains('popup__close')) {
+            closePopup(popup);
+        };
     });
 });
 
@@ -15,7 +15,7 @@ function closeByEscape(evt) {
     if (evt.key === 'Escape') {
         const activePopup = document.querySelector('.popup_active');
         closePopup(activePopup);
-    }
+    };
 };
 
 function openPopup(activePopup) {
