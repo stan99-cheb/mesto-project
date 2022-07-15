@@ -33,11 +33,11 @@ function handleProfileFormSubmit(evt) {
 
     renderLoading(formProfile, true);
 
-    profileTitle.textContent = nameInput.value;
-    profileSubtitle.textContent = jobInput.value;
-
     setUserMe(nameInput.value, jobInput.value)
         .then(() => {
+            profileTitle.textContent = nameInput.value;
+            profileSubtitle.textContent = jobInput.value;
+
             closePopup(popupProfile)
         })
         .catch((err) => {
