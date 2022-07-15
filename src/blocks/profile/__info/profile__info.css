@@ -1,15 +1,11 @@
-.profile__profile-info {
-    display: block;
-    margin: 0;
-    padding: 0;
-
+.profile__info {
     width: 282px;
 
     flex: 200 1 auto;
 }
 
 @media (max-width: 560px) {
-    .profile__profile-info {
+    .profile__info {
         margin-bottom: 10px;
     }
 }

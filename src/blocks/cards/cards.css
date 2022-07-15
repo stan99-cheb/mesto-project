@@ -1,21 +1,11 @@
 .cards {
-    display: block;
-    box-sizing: border-box;
-    margin: 0 auto 66px;
-    padding: 0;
+    margin: 0 auto;
+    margin-bottom: calc((100vw - 320px)/(1280 - 320)*(66 - 48) + 48px);
 
-    max-width: 880px;
+    max-width: calc((100vw - 320px)/(1280 - 320)*(880 - 282) + 282px);
 
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
     grid-auto-rows: auto;
     gap: 20px 17px;
-}
-
-@media (max-width: 1280px) {
-    .cards {
-        margin-bottom: calc((100vw - 320px)/(1280 - 320)*(66 - 48) + 48px);
-
-        max-width: calc((100vw - 320px)/(1280 - 320)*(880 - 282) + 282px);
-    }
 }
