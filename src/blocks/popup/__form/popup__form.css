@@ -1,0 +1,17 @@
+.popup__form {
+    padding: calc((100vw - 320px)/(1280 - 320)*(36 - 22) + 22px);
+
+    /*Флэксим внутренние блоки*/
+    display: flex;
+    flex-direction: column;
+
+    /*Рамеры модального окна*/
+    width: calc((100vw - 320px)/(1280 - 320)*(430 - 282) + 282px);
+
+    /*Скругляем углы*/
+    border-radius: 10px;
+    /*Цвет фона окна*/
+    background-color: #FFFFFF;
+    /*Тень окна*/
+    box-shadow: 0 0 25px rgba(0, 0, 0, .15);
+}
