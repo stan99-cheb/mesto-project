@@ -1,4 +1,4 @@
-.profile__profile-info-flex {
+.profile__info-wrapper {
     margin: 0 0 15px 0;
     padding: 0;
 
@@ -9,7 +9,7 @@
 }
 
 @media (max-width: 560px) {
-    .profile__profile-info-flex {
+    .profile__info-wrapper {
         justify-content: center;
     }
 }
