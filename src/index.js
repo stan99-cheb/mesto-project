@@ -6,7 +6,7 @@ import Section from './components/Section.js';
 import { enableValidation } from './components/validate.js';
 import { openPopup, closePopup } from './components/popup.js';
 import { renderLoading } from './components/utils.js';
-import { setUserMe, setAvatar, delCard, cardForDel } from './components/api.js';
+import { setUserMe, setAvatar, cardForDel } from './components/api.js';
 
 //Блок карточек
 const cardsElement = document.querySelector('.cards');
@@ -144,15 +144,23 @@ function handleCardFormSubmit(evt) {
 
     api.addNewCard(nameCardInput.value, linkCardInput.value)
         .then((card) => {
-            const newCard = new Card(
-                card,
-                cardElementSelectorTemplate,
-                handleCardClick,
-                handleLikeClick,
-                handleDelClick
-            );
-            const cardElement = newCard.create();
-            cardsArray.setItem(cardElement);
+            const NewCardRenderer = new Section({
+                data: [card],
+                renderer: (element) => {
+                    const card = new Card(
+                        element,
+                        cardElementSelectorTemplate,
+                        handleCardClick,
+                        handleLikeClick,
+                        handleDelClick
+                    );
+                    const cardElement = card.create();
+                    
+                    NewCardRenderer.setItem(cardElement);
+                }
+            }, cardsElementSelector);
+
+            NewCardRenderer.rendererCard();
 
             closePopup(popupCard);
         })
@@ -186,9 +194,9 @@ const handleAvatarFormSubmit = (evt) => {
 const handleDelCardFormSubmit = (evt) => {
     evt.preventDefault();
 
-    delCard(cardForDel.id)
+    api.delCard(cardForDel.id)
         .then(() => {
-            delCardElement(cardForDel.card);
+            cardForDel.card.closest('.card').remove();
 
             closePopup(delCardPopup);
         })
@@ -204,10 +212,6 @@ formAvatar.addEventListener('submit', handleAvatarFormSubmit);
 delCardForm.addEventListener('submit', handleDelCardFormSubmit);
 
 //Блок основных функций
-const renderCard = (cardElement) => {
-    cardsElement.prepend(cardElement);
-};
-
 Promise.all([api.getUserMe(), api.getInitialCards()])
     .then(([user, cards]) => {
         userInfo._id = user._id;

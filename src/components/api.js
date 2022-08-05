@@ -51,6 +51,14 @@ export default class Api {
             .then(this._checkRes);
     }
 
+    delCard(cardId) {
+        return fetch(`${this._baseUrl}/cards/${cardId}`, {
+            method: 'DELETE',
+            headers: this._headers
+        })
+            .then(this._checkRes);
+    }
+
     _checkRes(res) {
         if (res.ok) {
             return res.json();
@@ -71,14 +79,6 @@ const setUserMe = (name, about) => {
         .then(checkRes);
 }
 
-const delCard = (cardId) => {
-    return fetch(`${config.baseUrl}/cards/${cardId}`, {
-        method: 'DELETE',
-        headers: config.headers
-    })
-        .then(checkRes);
-}
-
 const setAvatar = (ava) => {
     return fetch(`${config.baseUrl}/users/me/avatar`, {
         method: 'PATCH',
@@ -92,7 +92,6 @@ const setAvatar = (ava) => {
 
 export {
     setUserMe,
-    delCard,
     setAvatar,
     cardForDel
 }
