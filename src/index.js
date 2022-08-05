@@ -2,14 +2,11 @@
 import Api from './components/api.js';
 import Card from './components/cards.js';
 import Section from './components/Section.js';
+import Popup from './components/Popup.js';
 
 import { enableValidation } from './components/validate.js';
-import { openPopup, closePopup } from './components/popup.js';
 import { renderLoading } from './components/utils.js';
 import { setUserMe, setAvatar, cardForDel } from './components/api.js';
-
-//Блок карточек
-const cardsElement = document.querySelector('.cards');
 
 //Блок кнопок на странице
 const editProfileButton = document.querySelector('.profile__edit-button');
@@ -17,12 +14,12 @@ const addCardButton = document.querySelector('.profile__add-button');
 const avatarButton = document.querySelector('.profile__avatar');
 
 //Блок редактирования профиля
-const popupProfile = document.querySelector('.popup-profile');
-const formProfile = popupProfile.querySelector('.popup__form');
-const nameInput = formProfile.querySelector('.popup__input_type_name');
-const aboutInput = formProfile.querySelector('.popup__input_type_about');
-const profileTitle = document.querySelector('.profile__title');
-const profileSubtitle = document.querySelector('.profile__subtitle');
+// const popupProfile = document.querySelector('.popup-profile');
+// const formProfile = popupProfile.querySelector('.popup__form');
+// const nameInput = formProfile.querySelector('.popup__input_type_name');
+// const aboutInput = formProfile.querySelector('.popup__input_type_about');
+// const profileTitle = document.querySelector('.profile__title');
+// const profileSubtitle = document.querySelector('.profile__subtitle');
 
 //Блок добавления новой карточки
 const popupCard = document.querySelector('.popup-card');
@@ -57,23 +54,28 @@ const api = new Api({
     }
 });
 
-
 //Обработчики кнопок на странице
-const openProfilePopup = () => {
-    nameInput.value = profileTitle.textContent;
-    aboutInput.value = profileSubtitle.textContent;
+const myPopupCard = new Popup('.popup-card');
 
-    openPopup(popupProfile);
-};
+
+
+// const openProfilePopup = () => {
+//     nameInput.value = profileTitle.textContent;
+//     aboutInput.value = profileSubtitle.textContent;
+
+//     openPopup(popupProfile);
+// };
 
 const openCardPopup = () => {
-    openPopup(popupCard);
+    myPopupCard.open();
+    myPopupCard.setEventListeners()
 };
 
-const openAvatarPopup = () => {
-    openPopup(avatarPopup);
-};
+// const openAvatarPopup = () => {
+//     openPopup(avatarPopup);
+// };
 
+//Обработчики кнопок карточки
 const handleCardClick = (e) => {
     popupImageCaption.textContent = e.target.alt;
     popupImageLink.src = e.target.src;
@@ -112,9 +114,9 @@ const handleDelClick = (e, id) => {
 };
 
 //Вешаем обработчики на кнопки на странице
-editProfileButton.addEventListener('click', openProfilePopup);
+// editProfileButton.addEventListener('click', openProfilePopup);
 addCardButton.addEventListener('click', openCardPopup);
-avatarButton.addEventListener('click', openAvatarPopup);
+// avatarButton.addEventListener('click', openAvatarPopup);
 
 //Обработчики кнопок submit в формах
 const handleProfileFormSubmit = (evt) => {
@@ -155,7 +157,7 @@ function handleCardFormSubmit(evt) {
                         handleDelClick
                     );
                     const cardElement = card.create();
-                    
+
                     NewCardRenderer.setItem(cardElement);
                 }
             }, cardsElementSelector);
@@ -206,10 +208,10 @@ const handleDelCardFormSubmit = (evt) => {
 };
 
 //Вешаем обработчики на кнопки submit в формах
-formProfile.addEventListener('submit', handleProfileFormSubmit);
+// formProfile.addEventListener('submit', handleProfileFormSubmit);
 formCard.addEventListener('submit', handleCardFormSubmit);
-formAvatar.addEventListener('submit', handleAvatarFormSubmit);
-delCardForm.addEventListener('submit', handleDelCardFormSubmit);
+// formAvatar.addEventListener('submit', handleAvatarFormSubmit);
+// delCardForm.addEventListener('submit', handleDelCardFormSubmit);
 
 //Блок основных функций
 Promise.all([api.getUserMe(), api.getInitialCards()])
