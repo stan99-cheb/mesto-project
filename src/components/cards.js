@@ -1,61 +1,61 @@
-const cardTemplate = document.querySelector('#new-place').content;
+import { userInfo } from '../index.js';
 
-const createCard = (card, myUserId, showCard, likeCard, deleteCard) => {
-    const cardElement = cardTemplate.cloneNode(true);
-    const cardLink = cardElement.querySelector('.card__link');
-    const cardName = cardElement.querySelector('.card__name');
-    const cardLike = cardElement.querySelector('.card__like');
-    const cardHeart = cardElement.querySelector('.card__heart');
-    const cardTrash = cardElement.querySelector('.card__trash');
+export default class Card {
+    constructor(card, cardElementSelectorTemplate, handleCardClick, handleLikeClick, handleDelClick) {
+        this._id = userInfo._id;
+        this._card = card;
+        this._templateSelector = cardElementSelectorTemplate;
+        this._handleCardClick = handleCardClick;
+        this._handleLikeClick = handleLikeClick;
+        this._handleDelClick = handleDelClick;
+    }
 
-    cardName.textContent = card.name;
-    cardLink.src = card.link;
-    cardLink.alt = 'Изображение ' + card.name;
-    cardLike.textContent = card.likes.length;
+    //Получаем DOM элемент карточки
+    _getElement() {
+        const cardElement = document
+            .querySelector(this._templateSelector)
+            .content
+            .cloneNode(true);
+        return cardElement;
+    }
+    //Публичный метод возвращающий готовый элемент карточки
+    create() {
+        //Получаем DOM элемент карточки из шаблона
+        this._element = this._getElement();
+        //Вешаем слушатели на кнопки карточки
+        this._element.querySelector('.card__link').addEventListener('click', (evt) => {
+            this._handleCardClick(evt);
+        });
+        this._element.querySelector('.card__heart').addEventListener('click', (evt) => {
+            this._handleLikeClick(evt.target, this._card._id);
+        });
+        this._element.querySelector('.card__trash').addEventListener('click', (evt) => {
+            this._handleDelClick(evt, this._card._id);
+        });
+        //Заполняем карточку данными
+        this._element.querySelector('.card__link').src = this._card.link;
+        this._element.querySelector('.card__name').textContent = this._card.name;
+        this._element.querySelector('.card__link').alt = 'Изображение ' + this._card.name;
+        this._element.querySelector('.card__like').textContent = this._card.likes.length;
+        //Делаем проверку, если не моя карточка то удаляем DOM элемент корзинку
+        if (!this._isMyCard(this._card.owner._id, this._id)) {
+            this._element.querySelector('.card__trash').remove();
+        };
+        //Делаем проверку, если я лайкал карточку, то закрашиваем сердечко
+        if (this._hasLikeCard(this._card.likes, this._id)) {
+            this._element.querySelector('.card__heart').classList.add('card__heart_active');
+        } else {
+            this._element.querySelector('.card__heart').classList.remove('card__heart_active');
+        };
+        //Возвращаем готовый DOM элемент карточки
+        return this._element;
+    }
 
-    cardLink.addEventListener('click', showCard);
-    cardHeart.addEventListener('click', (e) => {
-        likeCard(e.target, card._id);
-    });
-    cardTrash.addEventListener('click', (e) => {
-        deleteCard(e, card._id);
-    });
-
-    if (!isMyCard(card.owner._id, myUserId)) {
-        cardTrash.remove();
+    _isMyCard(cardOwnerId, myId) {
+        return cardOwnerId === myId;
     };
 
-    if (hasLikeCard(card.likes, myUserId)) {
-        cardHeart.classList.add('card__heart_active');
-    } else {
-        cardHeart.classList.remove('card__heart_active');
+    _hasLikeCard(likes, myId) {
+        return likes.some(element => element._id === myId);
     };
-
-    return cardElement;
-};
-
-const isMyCard = (cardId, myId) => {
-    return cardId === myId;
-};
-
-const hasLikeCard = (likes, myId) => {
-    return likes.some(element => element._id === myId);
-};
-
-const isLike = (card) => {
-    return card.classList.contains('card__heart_active');
-};
-
-const updateLike = (card, num) => {
-    card.closest('.card').querySelector('.card__like').textContent = num;
-};
-
-const changeStatusHeart = (card) => {
-    card.classList.toggle('card__heart_active');
-};
-
-const delCardElement = (card) => {
-    card.closest('.card').remove();
-};
-
-export { createCard, isLike, delCardElement, updateLike, changeStatusHeart };
+}

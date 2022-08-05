@@ -1,7 +1,4 @@
 .popup {
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 500ms, opacity 500ms linear;
     /*Фиксируем позизию окна и задаем размер на весь видимый экран*/
     position: fixed;
     top: 0;
@@ -12,9 +9,12 @@
     background: rgba(0, 0, 0, .5);
     /*Поверх всех окон*/
     z-index: 999;
-    /*Скрываем модальное окно и запрещаем реагировать*/
-    display: flex;
+    /*Скрываем модальное окно*/
+    /* display: none; */
     /*Позиционируем вложенный блок*/
     justify-content: center;
     align-items: center;
+
+    visibility: hidden;
+    opacity: 0;
 }

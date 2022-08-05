@@ -1,10 +1,12 @@
 // import './index.css'
+import Api from './components/api.js';
+import Card from './components/cards.js';
+import Section from './components/Section.js';
 
-import { createCard, isLike, delCardElement, updateLike, changeStatusHeart } from './components/cards.js';
 import { enableValidation } from './components/validate.js';
 import { openPopup, closePopup } from './components/popup.js';
 import { renderLoading } from './components/utils.js';
-import { getUserMe, getInitialCards, setUserMe, setNewCard, setAvatar, delCard, likesCard, delLikesCard, cardForDel } from './components/api.js';
+import { setUserMe, setAvatar, delCard, cardForDel } from './components/api.js';
 
 //Блок карточек
 const cardsElement = document.querySelector('.cards');
@@ -43,7 +45,17 @@ const popupImageLink = popupImage.querySelector('.popup__image');
 const delCardPopup = document.querySelector('.popup-delcard');
 const delCardForm = delCardPopup.querySelector('.popup__form');
 
-let myUserId = '';
+const userInfo = {};
+const cardElementSelectorTemplate = '.new-place';
+const cardsElementSelector = '.cards';
+
+const api = new Api({
+    baseUrl: 'https://nomoreparties.co/v1/plus-cohort-12',
+    headers: {
+        authorization: '5743d2b2-8d60-4e50-9a9c-7a3ab60b2c12',
+        'Content-Type': 'application/json'
+    }
+});
 
 
 //Обработчики кнопок на странице
@@ -62,7 +74,7 @@ const openAvatarPopup = () => {
     openPopup(avatarPopup);
 };
 
-const showCard = (e) => {
+const handleCardClick = (e) => {
     popupImageCaption.textContent = e.target.alt;
     popupImageLink.src = e.target.src;
     popupImageLink.alt = e.target.alt;
@@ -70,7 +82,29 @@ const showCard = (e) => {
     openPopup(popupImage);
 };
 
-const deleteCard = (e, id) => {
+function handleLikeClick(heart, cardId) {
+    if (heart.classList.contains('card__heart_active')) {
+        api.delLikesCard(cardId)
+            .then(card => {
+                heart.classList.toggle('card__heart_active');
+                heart.closest('.card').querySelector('.card__like').textContent = card.likes.length;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    } else {
+        api.addLikeCard(cardId)
+            .then(card => {
+                heart.classList.toggle('card__heart_active');
+                heart.closest('.card').querySelector('.card__like').textContent = card.likes.length;
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+}
+
+const handleDelClick = (e, id) => {
     cardForDel.id = id;
     cardForDel.card = e.target;
 
@@ -108,9 +142,17 @@ function handleCardFormSubmit(evt) {
 
     renderLoading(formCard, true);
 
-    setNewCard(nameCardInput.value, linkCardInput.value)
+    api.addNewCard(nameCardInput.value, linkCardInput.value)
         .then((card) => {
-            renderCard(createCard(card, myUserId, showCard, likeCard, deleteCard));
+            const newCard = new Card(
+                card,
+                cardElementSelectorTemplate,
+                handleCardClick,
+                handleLikeClick,
+                handleDelClick
+            );
+            const cardElement = newCard.create();
+            cardsArray.setItem(cardElement);
 
             closePopup(popupCard);
         })
@@ -166,46 +208,35 @@ const renderCard = (cardElement) => {
     cardsElement.prepend(cardElement);
 };
 
-Promise.all([getUserMe(), getInitialCards()])
-    .then(([res1, res2]) => {
-        myUserId = res1._id;
-        return res2;
-    })
-    .then((cards) => {
-        return cards.map(card => {
-            return createCard(card, myUserId, showCard, likeCard, deleteCard);
-        });
-    })
-    .then((cardsElement) => {
-        cardsElement.reverse().forEach(cardElement => {
-            renderCard(cardElement);
-        });
+Promise.all([api.getUserMe(), api.getInitialCards()])
+    .then(([user, cards]) => {
+        userInfo._id = user._id;
+        userInfo.name = user.name;
+        userInfo.about = user.about;
+        userInfo.avatar = user.avatar;
+
+        // setUserProfile(userName, userAbout, imgAvatar);
+
+        const cardsArray = new Section({
+            data: cards,
+            renderer: (element) => {
+                const card = new Card(
+                    element,
+                    cardElementSelectorTemplate,
+                    handleCardClick,
+                    handleLikeClick,
+                    handleDelClick
+                );
+                const cardElement = card.create();
+                cardsArray.setItem(cardElement);
+            }
+        }, cardsElementSelector);
+
+        cardsArray.rendererCard();
     })
     .catch((err) => {
         console.log(err);
     });
-
-const likeCard = (heart, id) => {
-    if (isLike(heart)) {
-        delLikesCard(id)
-            .then(card => {
-                changeStatusHeart(heart);
-                updateLike(heart, card.likes.length);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-    } else {
-        likesCard(id)
-            .then(card => {
-                changeStatusHeart(heart);
-                updateLike(heart, card.likes.length);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
-};
 
 enableValidation({
     formSelector: '.form',
@@ -215,3 +246,5 @@ enableValidation({
     inputErrorClass: 'form__input_type_error',
     errorClass: 'form__input-error_active'
 });
+
+export { userInfo };
