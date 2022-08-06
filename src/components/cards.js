@@ -24,13 +24,13 @@ export default class Card {
         this._element = this._getElement();
         //Вешаем слушатели на кнопки карточки
         this._element.querySelector('.card__link').addEventListener('click', (evt) => {
-            this._handleCardClick(evt);
+            this._handleCardClick(evt.target);
         });
         this._element.querySelector('.card__heart').addEventListener('click', (evt) => {
             this._handleLikeClick(evt.target, this._card._id);
         });
         this._element.querySelector('.card__trash').addEventListener('click', (evt) => {
-            this._handleDelClick(evt, this._card._id);
+            this._handleDelClick(evt.target, this._card._id);
         });
         //Заполняем карточку данными
         this._element.querySelector('.card__link').src = this._card.link;

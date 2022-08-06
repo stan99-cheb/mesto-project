@@ -1,8 +1,3 @@
-const cardForDel = {
-    id: '',
-    card: null
-}
-
 export default class Api {
     constructor(options) {
         this._baseUrl = options.baseUrl;
@@ -59,6 +54,17 @@ export default class Api {
             .then(this._checkRes);
     }
 
+    setAvatar(ava) {
+        return fetch(`${this._baseUrl}/users/me/avatar`, {
+            method: 'PATCH',
+            headers: this._headers,
+            body: JSON.stringify({
+                avatar: ava,
+            })
+        })
+            .then(this._checkRes);
+    }
+
     _checkRes(res) {
         if (res.ok) {
             return res.json();
@@ -79,19 +85,6 @@ const setUserMe = (name, about) => {
         .then(checkRes);
 }
 
-const setAvatar = (ava) => {
-    return fetch(`${config.baseUrl}/users/me/avatar`, {
-        method: 'PATCH',
-        headers: config.headers,
-        body: JSON.stringify({
-            avatar: ava,
-        })
-    })
-        .then(checkRes);
-}
-
 export {
-    setUserMe,
-    setAvatar,
-    cardForDel
+    setUserMe
 }

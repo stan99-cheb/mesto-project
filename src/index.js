@@ -2,11 +2,12 @@
 import Api from './components/api.js';
 import Card from './components/cards.js';
 import Section from './components/Section.js';
-import Popup from './components/Popup.js';
+import PopupWithForm from './components/PopupWithForm.js';
+import PopupWithImage from './components/PopupWithImage.js';
 
 import { enableValidation } from './components/validate.js';
 import { renderLoading } from './components/utils.js';
-import { setUserMe, setAvatar, cardForDel } from './components/api.js';
+import { setUserMe } from './components/api.js';
 
 //Блок кнопок на странице
 const editProfileButton = document.querySelector('.profile__edit-button');
@@ -21,28 +22,8 @@ const avatarButton = document.querySelector('.profile__avatar');
 // const profileTitle = document.querySelector('.profile__title');
 // const profileSubtitle = document.querySelector('.profile__subtitle');
 
-//Блок добавления новой карточки
-const popupCard = document.querySelector('.popup-card');
-const formCard = popupCard.querySelector('.popup__form');
-const nameCardInput = formCard.querySelector('.popup__input_type_place-name');
-const linkCardInput = formCard.querySelector('.popup__input_type_link');
-
-//Блок редактирования аватара
-const avatarPopup = document.querySelector('.popup-avatar');
-const formAvatar = avatarPopup.querySelector('.popup__form');
-const avatarInput = formAvatar.querySelector('.popup__input_type_link');
-const avatarProfile = document.querySelector('.profile__avatar');
-
-//Блок показа изображения карточки
-const popupImage = document.querySelector('.popup-image');
-const popupImageCaption = popupImage.querySelector('.popup__caption');
-const popupImageLink = popupImage.querySelector('.popup__image');
-
-//Блок подтверждения удаления карточки
-const delCardPopup = document.querySelector('.popup-delcard');
-const delCardForm = delCardPopup.querySelector('.popup__form');
-
 const userInfo = {};
+const cardForDel = {};
 const cardElementSelectorTemplate = '.new-place';
 const cardsElementSelector = '.cards';
 
@@ -55,9 +36,86 @@ const api = new Api({
 });
 
 //Обработчики кнопок на странице
-const myPopupCard = new Popup('.popup-card');
+const popupCard = new PopupWithForm(
+    '.popup-card',
+    (formValues) => {
+        renderLoading(formValues.formElement, true);
 
+        api.addNewCard(formValues['place-name'], formValues['card-link'])
+            .then((card) => {
+                const NewCardRenderer = new Section({
+                    data: [card],
+                    renderer: (element) => {
+                        const card = new Card(
+                            element,
+                            cardElementSelectorTemplate,
+                            handleCardClick,
+                            handleLikeClick,
+                            handleDelClick
+                        );
+                        const cardElement = card.create();
 
+                        NewCardRenderer.setItem(cardElement);
+                    }
+                }, cardsElementSelector);
+
+                NewCardRenderer.rendererCard();
+
+                popupCard.close();
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                renderLoading(formValues.formElement, false);
+            });
+    }
+);
+
+popupCard.setEventListeners();
+
+const popupDelCard = new PopupWithForm(
+    '.popup-delcard',
+    () => {
+        api.delCard(cardForDel.cardId)
+            .then(() => {
+                cardForDel.card.closest('.card').remove();
+
+                popupDelCard.close();
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+);
+
+popupDelCard.setEventListeners();
+
+const popupWithImage = new PopupWithImage('.popup-image');
+
+popupWithImage.setEventListeners();
+
+const popuAvatar = new PopupWithForm(
+    '.popup-avatar',
+    (formValues) => {
+        renderLoading(formValues.formElement, true);
+
+        api.setAvatar(formValues['ava-link'])
+            .then(data => {
+                document.querySelector('.profile__avatar').style.backgroundImage = `url(${data.avatar})`;
+
+                popuAvatar.close();
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                renderLoading(formValues.formElement, false);
+            });
+    }
+);
+
+popuAvatar.setEventListeners();
 
 // const openProfilePopup = () => {
 //     nameInput.value = profileTitle.textContent;
@@ -67,21 +125,16 @@ const myPopupCard = new Popup('.popup-card');
 // };
 
 const openCardPopup = () => {
-    myPopupCard.open();
-    myPopupCard.setEventListeners()
+    popupCard.open();
 };
 
-// const openAvatarPopup = () => {
-//     openPopup(avatarPopup);
-// };
+const openAvatarPopup = () => {
+    popuAvatar.open();
+};
 
 //Обработчики кнопок карточки
-const handleCardClick = (e) => {
-    popupImageCaption.textContent = e.target.alt;
-    popupImageLink.src = e.target.src;
-    popupImageLink.alt = e.target.alt;
-
-    openPopup(popupImage);
+const handleCardClick = (image) => {
+    popupWithImage.open(image);
 };
 
 function handleLikeClick(heart, cardId) {
@@ -103,20 +156,20 @@ function handleLikeClick(heart, cardId) {
             .catch((err) => {
                 console.log(err);
             });
-    };
+    }
 }
 
-const handleDelClick = (e, id) => {
-    cardForDel.id = id;
-    cardForDel.card = e.target;
+const handleDelClick = (card, cardId) => {
+    cardForDel.card = card;
+    cardForDel.cardId = cardId;
 
-    openPopup(delCardPopup);
-};
+    popupDelCard.open();
+}
 
 //Вешаем обработчики на кнопки на странице
 // editProfileButton.addEventListener('click', openProfilePopup);
 addCardButton.addEventListener('click', openCardPopup);
-// avatarButton.addEventListener('click', openAvatarPopup);
+avatarButton.addEventListener('click', openAvatarPopup);
 
 //Обработчики кнопок submit в формах
 const handleProfileFormSubmit = (evt) => {
@@ -137,81 +190,10 @@ const handleProfileFormSubmit = (evt) => {
         .finally(() => {
             renderLoading(formProfile, false);
         });
-};
-
-function handleCardFormSubmit(evt) {
-    evt.preventDefault();
-
-    renderLoading(formCard, true);
-
-    api.addNewCard(nameCardInput.value, linkCardInput.value)
-        .then((card) => {
-            const NewCardRenderer = new Section({
-                data: [card],
-                renderer: (element) => {
-                    const card = new Card(
-                        element,
-                        cardElementSelectorTemplate,
-                        handleCardClick,
-                        handleLikeClick,
-                        handleDelClick
-                    );
-                    const cardElement = card.create();
-
-                    NewCardRenderer.setItem(cardElement);
-                }
-            }, cardsElementSelector);
-
-            NewCardRenderer.rendererCard();
-
-            closePopup(popupCard);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-        .finally(() => {
-            renderLoading(formCard, false);
-        });
-};
-
-const handleAvatarFormSubmit = (evt) => {
-    evt.preventDefault();
-
-    renderLoading(formAvatar, true);
-
-    setAvatar(avatarInput.value)
-        .then(data => {
-            avatarProfile.src = data.avatar;
-
-            closePopup(avatarPopup);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-        .finally(() => {
-            renderLoading(formAvatar, false);
-        });
-};
-
-const handleDelCardFormSubmit = (evt) => {
-    evt.preventDefault();
-
-    api.delCard(cardForDel.id)
-        .then(() => {
-            cardForDel.card.closest('.card').remove();
-
-            closePopup(delCardPopup);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-};
+}
 
 //Вешаем обработчики на кнопки submit в формах
 // formProfile.addEventListener('submit', handleProfileFormSubmit);
-formCard.addEventListener('submit', handleCardFormSubmit);
-// formAvatar.addEventListener('submit', handleAvatarFormSubmit);
-// delCardForm.addEventListener('submit', handleDelCardFormSubmit);
 
 //Блок основных функций
 Promise.all([api.getUserMe(), api.getInitialCards()])
