@@ -4,23 +4,15 @@ import Card from './components/cards.js';
 import Section from './components/Section.js';
 import PopupWithForm from './components/PopupWithForm.js';
 import PopupWithImage from './components/PopupWithImage.js';
+import UserInfo from './components/UserInfo.js';
 
 import { enableValidation } from './components/validate.js';
 import { renderLoading } from './components/utils.js';
-import { setUserMe } from './components/api.js';
 
 //Блок кнопок на странице
 const editProfileButton = document.querySelector('.profile__edit-button');
 const addCardButton = document.querySelector('.profile__add-button');
 const avatarButton = document.querySelector('.profile__avatar');
-
-//Блок редактирования профиля
-// const popupProfile = document.querySelector('.popup-profile');
-// const formProfile = popupProfile.querySelector('.popup__form');
-// const nameInput = formProfile.querySelector('.popup__input_type_name');
-// const aboutInput = formProfile.querySelector('.popup__input_type_about');
-// const profileTitle = document.querySelector('.profile__title');
-// const profileSubtitle = document.querySelector('.profile__subtitle');
 
 const userInfo = {};
 const cardForDel = {};
@@ -36,6 +28,29 @@ const api = new Api({
 });
 
 //Обработчики кнопок на странице
+const popupEdit = new PopupWithForm(
+    '.popup-profile',
+    (formValues) => {
+        renderLoading(formValues.formElement, true);
+        
+        api.setUserMe(formValues['profile-name'], formValues['profile-about'])
+            .then((user) => {
+                document.querySelector('.profile__title').textContent = user.name;
+                document.querySelector('.profile__subtitle').textContent = user.about;
+
+                popupEdit.close();
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                renderLoading(formValues.formElement, false);
+            });
+    }
+);
+
+popupEdit.setEventListeners();
+
 const popupCard = new PopupWithForm(
     '.popup-card',
     (formValues) => {
@@ -117,12 +132,9 @@ const popuAvatar = new PopupWithForm(
 
 popuAvatar.setEventListeners();
 
-// const openProfilePopup = () => {
-//     nameInput.value = profileTitle.textContent;
-//     aboutInput.value = profileSubtitle.textContent;
-
-//     openPopup(popupProfile);
-// };
+const openProfilePopup = () => {
+    popupEdit.open();
+};
 
 const openCardPopup = () => {
     popupCard.open();
@@ -133,7 +145,7 @@ const openAvatarPopup = () => {
 };
 
 //Обработчики кнопок карточки
-const handleCardClick = (image) => {
+function handleCardClick(image) {
     popupWithImage.open(image);
 };
 
@@ -157,43 +169,19 @@ function handleLikeClick(heart, cardId) {
                 console.log(err);
             });
     }
-}
+};
 
-const handleDelClick = (card, cardId) => {
+function handleDelClick(card, cardId) {
     cardForDel.card = card;
     cardForDel.cardId = cardId;
 
     popupDelCard.open();
-}
+};
 
 //Вешаем обработчики на кнопки на странице
-// editProfileButton.addEventListener('click', openProfilePopup);
+editProfileButton.addEventListener('click', openProfilePopup);
 addCardButton.addEventListener('click', openCardPopup);
 avatarButton.addEventListener('click', openAvatarPopup);
-
-//Обработчики кнопок submit в формах
-const handleProfileFormSubmit = (evt) => {
-    evt.preventDefault();
-
-    renderLoading(formProfile, true);
-
-    setUserMe(nameInput.value, aboutInput.value)
-        .then(() => {
-            profileTitle.textContent = nameInput.value;
-            profileSubtitle.textContent = aboutInput.value;
-
-            closePopup(popupProfile);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-        .finally(() => {
-            renderLoading(formProfile, false);
-        });
-}
-
-//Вешаем обработчики на кнопки submit в формах
-// formProfile.addEventListener('submit', handleProfileFormSubmit);
 
 //Блок основных функций
 Promise.all([api.getUserMe(), api.getInitialCards()])
@@ -203,7 +191,13 @@ Promise.all([api.getUserMe(), api.getInitialCards()])
         userInfo.about = user.about;
         userInfo.avatar = user.avatar;
 
-        // setUserProfile(userName, userAbout, imgAvatar);
+        const userInfoClass = new UserInfo(
+            user.name,
+            user.about,
+            user.avatar
+        );
+
+        userInfoClass.setUserInfo();
 
         const cardsArray = new Section({
             data: cards,

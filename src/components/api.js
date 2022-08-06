@@ -65,26 +65,22 @@ export default class Api {
             .then(this._checkRes);
     }
 
+    setUserMe(name, about) {
+        return fetch(`${this._baseUrl}/users/me`, {
+            method: 'PATCH',
+            headers: this._headers,
+            body: JSON.stringify({
+                name: name,
+                about: about
+            })
+        })
+            .then(this._checkRes);
+    }
+
     _checkRes(res) {
         if (res.ok) {
             return res.json();
         };
         return Promise.reject(`Ошибка: ${res.status}`);
     }
-}
-
-const setUserMe = (name, about) => {
-    return fetch(`${config.baseUrl}/users/me`, {
-        method: 'PATCH',
-        headers: config.headers,
-        body: JSON.stringify({
-            name: name,
-            about: about
-        })
-    })
-        .then(checkRes);
-}
-
-export {
-    setUserMe
 }
