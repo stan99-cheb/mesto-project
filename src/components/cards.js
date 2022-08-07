@@ -1,14 +1,14 @@
-import { userInfo } from '../index.js';
+//import { userInfo } from '../index.js';
 
 export default class Card {
-    constructor(card, cardElementSelectorTemplate, handleCardClick, handleLikeClick, handleDelClick) {
-        this._id = userInfo._id;
+    constructor(card, handleCardClick, handleLikeClick, handleDelClick, cardElementSelectorTemplate, user) {
+        this._id = user._id;
         this._card = card;
-        this._templateSelector = cardElementSelectorTemplate;
         this._handleCardClick = handleCardClick;
         this._handleLikeClick = handleLikeClick;
         this._handleDelClick = handleDelClick;
-    }
+        this._templateSelector = cardElementSelectorTemplate;
+    };
 
     //Получаем DOM элемент карточки
     _getElement() {
@@ -17,21 +17,13 @@ export default class Card {
             .content
             .cloneNode(true);
         return cardElement;
-    }
+    };
     //Публичный метод возвращающий готовый элемент карточки
     create() {
         //Получаем DOM элемент карточки из шаблона
         this._element = this._getElement();
         //Вешаем слушатели на кнопки карточки
-        this._element.querySelector('.card__link').addEventListener('click', (evt) => {
-            this._handleCardClick(evt.target);
-        });
-        this._element.querySelector('.card__heart').addEventListener('click', (evt) => {
-            this._handleLikeClick(evt.target, this._card._id);
-        });
-        this._element.querySelector('.card__trash').addEventListener('click', (evt) => {
-            this._handleDelClick(evt.target, this._card._id);
-        });
+        this._setEventListeners();
         //Заполняем карточку данными
         this._element.querySelector('.card__link').src = this._card.link;
         this._element.querySelector('.card__name').textContent = this._card.name;
@@ -49,7 +41,19 @@ export default class Card {
         };
         //Возвращаем готовый DOM элемент карточки
         return this._element;
-    }
+    };
+
+    _setEventListeners() {
+        this._element.querySelector('.card__link').addEventListener('click', (evt) => {
+            this._handleCardClick(evt.target);
+        });
+        this._element.querySelector('.card__heart').addEventListener('click', (evt) => {
+            this._handleLikeClick(evt.target, this._card._id);
+        });
+        this._element.querySelector('.card__trash').addEventListener('click', (evt) => {
+            this._handleDelClick(evt.target, this._card._id);
+        });
+    };
 
     _isMyCard(cardOwnerId, myId) {
         return cardOwnerId === myId;

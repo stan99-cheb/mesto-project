@@ -1,9 +1,10 @@
 // import './index.css'
-import Api from './components/api.js';
-import Card from './components/cards.js';
+import Api from './components/Api.js';
+import Card from './components/Cards.js';
 import Section from './components/Section.js';
 import PopupWithForm from './components/PopupWithForm.js';
 import PopupWithImage from './components/PopupWithImage.js';
+import PopupWithConfirm from './components/PopupWithConfirm.js';
 import UserInfo from './components/UserInfo.js';
 
 import { enableValidation } from './components/validate.js';
@@ -14,7 +15,6 @@ const editProfileButton = document.querySelector('.profile__edit-button');
 const addCardButton = document.querySelector('.profile__add-button');
 const avatarButton = document.querySelector('.profile__avatar');
 
-const userInfo = {};
 const cardForDel = {};
 const cardElementSelectorTemplate = '.new-place';
 const cardsElementSelector = '.cards';
@@ -27,12 +27,31 @@ const api = new Api({
     }
 });
 
+const userInfo = new UserInfo({
+    name: document.querySelector('.profile__title').textContent,
+    about: document.querySelector('.profile__subtitle').textContent
+});
+
+//Вешаем обработчики на кнопки на странице
+editProfileButton.addEventListener('click', () => {
+    popupEdit.open();
+
+    document.querySelector('.popup__input_type_name').value = document.querySelector('.profile__title').textContent;
+    document.querySelector('.popup__input_type_about').value = document.querySelector('.profile__subtitle').textContent;
+});
+addCardButton.addEventListener('click', () => {
+    popupCard.open();
+});
+avatarButton.addEventListener('click', () => {
+    popupAvatar.open();
+});
+
 //Обработчики кнопок на странице
 const popupEdit = new PopupWithForm(
     '.popup-profile',
     (formValues) => {
         renderLoading(formValues.formElement, true);
-        
+
         api.setUserMe(formValues['profile-name'], formValues['profile-about'])
             .then((user) => {
                 document.querySelector('.profile__title').textContent = user.name;
@@ -56,6 +75,8 @@ const popupCard = new PopupWithForm(
     (formValues) => {
         renderLoading(formValues.formElement, true);
 
+        const user = userInfo.getUserInfo();
+
         api.addNewCard(formValues['place-name'], formValues['card-link'])
             .then((card) => {
                 const NewCardRenderer = new Section({
@@ -63,10 +84,11 @@ const popupCard = new PopupWithForm(
                     renderer: (element) => {
                         const card = new Card(
                             element,
-                            cardElementSelectorTemplate,
                             handleCardClick,
                             handleLikeClick,
-                            handleDelClick
+                            handleDelClick,
+                            cardElementSelectorTemplate,
+                            user
                         );
                         const cardElement = card.create();
 
@@ -89,28 +111,11 @@ const popupCard = new PopupWithForm(
 
 popupCard.setEventListeners();
 
-const popupDelCard = new PopupWithForm(
-    '.popup-delcard',
-    () => {
-        api.delCard(cardForDel.cardId)
-            .then(() => {
-                cardForDel.card.closest('.card').remove();
-
-                popupDelCard.close();
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }
-);
-
-popupDelCard.setEventListeners();
-
 const popupWithImage = new PopupWithImage('.popup-image');
 
 popupWithImage.setEventListeners();
 
-const popuAvatar = new PopupWithForm(
+const popupAvatar = new PopupWithForm(
     '.popup-avatar',
     (formValues) => {
         renderLoading(formValues.formElement, true);
@@ -130,19 +135,24 @@ const popuAvatar = new PopupWithForm(
     }
 );
 
-popuAvatar.setEventListeners();
+popupAvatar.setEventListeners();
 
-const openProfilePopup = () => {
-    popupEdit.open();
-};
+const popupDelConfirm = new PopupWithConfirm({
+    popupSelector: '.popup-delcard',
+    handleFormSubmit: () => {
+        api.delCard(cardForDel.cardId)
+            .then(() => {
+                cardForDel.card.closest('.card').remove();
 
-const openCardPopup = () => {
-    popupCard.open();
-};
+                popupDelConfirm.close();
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+});
 
-const openAvatarPopup = () => {
-    popuAvatar.open();
-};
+popupDelConfirm.setEventListeners();
 
 //Обработчики кнопок карточки
 function handleCardClick(image) {
@@ -175,39 +185,24 @@ function handleDelClick(card, cardId) {
     cardForDel.card = card;
     cardForDel.cardId = cardId;
 
-    popupDelCard.open();
+    popupDelConfirm.open();
 };
-
-//Вешаем обработчики на кнопки на странице
-editProfileButton.addEventListener('click', openProfilePopup);
-addCardButton.addEventListener('click', openCardPopup);
-avatarButton.addEventListener('click', openAvatarPopup);
 
 //Блок основных функций
 Promise.all([api.getUserMe(), api.getInitialCards()])
     .then(([user, cards]) => {
-        userInfo._id = user._id;
-        userInfo.name = user.name;
-        userInfo.about = user.about;
-        userInfo.avatar = user.avatar;
-
-        const userInfoClass = new UserInfo(
-            user.name,
-            user.about,
-            user.avatar
-        );
-
-        userInfoClass.setUserInfo();
+        userInfo.setUserInfo(user);
 
         const cardsArray = new Section({
             data: cards,
             renderer: (element) => {
                 const card = new Card(
                     element,
-                    cardElementSelectorTemplate,
                     handleCardClick,
                     handleLikeClick,
-                    handleDelClick
+                    handleDelClick,
+                    cardElementSelectorTemplate,
+                    user
                 );
                 const cardElement = card.create();
                 cardsArray.setItem(cardElement);
