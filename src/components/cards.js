@@ -1,5 +1,3 @@
-//import { userInfo } from '../index.js';
-
 export default class Card {
     constructor(card, handleCardClick, handleLikeClick, handleDelClick, cardElementSelectorTemplate, user) {
         this._id = user._id;
