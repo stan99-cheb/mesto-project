@@ -6,7 +6,7 @@ import PopupWithForm from './components/PopupWithForm.js';
 import PopupWithImage from './components/PopupWithImage.js';
 import PopupWithConfirm from './components/PopupWithConfirm.js';
 import UserInfo from './components/UserInfo.js';
-import Validate from './components/Validate.js';
+import FormValidator from './components/FormValidator.js';
 import { renderLoading } from './components/utils.js';
 
 //Блок кнопок на странице
@@ -35,11 +35,11 @@ const userInfo = new UserInfo({
 
 /*----------------------------------------------------класс Validate----------------------------------------------------*/
 const selectors = {
-    formSelector: '.popup__formDC44R3',
+    formSelector: '.popup__form',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__button',
     inactiveButtonClass: 'popup__button_inactive',
-    inputErrorClass: 'popup__input-error',
+    inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__input-error_active'
 };
 
@@ -48,18 +48,26 @@ editProfileButton.addEventListener('click', () => {
     popupEdit.open();
     document.querySelector('.popup__input_type_name').value = document.querySelector('.profile__title').textContent;
     document.querySelector('.popup__input_type_about').value = document.querySelector('.profile__subtitle').textContent;
+
+    const formElement = document.querySelector('[name="profile-form"]');
+    const validate = new FormValidator(selectors, formElement);
+    validate.setEventListeners();
 });
 
 addCardButton.addEventListener('click', () => {
     popupCard.open();
 
     const formElement = document.querySelector('[name="addcard-form"]');
-    const validate = new Validate(selectors, formElement);
+    const validate = new FormValidator(selectors, formElement);
     validate.setEventListeners();
 });
 
 avatarButton.addEventListener('click', () => {
     popupAvatar.open();
+
+    const formElement = document.querySelector('[name="avatar-form"]');
+    const validate = new FormValidator(selectors, formElement);
+    validate.setEventListeners();
 });
 
 /*----------------------------------------------------Обрабочики форм----------------------------------------------------*/

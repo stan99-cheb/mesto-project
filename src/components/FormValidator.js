@@ -1,5 +1,4 @@
-
-export default class Validate {
+export default class FormValidator {
     constructor(selectors, formElement) {
         this._formSelector = selectors.formSelector;
         this._inputSelector = selectors.inputSelector;
@@ -9,24 +8,19 @@ export default class Validate {
         this._errorClass = selectors.errorClass;
 
         this._formElement = formElement;
-
-        // this.formList = document.querySelectorAll(this.formSelector);
-        // this.formList.forEach((formElement) => {
-        //     this._setEventListeners(formElement);
-        // });
     }
 
     setEventListeners() {
-        const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-        const buttonElement = this._formElement.querySelector(this._submitButtonSelector);
+        this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+        this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
 
-        inputList.forEach((inputElement) => {
-            this._toggleButtonState(inputList, buttonElement);
+        this._inputList.forEach((inputElement) => {
+            this._toggleButtonState(this._inputList, this._buttonElement);
 
             inputElement.addEventListener('input', () => {
                 this._isValid(this._formElement, inputElement);
 
-                this._toggleButtonState(inputList, buttonElement);
+                this._toggleButtonState(this._inputList, this._buttonElement);
             })
         })
     };
@@ -56,27 +50,27 @@ export default class Validate {
     };
 
     _hideInputError(formElement, inputElement) {
-        const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+        this._errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
         inputElement.classList.remove(this._inputErrorClass);
-        errorElement.textContent = '';
-        errorElement.classList.remove(this._errorClass);
+        this._errorElement.textContent = '';
+        this._errorElement.classList.remove(this._errorClass);
     };
 
     _showInputError(formElement, inputElement, errorMessage) {
-        const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+        this._errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
-        const formBox = formElement.getBoundingClientRect();
-        const inputElementBox = inputElement.getBoundingClientRect();
+        this._formBox = formElement.getBoundingClientRect();
+        this._inputElementBox = inputElement.getBoundingClientRect();
 
-        const coordX = inputElementBox.x - formBox.x;
-        const coordY = inputElementBox.y - formBox.y + inputElementBox.height;
+        this._coordX = this._inputElementBox.x - this._formBox.x;
+        this._coordY = this._inputElementBox.y - this._formBox.y + this._inputElementBox.height;
 
-        errorElement.style.left = coordX + 'px';
-        errorElement.style.top = coordY + 'px';
+        this._errorElement.style.left = this._coordX + 'px';
+        this._errorElement.style.top = this._coordY + 'px';
 
         inputElement.classList.add(this._inputErrorClass);
-        errorElement.textContent = errorMessage;
-        errorElement.classList.add(this._errorClass);
+        this._errorElement.textContent = errorMessage;
+        this._errorElement.classList.add(this._errorClass);
     };
 }
