@@ -6,8 +6,7 @@ import PopupWithForm from './components/PopupWithForm.js';
 import PopupWithImage from './components/PopupWithImage.js';
 import PopupWithConfirm from './components/PopupWithConfirm.js';
 import UserInfo from './components/UserInfo.js';
-
-import { enableValidation } from './components/validate.js';
+import FormValidator from './components/FormValidator.js';
 import { renderLoading } from './components/utils.js';
 
 //Блок кнопок на странице
@@ -19,6 +18,7 @@ const cardForDel = {};
 const cardElementSelectorTemplate = '.new-place';
 const cardsElementSelector = '.cards';
 
+/*----------------------------------------------------класс Api----------------------------------------------------*/
 const api = new Api({
     baseUrl: 'https://nomoreparties.co/v1/plus-cohort-12',
     headers: {
@@ -27,26 +27,50 @@ const api = new Api({
     }
 });
 
+/*----------------------------------------------------класс UserInfo----------------------------------------------------*/
 const userInfo = new UserInfo({
     name: document.querySelector('.profile__title').textContent,
     about: document.querySelector('.profile__subtitle').textContent
 });
 
-//Вешаем обработчики на кнопки на странице
+/*----------------------------------------------------класс Validate----------------------------------------------------*/
+const selectors = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_inactive',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__input-error_active'
+};
+
+/*----------------------------------------------------Слушатели кнопок на странице----------------------------------------------------*/
 editProfileButton.addEventListener('click', () => {
     popupEdit.open();
-
     document.querySelector('.popup__input_type_name').value = document.querySelector('.profile__title').textContent;
     document.querySelector('.popup__input_type_about').value = document.querySelector('.profile__subtitle').textContent;
-});
-addCardButton.addEventListener('click', () => {
-    popupCard.open();
-});
-avatarButton.addEventListener('click', () => {
-    popupAvatar.open();
+
+    const formElement = document.querySelector('[name="profile-form"]');
+    const validate = new FormValidator(selectors, formElement);
+    validate.setEventListeners();
 });
 
-//Обработчики кнопок на странице
+addCardButton.addEventListener('click', () => {
+    popupCard.open();
+
+    const formElement = document.querySelector('[name="addcard-form"]');
+    const validate = new FormValidator(selectors, formElement);
+    validate.setEventListeners();
+});
+
+avatarButton.addEventListener('click', () => {
+    popupAvatar.open();
+
+    const formElement = document.querySelector('[name="avatar-form"]');
+    const validate = new FormValidator(selectors, formElement);
+    validate.setEventListeners();
+});
+
+/*----------------------------------------------------Обрабочики форм----------------------------------------------------*/
 const popupEdit = new PopupWithForm(
     '.popup-profile',
     (formValues) => {
@@ -154,7 +178,7 @@ const popupDelConfirm = new PopupWithConfirm({
 
 popupDelConfirm.setEventListeners();
 
-//Обработчики кнопок карточки
+/*----------------------------------------------------Колбэки кнопок карточки----------------------------------------------------*/
 function handleCardClick(image) {
     popupWithImage.open(image);
 };
@@ -188,7 +212,7 @@ function handleDelClick(card, cardId) {
     popupDelConfirm.open();
 };
 
-//Блок основных функций
+/*----------------------------------------------------Основной код----------------------------------------------------*/
 Promise.all([api.getUserMe(), api.getInitialCards()])
     .then(([user, cards]) => {
         userInfo.setUserInfo(user);
@@ -214,14 +238,3 @@ Promise.all([api.getUserMe(), api.getInitialCards()])
     .catch((err) => {
         console.log(err);
     });
-
-enableValidation({
-    formSelector: '.form',
-    inputSelector: '.form__input',
-    submitButtonSelector: '.form__submit-button',
-    inactiveButtonClass: 'form__submit-button_inactive',
-    inputErrorClass: 'form__input_type_error',
-    errorClass: 'form__input-error_active'
-});
-
-export { userInfo };
