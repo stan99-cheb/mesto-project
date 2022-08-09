@@ -1,6 +1,6 @@
 export default class Card {
     constructor(card, handleCardClick, handleLikeClick, handleDelClick, cardElementSelectorTemplate, user) {
-        this._id = user._id;
+        this._user = user;
         this._card = card;
         this._handleCardClick = handleCardClick;
         this._handleLikeClick = handleLikeClick;
@@ -28,11 +28,11 @@ export default class Card {
         this._element.querySelector('.card__link').alt = 'Изображение ' + this._card.name;
         this._element.querySelector('.card__like').textContent = this._card.likes.length;
         //Делаем проверку, если не моя карточка то удаляем DOM элемент корзинку
-        if (!this._isMyCard(this._card.owner._id, this._id)) {
+        if (!this._isMyCard(this._card.owner._id, this._user._id)) {
             this._element.querySelector('.card__trash').remove();
         };
         //Делаем проверку, если я лайкал карточку, то закрашиваем сердечко
-        if (this._hasLikeCard(this._card.likes, this._id)) {
+        if (this._hasLikeCard(this._card.likes, this._user._id)) {
             this._element.querySelector('.card__heart').classList.add('card__heart_active');
         } else {
             this._element.querySelector('.card__heart').classList.remove('card__heart_active');
