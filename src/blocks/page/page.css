@@ -7,10 +7,22 @@
 ::after {
     box-sizing: inherit;
 }
+/* ширина */
+:root::-webkit-scrollbar {
+    width: 12px;
+}
+/* цвет дорожки */
+:root::-webkit-scrollbar-track {
+    background: #000;
+}
+/* цвет плашки */
+:root::-webkit-scrollbar-thumb {
+    background-color: rgba(84, 84, 84, .7);
+}
 
 .page {
     margin: 0 auto;
-    
+
     max-width: 1280px;
 
     background-color: #000;
