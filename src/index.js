@@ -148,7 +148,7 @@ const popupDelConfirm = new PopupWithConfirm({
     handleFormSubmit: () => {
         api.delCard(data.cardForDel.cardId)
             .then(() => {
-                data.cardForDel.card.closest('.card').remove();
+                data.cardForDel.cardElement.closest('.card').remove();
 
                 popupDelConfirm.close();
             })
@@ -187,8 +187,8 @@ function handleLikeClick(heart, cardId) {
     }
 };
 
-function handleDelClick(card, cardId) {
-    data.cardForDel.card = card;
+function handleDelClick(cardElement, cardId) {
+    data.cardForDel.cardElement = cardElement;
     data.cardForDel.cardId = cardId;
 
     popupDelConfirm.open();
