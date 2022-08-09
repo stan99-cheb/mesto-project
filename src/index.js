@@ -130,7 +130,7 @@ const popupAvatar = new PopupWithForm(
             .then(data => {
                 document.querySelector('.profile__avatar').style.backgroundImage = `url(${data.avatar})`;
 
-                popuAvatar.close();
+                popupAvatar.close();
             })
             .catch((err) => {
                 console.log(err);
