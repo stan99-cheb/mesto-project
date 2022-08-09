@@ -7,12 +7,8 @@ import PopupWithImage from './components/PopupWithImage.js';
 import PopupWithConfirm from './components/PopupWithConfirm.js';
 import UserInfo from './components/UserInfo.js';
 import FormValidator from './components/FormValidator.js';
+import * as data from './components/const.js';
 import { renderLoading } from './components/utils.js';
-
-//Блок кнопок на странице
-const editProfileButton = document.querySelector('.profile__edit-button');
-const addCardButton = document.querySelector('.profile__add-button');
-const avatarButton = document.querySelector('.profile__avatar');
 
 const cardForDel = {};
 const cardElementSelectorTemplate = '.new-place';
@@ -29,44 +25,34 @@ const api = new Api({
 
 /*----------------------------------------------------класс UserInfo----------------------------------------------------*/
 const userInfo = new UserInfo({
-    name: document.querySelector('.profile__title').textContent,
-    about: document.querySelector('.profile__subtitle').textContent
+    name: data.userNameDomElement.textContent,
+    about: data.userAboutDomElement.textContent
 });
 
-/*----------------------------------------------------класс Validate----------------------------------------------------*/
-const selectors = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_inactive',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__input-error_active'
-};
-
 /*----------------------------------------------------Слушатели кнопок на странице----------------------------------------------------*/
-editProfileButton.addEventListener('click', () => {
+data.editProfileButton.addEventListener('click', () => {
     popupEdit.open();
-    document.querySelector('.popup__input_type_name').value = document.querySelector('.profile__title').textContent;
-    document.querySelector('.popup__input_type_about').value = document.querySelector('.profile__subtitle').textContent;
+    document.querySelector('.popup__input_type_name').value = data.userNameDomElement.textContent;
+    document.querySelector('.popup__input_type_about').value = data.userAboutDomElement.textContent;
 
     const formElement = document.querySelector('[name="profile-form"]');
-    const validate = new FormValidator(selectors, formElement);
+    const validate = new FormValidator(data.selectors, formElement);
     validate.setEventListeners();
 });
 
-addCardButton.addEventListener('click', () => {
+data.addCardButton.addEventListener('click', () => {
     popupCard.open();
 
     const formElement = document.querySelector('[name="addcard-form"]');
-    const validate = new FormValidator(selectors, formElement);
+    const validate = new FormValidator(data.selectors, formElement);
     validate.setEventListeners();
 });
 
-avatarButton.addEventListener('click', () => {
+data.avatarButton.addEventListener('click', () => {
     popupAvatar.open();
 
     const formElement = document.querySelector('[name="avatar-form"]');
-    const validate = new FormValidator(selectors, formElement);
+    const validate = new FormValidator(data.selectors, formElement);
     validate.setEventListeners();
 });
 
@@ -78,8 +64,8 @@ const popupEdit = new PopupWithForm(
 
         api.setUserMe(formValues['profile-name'], formValues['profile-about'])
             .then((user) => {
-                document.querySelector('.profile__title').textContent = user.name;
-                document.querySelector('.profile__subtitle').textContent = user.about;
+                data.userNameDomElement.textContent = user.name;
+                data.userAboutDomElement.textContent = user.about;
 
                 popupEdit.close();
             })
