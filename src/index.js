@@ -56,7 +56,7 @@ data.avatarButton.addEventListener('click', () => {
 const popupEdit = new PopupWithForm(
     '.popup-profile',
     (formValues) => {
-        renderLoading(formValues.formElement, true);
+        renderLoading(formValues.formElement, true, 'Сохранение...');
 
         api.setUserMe(formValues['profile-name'], formValues['profile-about'])
             .then((user) => {
@@ -79,7 +79,7 @@ popupEdit.setEventListeners();
 const popupCard = new PopupWithForm(
     '.popup-card',
     (formValues) => {
-        renderLoading(formValues.formElement, true);
+        renderLoading(formValues.formElement, true, 'Сохранение...');
 
         const user = userInfo.getUserInfo();
 
@@ -124,7 +124,7 @@ popupWithImage.setEventListeners();
 const popupAvatar = new PopupWithForm(
     '.popup-avatar',
     (formValues) => {
-        renderLoading(formValues.formElement, true);
+        renderLoading(formValues.formElement, true, 'Сохранение...');
 
         api.setAvatar(formValues['ava-link'])
             .then(data => {
@@ -145,7 +145,9 @@ popupAvatar.setEventListeners();
 
 const popupDelConfirm = new PopupWithConfirm({
     popupSelector: '.popup-delcard',
-    handleFormSubmit: () => {
+    handleFormSubmit: (formValues) => {
+        renderLoading(formValues.formElement, true, 'Удаление...');
+
         api.delCard(data.cardForDel.cardId)
             .then(() => {
                 data.cardForDel.cardElement.closest('.card').remove();
@@ -154,6 +156,9 @@ const popupDelConfirm = new PopupWithConfirm({
             })
             .catch((err) => {
                 console.log(err);
+            })
+            .finally(() => {
+                renderLoading(formValues.formElement, false);
             });
     }
 });
