@@ -14,3 +14,8 @@ export const selectors = {
 
 export const userNameDomElement = document.querySelector('.profile__title');
 export const userAboutDomElement = document.querySelector('.profile__subtitle');
+
+export const cardElementSelectorTemplate = '.card-template'; //Селектор шаблона карточки
+export const cardsElementSelector = '.cards'; //Селектор контейнера в DOM куда вставляются карточки
+
+export const cardForDel = {};

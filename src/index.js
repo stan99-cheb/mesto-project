@@ -10,10 +10,6 @@ import FormValidator from './components/FormValidator.js';
 import * as data from './components/const.js';
 import { renderLoading } from './components/utils.js';
 
-const cardForDel = {};
-const cardElementSelectorTemplate = '.new-place';
-const cardsElementSelector = '.cards';
-
 /*----------------------------------------------------класс Api----------------------------------------------------*/
 const api = new Api({
     baseUrl: 'https://nomoreparties.co/v1/plus-cohort-12',
@@ -97,14 +93,14 @@ const popupCard = new PopupWithForm(
                             handleCardClick,
                             handleLikeClick,
                             handleDelClick,
-                            cardElementSelectorTemplate,
+                            data.cardElementSelectorTemplate,
                             user
                         );
                         const cardElement = card.create();
 
                         NewCardRenderer.setItem(cardElement);
                     }
-                }, cardsElementSelector);
+                }, data.cardsElementSelector);
 
                 NewCardRenderer.rendererCard();
 
@@ -150,9 +146,9 @@ popupAvatar.setEventListeners();
 const popupDelConfirm = new PopupWithConfirm({
     popupSelector: '.popup-delcard',
     handleFormSubmit: () => {
-        api.delCard(cardForDel.cardId)
+        api.delCard(data.cardForDel.cardId)
             .then(() => {
-                cardForDel.card.closest('.card').remove();
+                data.cardForDel.card.closest('.card').remove();
 
                 popupDelConfirm.close();
             })
@@ -192,8 +188,8 @@ function handleLikeClick(heart, cardId) {
 };
 
 function handleDelClick(card, cardId) {
-    cardForDel.card = card;
-    cardForDel.cardId = cardId;
+    data.cardForDel.card = card;
+    data.cardForDel.cardId = cardId;
 
     popupDelConfirm.open();
 };
@@ -211,13 +207,13 @@ Promise.all([api.getUserMe(), api.getInitialCards()])
                     handleCardClick,
                     handleLikeClick,
                     handleDelClick,
-                    cardElementSelectorTemplate,
+                    data.cardElementSelectorTemplate,
                     user
                 );
                 const cardElement = card.create();
                 cardsArray.setItem(cardElement);
             }
-        }, cardsElementSelector);
+        }, data.cardsElementSelector);
 
         cardsArray.rendererCard();
     })
