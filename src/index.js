@@ -117,10 +117,6 @@ const popupCard = new PopupWithForm(
 
 popupCard.setEventListeners();
 
-const popupWithImage = new PopupWithImage('.popup-image');
-
-popupWithImage.setEventListeners();
-
 const popupAvatar = new PopupWithForm(
     '.popup-avatar',
     (formValues) => {
@@ -143,30 +139,11 @@ const popupAvatar = new PopupWithForm(
 
 popupAvatar.setEventListeners();
 
-const popupDelConfirm = new PopupWithConfirm({
-    popupSelector: '.popup-delcard',
-    handleFormSubmit: (formValues) => {
-        renderLoading(formValues.formElement, true, 'Удаление...');
-
-        api.delCard(data.cardForDel.cardId)
-            .then(() => {
-                data.cardForDel.cardElement.closest('.card').remove();
-
-                popupDelConfirm.close();
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-            .finally(() => {
-                renderLoading(formValues.formElement, false);
-            });
-    }
-});
-
-popupDelConfirm.setEventListeners();
-
 /*----------------------------------------------------Колбэки кнопок карточки----------------------------------------------------*/
 function handleCardClick(image) {
+    const popupWithImage = new PopupWithImage('.popup-image');
+    
+    popupWithImage.setEventListeners();
     popupWithImage.open(image);
 };
 
@@ -193,8 +170,27 @@ function handleLikeClick(heart, cardId) {
 };
 
 function handleDelClick(cardElement, cardId) {
-    data.cardForDel.cardElement = cardElement;
-    data.cardForDel.cardId = cardId;
+    const popupDelConfirm = new PopupWithConfirm({
+        popupSelector: '.popup-delcard',
+        handleFormSubmit: (formValues) => {
+            renderLoading(formValues.formElement, true, 'Удаление...');
+
+            api.delCard(cardId)
+                .then(() => {
+                    cardElement.closest('.card').remove();
+
+                    popupDelConfirm.close();
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+                .finally(() => {
+                    renderLoading(formValues.formElement, false);
+                });
+        }
+    });
+
+    popupDelConfirm.setEventListeners();
 
     popupDelConfirm.open();
 };
