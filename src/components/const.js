@@ -4,7 +4,6 @@ export const addCardButton = document.querySelector('.profile__add-button');
 export const avatarButton = document.querySelector('.profile__avatar');
 
 export const selectors = {
-    formSelector: '.popup__form',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__button',
     inactiveButtonClass: 'popup__button_inactive',

@@ -31,24 +31,21 @@ data.editProfileButton.addEventListener('click', () => {
     document.querySelector('.popup__input_type_name').value = data.userNameDomElement.textContent;
     document.querySelector('.popup__input_type_about').value = data.userAboutDomElement.textContent;
 
-    const formElement = document.querySelector('[name="profile-form"]');
-    const validate = new FormValidator(data.selectors, formElement);
+    const validate = new FormValidator(data.selectors, '[name="profile-form"]');
     validate.setEventListeners();
 });
 
 data.addCardButton.addEventListener('click', () => {
     popupCard.open();
 
-    const formElement = document.querySelector('[name="addcard-form"]');
-    const validate = new FormValidator(data.selectors, formElement);
+    const validate = new FormValidator(data.selectors, '[name="addcard-form"]');
     validate.setEventListeners();
 });
 
 data.avatarButton.addEventListener('click', () => {
     popupAvatar.open();
 
-    const formElement = document.querySelector('[name="avatar-form"]');
-    const validate = new FormValidator(data.selectors, formElement);
+    const validate = new FormValidator(data.selectors, '[name="avatar-form"]');
     validate.setEventListeners();
 });
 
@@ -142,7 +139,7 @@ popupAvatar.setEventListeners();
 /*----------------------------------------------------Колбэки кнопок карточки----------------------------------------------------*/
 function handleCardClick(image) {
     const popupWithImage = new PopupWithImage('.popup-image');
-    
+
     popupWithImage.setEventListeners();
     popupWithImage.open(image);
 };
