@@ -27,16 +27,16 @@ const userInfo = new UserInfo({
 
 /*----------------------------------------------------класс Section----------------------------------------------------*/
 const cardsArray = new Section(
-    (element, user) => {
-        const card = new Card(
-            element,
+    (card, user) => {
+        const newCard = new Card(
+            card,
             handleCardClick,
             handleLikeClick,
             handleDelClick,
             data.cardElementSelectorTemplate,
             user
         );
-        const cardElement = card.create();
+        const cardElement = newCard.create();
 
         cardsArray.setItem(cardElement);
     }
@@ -99,17 +99,8 @@ const popupCard = new PopupWithForm(
 
         api.addNewCard(formValues['place-name'], formValues['card-link'])
             .then((card) => {
-                const newCard = new Card(
-                    card,
-                    handleCardClick,
-                    handleLikeClick,
-                    handleDelClick,
-                    data.cardElementSelectorTemplate,
-                    user
-                );
-                const cardElement = newCard.create();
 
-                cardsArray.setItem(cardElement);
+                cardsArray.rendererCard([card], user);
 
                 popupCard.close();
             })
@@ -146,11 +137,34 @@ const popupAvatar = new PopupWithForm(
 
 popupAvatar.setEventListeners();
 
+const popupWithImage = new PopupWithImage('.popup-image');
+
+popupWithImage.setEventListeners();
+
+const popupDelConfirm = new PopupWithConfirm({
+    popupSelector: '.popup-delcard',
+    handleFormSubmit: (formValues) => {
+        renderLoading(formValues.formElement, true, 'Удаление...');
+
+        api.delCard(formValues.cardId)
+            .then(() => {
+                formValues.cardElement.closest('.card').remove();
+
+                popupDelConfirm.close();
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                renderLoading(formValues.formElement, false);
+            });
+    }
+});
+
+popupDelConfirm.setEventListeners();
+
 /*----------------------------------------------------Колбэки кнопок карточки----------------------------------------------------*/
 function handleCardClick(image) {
-    const popupWithImage = new PopupWithImage('.popup-image');
-
-    popupWithImage.setEventListeners();
     popupWithImage.open(image);
 };
 
@@ -177,29 +191,7 @@ function handleLikeClick(heart, cardId) {
 };
 
 function handleDelClick(cardElement, cardId) {
-    const popupDelConfirm = new PopupWithConfirm({
-        popupSelector: '.popup-delcard',
-        handleFormSubmit: (formValues) => {
-            renderLoading(formValues.formElement, true, 'Удаление...');
-
-            api.delCard(cardId)
-                .then(() => {
-                    cardElement.closest('.card').remove();
-
-                    popupDelConfirm.close();
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
-                .finally(() => {
-                    renderLoading(formValues.formElement, false);
-                });
-        }
-    });
-
-    popupDelConfirm.setEventListeners();
-
-    popupDelConfirm.open();
+    popupDelConfirm.open(cardElement, cardId);
 };
 
 /*----------------------------------------------------Основной код----------------------------------------------------*/
