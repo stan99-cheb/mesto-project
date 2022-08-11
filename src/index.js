@@ -25,6 +25,23 @@ const userInfo = new UserInfo({
     about: data.userAboutDomElement.textContent
 });
 
+/*----------------------------------------------------класс Section----------------------------------------------------*/
+const cardsArray = new Section(
+    (element, user) => {
+        const card = new Card(
+            element,
+            handleCardClick,
+            handleLikeClick,
+            handleDelClick,
+            data.cardElementSelectorTemplate,
+            user
+        );
+        const cardElement = card.create();
+
+        cardsArray.setItem(cardElement);
+    }
+    , data.cardsElementSelector);
+
 /*----------------------------------------------------Слушатели кнопок на странице----------------------------------------------------*/
 data.editProfileButton.addEventListener('click', () => {
     popupEdit.open();
@@ -82,24 +99,17 @@ const popupCard = new PopupWithForm(
 
         api.addNewCard(formValues['place-name'], formValues['card-link'])
             .then((card) => {
-                const NewCardRenderer = new Section({
-                    data: [card],
-                    renderer: (element) => {
-                        const card = new Card(
-                            element,
-                            handleCardClick,
-                            handleLikeClick,
-                            handleDelClick,
-                            data.cardElementSelectorTemplate,
-                            user
-                        );
-                        const cardElement = card.create();
+                const newCard = new Card(
+                    card,
+                    handleCardClick,
+                    handleLikeClick,
+                    handleDelClick,
+                    data.cardElementSelectorTemplate,
+                    user
+                );
+                const cardElement = newCard.create();
 
-                        NewCardRenderer.setItem(cardElement);
-                    }
-                }, data.cardsElementSelector);
-
-                NewCardRenderer.rendererCard();
+                cardsArray.setItem(cardElement);
 
                 popupCard.close();
             })
@@ -197,23 +207,7 @@ Promise.all([api.getUserMe(), api.getInitialCards()])
     .then(([user, cards]) => {
         userInfo.setUserInfo(user);
 
-        const cardsArray = new Section({
-            data: cards,
-            renderer: (element) => {
-                const card = new Card(
-                    element,
-                    handleCardClick,
-                    handleLikeClick,
-                    handleDelClick,
-                    data.cardElementSelectorTemplate,
-                    user
-                );
-                const cardElement = card.create();
-                cardsArray.setItem(cardElement);
-            }
-        }, data.cardsElementSelector);
-
-        cardsArray.rendererCard();
+        cardsArray.rendererCard(cards, user);
     })
     .catch((err) => {
         console.log(err);
