@@ -22,8 +22,12 @@ export default class PopupWithForm extends Popup {
             evt.preventDefault();
 
             this._handleFormSubmit(this._getInputValues());
-
-            this._popup.querySelector('.popup__form').reset();
         });
+    }
+
+    close() {
+        super.close();
+
+        this._popup.querySelector('.popup__form').reset();
     }
 }
