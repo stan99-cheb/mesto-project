@@ -42,28 +42,29 @@ const cardsArray = new Section(
     }
     , data.cardsElementSelector);
 
+/*----------------------------------------------------Валидация----------------------------------------------------*/
+const profileValidate = new FormValidator(data.selectors, '[name="profile-form"]');
+profileValidate.setEventListeners();
+
+const addCardValidate = new FormValidator(data.selectors, '[name="addcard-form"]');
+addCardValidate.setEventListeners();
+
+const avatarValidate = new FormValidator(data.selectors, '[name="avatar-form"]');
+avatarValidate.setEventListeners();
+
 /*----------------------------------------------------Слушатели кнопок на странице----------------------------------------------------*/
 data.editProfileButton.addEventListener('click', () => {
     popupEdit.open();
     document.querySelector('.popup__input_type_name').value = data.userNameDomElement.textContent;
     document.querySelector('.popup__input_type_about').value = data.userAboutDomElement.textContent;
-
-    const validate = new FormValidator(data.selectors, '[name="profile-form"]');
-    validate.setEventListeners();
 });
 
 data.addCardButton.addEventListener('click', () => {
     popupCard.open();
-
-    const validate = new FormValidator(data.selectors, '[name="addcard-form"]');
-    validate.setEventListeners();
 });
 
 data.avatarButton.addEventListener('click', () => {
     popupAvatar.open();
-
-    const validate = new FormValidator(data.selectors, '[name="avatar-form"]');
-    validate.setEventListeners();
 });
 
 /*----------------------------------------------------Обрабочики форм----------------------------------------------------*/
