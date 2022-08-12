@@ -1,11 +1,11 @@
 export default class Card {
     constructor(card, handleCardClick, handleLikeClick, handleDelClick, cardElementSelectorTemplate, user) {
-        this._user = user;
         this._card = card;
         this._handleCardClick = handleCardClick;
         this._handleLikeClick = handleLikeClick;
         this._handleDelClick = handleDelClick;
         this._templateSelector = cardElementSelectorTemplate;
+        this._user = user;
     };
 
     //Получаем DOM элемент карточки
@@ -27,6 +27,7 @@ export default class Card {
         this._element.querySelector('.card__name').textContent = this._card.name;
         this._element.querySelector('.card__link').alt = 'Изображение ' + this._card.name;
         this._element.querySelector('.card__like').textContent = this._card.likes.length;
+
         //Делаем проверку, если не моя карточка то удаляем DOM элемент корзинку
         if (!this._isMyCard(this._card.owner._id, this._user._id)) {
             this._element.querySelector('.card__trash').remove();
@@ -37,6 +38,7 @@ export default class Card {
         } else {
             this._element.querySelector('.card__heart').classList.remove('card__heart_active');
         };
+
         //Возвращаем готовый DOM элемент карточки
         return this._element;
     };

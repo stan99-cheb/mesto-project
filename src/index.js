@@ -22,8 +22,12 @@ const api = new Api({
 /*----------------------------------------------------класс UserInfo----------------------------------------------------*/
 const userInfo = new UserInfo({
     name: '.profile__title',
-    about: '.profile__subtitle'
+    about: '.profile__subtitle',
+    avatar: '.profile__avatar'
 });
+
+/*----------------------------------------------------класс Card----------------------------------------------------*/
+
 
 /*----------------------------------------------------класс Section----------------------------------------------------*/
 const cardsArray = new Section(
@@ -87,7 +91,6 @@ const popupEdit = new PopupWithForm(
             });
     }
 );
-
 popupEdit.setEventListeners();
 
 const popupCard = new PopupWithForm(
@@ -112,7 +115,6 @@ const popupCard = new PopupWithForm(
             });
     }
 );
-
 popupCard.setEventListeners();
 
 const popupAvatar = new PopupWithForm(
@@ -134,11 +136,9 @@ const popupAvatar = new PopupWithForm(
             });
     }
 );
-
 popupAvatar.setEventListeners();
 
 const popupWithImage = new PopupWithImage('.popup-image');
-
 popupWithImage.setEventListeners();
 
 const popupDelConfirm = new PopupWithConfirm({
@@ -160,7 +160,6 @@ const popupDelConfirm = new PopupWithConfirm({
             });
     }
 });
-
 popupDelConfirm.setEventListeners();
 
 /*----------------------------------------------------Колбэки кнопок карточки----------------------------------------------------*/
