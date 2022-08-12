@@ -21,8 +21,8 @@ const api = new Api({
 
 /*----------------------------------------------------класс UserInfo----------------------------------------------------*/
 const userInfo = new UserInfo({
-    name: data.userNameDomElement.textContent,
-    about: data.userAboutDomElement.textContent
+    name: '.profile__title',
+    about: '.profile__subtitle'
 });
 
 /*----------------------------------------------------класс Section----------------------------------------------------*/
@@ -55,8 +55,7 @@ avatarValidate.setEventListeners();
 /*----------------------------------------------------Слушатели кнопок на странице----------------------------------------------------*/
 data.editProfileButton.addEventListener('click', () => {
     popupEdit.open();
-    document.querySelector('.popup__input_type_name').value = data.userNameDomElement.textContent;
-    document.querySelector('.popup__input_type_about').value = data.userAboutDomElement.textContent;
+    popupEdit.setInputValues(userInfo.getUserInfo());
 });
 
 data.addCardButton.addEventListener('click', () => {
@@ -73,10 +72,10 @@ const popupEdit = new PopupWithForm(
     (formValues) => {
         renderLoading(formValues.formElement, true, 'Сохранение...');
 
-        api.setUserMe(formValues['profile-name'], formValues['profile-about'])
+        api.setUserMe(formValues['name'], formValues['about'])
             .then((user) => {
-                data.userNameDomElement.textContent = user.name;
-                data.userAboutDomElement.textContent = user.about;
+                document.querySelector('.profile__title').textContent = user.name;
+                document.querySelector('.profile__subtitle').textContent = user.about;
 
                 popupEdit.close();
             })
