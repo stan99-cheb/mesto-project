@@ -60,14 +60,17 @@ avatarValidate.setEventListeners();
 data.editProfileButton.addEventListener('click', () => {
     popupEdit.open();
     popupEdit.setInputValues(userInfo.getUserInfo());
+    profileValidate.resetValidation();
 });
 
 data.addCardButton.addEventListener('click', () => {
+    addCardValidate.resetValidation();
     popupCard.open();
 });
 
 data.avatarButton.addEventListener('click', () => {
     popupAvatar.open();
+    avatarValidate.resetValidation();
 });
 
 /*----------------------------------------------------Обрабочики форм----------------------------------------------------*/
