@@ -26,9 +26,6 @@ const userInfo = new UserInfo({
     avatar: '.profile__avatar'
 });
 
-/*----------------------------------------------------класс Card----------------------------------------------------*/
-
-
 /*----------------------------------------------------класс Section----------------------------------------------------*/
 const cardsArray = new Section(
     (card, userId) => {
@@ -47,30 +44,30 @@ const cardsArray = new Section(
     , data.cardsElementSelector);
 
 /*----------------------------------------------------Валидация----------------------------------------------------*/
-const profileValidate = new FormValidator(data.selectors, '[name="profile-form"]');
-profileValidate.setEventListeners();
+const formList = Array.from(document.querySelectorAll('.popup__form'));
 
-const addCardValidate = new FormValidator(data.selectors, '[name="addcard-form"]');
-addCardValidate.setEventListeners();
-
-const avatarValidate = new FormValidator(data.selectors, '[name="avatar-form"]');
-avatarValidate.setEventListeners();
+formList.forEach(formElement => {
+    const validator = new FormValidator(formElement, data.selectors);
+    const formName = formElement.getAttribute('name');
+    data.formValidators[formName] = validator;
+    validator.setEventListeners();
+})
 
 /*----------------------------------------------------Слушатели кнопок на странице----------------------------------------------------*/
 data.editProfileButton.addEventListener('click', () => {
     popupEdit.open();
     popupEdit.setInputValues(userInfo.getUserInfo());
-    profileValidate.resetValidation();
+    data.formValidators['profile'].resetValidation();
 });
 
 data.addCardButton.addEventListener('click', () => {
-    addCardValidate.resetValidation();
     popupCard.open();
+    data.formValidators['addcard'].resetValidation();
 });
 
 data.avatarButton.addEventListener('click', () => {
     popupAvatar.open();
-    avatarValidate.resetValidation();
+    data.formValidators['avatar'].resetValidation();
 });
 
 /*----------------------------------------------------Обрабочики форм----------------------------------------------------*/
