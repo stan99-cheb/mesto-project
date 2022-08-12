@@ -31,14 +31,14 @@ const userInfo = new UserInfo({
 
 /*----------------------------------------------------класс Section----------------------------------------------------*/
 const cardsArray = new Section(
-    (card, user) => {
+    (card, userId) => {
         const newCard = new Card(
             card,
             handleCardClick,
             handleLikeClick,
             handleDelClick,
             data.cardElementSelectorTemplate,
-            user
+            userId
         );
         const cardElement = newCard.create();
 
@@ -101,12 +101,12 @@ const popupCard = new PopupWithForm(
     (formValues) => {
         renderLoading(formValues.formElement, true, 'Сохранение...');
 
-        const user = userInfo.getUserInfo();
+        const userId = userInfo.getUserId();
 
         api.addNewCard(formValues['place-name'], formValues['card-link'])
             .then((card) => {
 
-                cardsArray.rendererCard([card], user);
+                cardsArray.rendererCard([card], userId);
 
                 popupCard.close();
             })
@@ -201,7 +201,7 @@ Promise.all([api.getUserMe(), api.getInitialCards()])
     .then(([user, cards]) => {
         userInfo.setUserInfo(user);
 
-        cardsArray.rendererCard(cards, user);
+        cardsArray.rendererCard(cards, user._id);
     })
     .catch((err) => {
         console.log(err);
