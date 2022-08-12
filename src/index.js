@@ -56,7 +56,6 @@ formList.forEach(formElement => {
 /*----------------------------------------------------Слушатели кнопок на странице----------------------------------------------------*/
 data.editProfileButton.addEventListener('click', () => {
     popupEdit.open();
-    popupEdit.setInputValues(userInfo.getUserInfo());
     data.formValidators['profile'].resetValidation();
 });
 
@@ -143,12 +142,12 @@ popupWithImage.setEventListeners();
 
 const popupDelConfirm = new PopupWithConfirm({
     popupSelector: '.popup-delcard',
-    handleFormSubmit: (formValues) => {
+    handleFormSubmit: (formValues, cardElement, cardId) => {
         renderLoading(formValues.formElement, true, 'Удаление...');
 
-        api.delCard(formValues.cardId)
+        api.delCard(cardId)
             .then(() => {
-                formValues.cardElement.closest('.card').remove();
+                cardElement.closest('.card').remove();
 
                 popupDelConfirm.close();
             })

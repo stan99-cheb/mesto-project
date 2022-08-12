@@ -15,10 +15,7 @@ export default class PopupWithConfirm extends Popup {
 
     _getInputValues() {
         this._formValues = {};
-
         this._formValues['formElement'] = this._popup.querySelector('.popup__form');
-        this._formValues['cardElement'] = this._cardElement;
-        this._formValues['cardId'] = this._cardId;
 
         return this._formValues;
     }
@@ -28,7 +25,7 @@ export default class PopupWithConfirm extends Popup {
 
         this._popup.querySelector('.popup__form').addEventListener('submit', (evt) => {
             evt.preventDefault();
-            this._handleFormSubmit(this._getInputValues());
+            this._handleFormSubmit(this._getInputValues(), this._cardElement, this._cardId);
         });
     }
 }
